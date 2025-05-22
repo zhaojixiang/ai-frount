@@ -8,7 +8,7 @@ stages:
 fee_unit:
   stage: fee_unit
   variables:
-    BUILD_COMMAND: 'pnpm install && pnpm test:coverage'
+    BUILD_COMMAND: 'pnpm install && pnpm jest'
   script:
     - '/usr/bin/env bash $CI_BUILDS_DIR/ci/fee_unit_v2.sh'
   only:
