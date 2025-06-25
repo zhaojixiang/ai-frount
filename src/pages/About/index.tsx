@@ -5,7 +5,7 @@ import { getDetail } from '@/services/api';
 export default function About() {
   useEffect(() => {
     getDetail({ linkCode: 'PLvMVsMwIys' }).then((res) => {
-      console.log(111111222, window?.process?.env);
+      console.log(111111222, res, window?.process?.env);
     });
   }, []);
 
