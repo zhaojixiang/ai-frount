@@ -33,9 +33,7 @@ i18n
         // 优先三方加载
         // httpBackend,
         // 其次加载本地
-        resourcesToBackend((language, namespace, callback) => {
-          console.log(11112, language, namespace);
-
+        resourcesToBackend((language, _, callback) => {
           /**
            * 需要修改为本地语言包路径
            * 为了与目前 umi 更好兼容，可就以 umi 的国际化语言包格式
@@ -43,7 +41,6 @@ i18n
            */
           import(`../locales/${language}/index.ts`)
             .then((resources) => {
-              console.log(111115, resources.default);
               callback(null, resources.default);
             })
             .catch((error) => callback(error, null));
