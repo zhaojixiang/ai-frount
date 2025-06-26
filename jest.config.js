@@ -30,5 +30,6 @@ export default {
     '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}'
   ],
   collectCoverage: true,
-  coverageDirectory: 'coverage'
+  coverageDirectory: 'coverage',
+  coverageReporters: ['json', 'lcov', 'text', 'clover', 'json-summary']
 };
