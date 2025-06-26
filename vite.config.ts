@@ -123,6 +123,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     }
   });
 
+  console.log('process.env：', process.env);
+
   // 本地开发生效
   if (command === 'serve') {
     // 获取本地环境变量
