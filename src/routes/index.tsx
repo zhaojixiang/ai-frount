@@ -24,7 +24,8 @@ const router = createBrowserRouter(
     }
   ],
   {
-    basename: import.meta.env.VITE_ENV_BASE
+    // basename: import.meta.env.VITE_ENV_BASE
+    basename: '/velocity'
   }
 );
 
