@@ -29,6 +29,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   if (command === 'build') {
     // 由于生产环境的环境变量配置文件是.envfile，所以需要手动引入
     dotenv.config({ path: path.resolve(process.cwd(), '.envfile') });
+    dotenv.config({ path: path.resolve(process.cwd(), '.devopsenv') });
     // 加载项目根目录下的所有环境变量
     env = loadEnv(mode, process.cwd(), '');
     Object.keys(env).forEach((item) => {
