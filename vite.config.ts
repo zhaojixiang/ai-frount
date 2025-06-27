@@ -142,6 +142,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 
   // 构建之后生效
   if (command === 'build') {
+    console.log('99999999999999：', env, process.env);
+
     // 注入外部变量
     const whiteKeys = ['ENV_NAME', 'ENV_BASE'];
     Object.keys(env).forEach((item) => {
