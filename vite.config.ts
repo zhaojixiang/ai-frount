@@ -93,9 +93,9 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 
     build: {
       sourcemap:
-        env?.VITE_ENV_NAME === 'fat' ||
-        env?.VITE_ENV_NAME === 'dev' ||
-        env?.VITE_ENV_NAME === 'uat',
+        process.env?.ENV_NAME === 'fat' ||
+        process.env?.ENV_NAME === 'dev' ||
+        process.env?.ENV_NAME === 'uat',
       target: 'es2015',
       minify: 'terser',
       chunkSizeWarningLimit: 500,
