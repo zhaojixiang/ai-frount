@@ -40,7 +40,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       }
     });
   }
-
+  console.log('9999999：', env);
   let config: UserConfig = {
     clearScreen: false,
     optimizeDeps: {
@@ -158,10 +158,10 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   // 打印工作目录下的第一级的所有文件和文件夹
   const files = fs.readdirSync(process.cwd());
   console.log(1111111, files);
-  if (files.includes('.envfile')) {
+  if (files.includes('.devopsenv')) {
     // 读取env文件
-    const env = fs.readFileSync(path.join(process.cwd(), '.envfile'), 'utf-8');
-    console.log('22222222：', env);
+    const env1 = fs.readFileSync(path.join(process.cwd(), '.devopsenv'), 'utf-8');
+    console.log('22222222：', env1);
   }
 
   // 构建之后生效
