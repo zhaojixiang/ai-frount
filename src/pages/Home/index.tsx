@@ -1,12 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { ErrorFallback } from '@/components/ErrorFallback';
 import { Loading } from '@/components/Loading';
 import { getDetail } from '@/services/api';
 
 export default function Home() {
-  const queryClient = useQueryClient();
-
   const {
     data: pageData,
     isLoading,
