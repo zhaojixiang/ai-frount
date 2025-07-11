@@ -27,4 +27,4 @@ const initJOJO = async () => {
   return window.JOJO;
 };
 
-window.initJOJO = initJOJO;
+initJOJO();
