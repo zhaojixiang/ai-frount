@@ -5,8 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import qs from 'query-string';
 
-import { ErrorFallback } from '@/components/ErrorFallback';
-import { Loading } from '@/components/Loading';
+import PageLoading from '@/components/PageLoading';
 import ReNew from '@/components/ReNew';
 import { needNewAuth } from '@/lib/auth';
 import { getCouponActivityDetail } from '@/services/api';
@@ -16,23 +15,24 @@ import CouponWrapper from './components/CouponWrapper';
 import RecommendGoods from './components/RecommendGoods';
 import S from './index.module.less';
 
+console.log(9999999, JOJO.Os);
+
 export default function Coupon() {
   const [isShowModal, setIsShowModal] = useState(false);
   const [searchParams] = useSearchParams();
   const useType = searchParams.get('useType');
   const activityId = searchParams.get('activityId') || '';
-  console.log('activityId', activityId);
+
   const {
     data: pageDataRes,
     isLoading,
-    // isError,
     refetch
   } = useQuery({
     queryKey: ['getCouponActivityDetail'],
     queryFn: () => getCouponActivityDetail({ activityId })
   });
 
-  const { data: activityDetail, resultCode } = pageDataRes || {};
+  const { data: activityDetail } = pageDataRes || {};
   const { imageUrl, pickState, endTime, recommendProductLinks, bgColor } = activityDetail || {};
 
   useEffect(() => {
@@ -88,26 +88,25 @@ export default function Coupon() {
     // 我想要跳转到活动规则页面
     JOJO.showPage(`/coupon/rules?${qs.stringify({ activityId })}`);
   };
-  // loading
-  if (isLoading) return <Loading />;
-  // 异常处理
-  if (resultCode !== 200) return <ErrorFallback onRetry={refetch} />;
+
   // 小升初环境拦截弹窗
   if (isShowModal) return <ReNew />;
 
   return (
-    <div className={S.main} style={{ backgroundColor: bgColor || '#FFD037' }}>
-      <div className={S.rules} onClick={onRuleClick}>
-        活动规则
+    <PageLoading loading={isLoading} res={pageDataRes} retry={refetch}>
+      <div className={S.main} style={{ backgroundColor: bgColor || '#FFD037' }}>
+        <div className={S.rules} onClick={onRuleClick}>
+          活动规则
+        </div>
+        <img className={S.headBack} src={imageUrl} alt='' />
+        {pickState !== 'END' && <CountDown endTime={endTime} />}
+        {/* 优惠券领取模块 */}
+        <div className={S.couponWrapper}>
+          <CouponWrapper activityDetail={activityDetail} />
+        </div>
+        {/* 推荐商品列表 */}
+        {recommendProductLinks?.length ? <RecommendGoods activityDetail={activityDetail} /> : null}
       </div>
-      <img className={S.headBack} src={imageUrl} alt='' />
-      {pickState !== 'END' && <CountDown endTime={endTime} />}
-      {/* 优惠券领取模块 */}
-      <div className={S.couponWrapper}>
-        <CouponWrapper activityDetail={activityDetail} />
-      </div>
-      {/* 推荐商品列表 */}
-      {recommendProductLinks?.length ? <RecommendGoods activityDetail={activityDetail} /> : null}
-    </div>
+    </PageLoading>
   );
 }

@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../App';
 import Coupon from '../pages/coupon/Coupon';
 import Rules from '../pages/coupon/Rules';
+import DeliveryDetail from '../pages/delivery/Detail';
 import Home from '../pages/Home';
 
 const router = createBrowserRouter(
@@ -33,6 +34,15 @@ const router = createBrowserRouter(
             {
               path: 'rules',
               element: <Rules />
+            }
+          ]
+        },
+        {
+          path: 'delivery',
+          children: [
+            {
+              path: 'detail',
+              element: <DeliveryDetail />
             }
           ]
         }

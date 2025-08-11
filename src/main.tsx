@@ -4,6 +4,8 @@ import { RouterProvider } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import { initJOJO } from '@/lib/jojo/initJOJO';
+
 import AppWrapper from './components/AppWrapper';
 import './index.less';
 import { initDebugger } from './lib/debugger';
@@ -14,6 +16,7 @@ import router from './routes';
 
 const queryClient = new QueryClient();
 // 注册全局变量 JOJO
+initJOJO();
 // initJOJO().then(() => {
 // 初始化Sentry
 initSentry();

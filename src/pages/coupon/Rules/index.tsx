@@ -3,8 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { ErrorFallback } from '@/components/ErrorFallback';
-import { Loading } from '@/components/Loading';
+import PageLoading from '@/components/PageLoading';
 import { getCouponActivityDetail } from '@/services/api';
 
 import S from './index.module.less';
@@ -22,7 +21,7 @@ const Index: React.FC<any> = () => {
     queryKey: ['getCouponActivityDetail'],
     queryFn: () => getCouponActivityDetail({ activityId })
   });
-  const { resultCode, data: activityDetail } = pageData || {};
+  const { data: activityDetail } = pageData || {};
 
   const { activityDescription } = activityDetail || {};
 
@@ -34,17 +33,14 @@ const Index: React.FC<any> = () => {
     return null;
   }
 
-  // loading
-  if (isLoading) return <Loading />;
-  // 异常处理
-  if (resultCode !== 200) return <ErrorFallback onRetry={refetch} />;
-
   return (
-    <main className={S.rules}>
-      {detailArr.map((d, i) => (
-        <div key={i}>{d}</div>
-      ))}
-    </main>
+    <PageLoading loading={isLoading} res={pageData} retry={refetch}>
+      <main className={S.rules}>
+        {detailArr.map((d, i) => (
+          <div key={i}>{d}</div>
+        ))}
+      </main>
+    </PageLoading>
   );
 };
 

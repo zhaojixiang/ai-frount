@@ -2,7 +2,7 @@
  * 初始化JOJO全局变量
  * @returns
  */
-const initJOJO = async () => {
+export const initJOJO = async () => {
   if (!window.JOJO) window.JOJO = { Os: {} };
 
   // 异步加载模块

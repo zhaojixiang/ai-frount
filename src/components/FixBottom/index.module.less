@@ -1,0 +1,16 @@
+.fixBottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 100;
+}
+
+@supports (padding-bottom: constant(safe-area-inset-bottom)) or
+  (padding-bottom: env(safe-area-inset-bottom)) {
+  .fixBottom {
+    padding-bottom: calc(constant(safe-area-inset-bottom) * 2);
+    padding-bottom: calc(env(safe-area-inset-bottom) * 2);
+  }
+}

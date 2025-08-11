@@ -5,24 +5,11 @@ import istanbul from 'jojo-plugin-istanbul-vite';
 import path from 'path';
 import pxtovw from 'postcss-px-to-viewport';
 import type { ConfigEnv, UserConfig } from 'vite';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
 
-/**
- * 开发环境 环境变量取envs中的配置
- * @param mode
- * @returns
- */
-const developmentEnvs = (mode: ConfigEnv['mode']) => {
-  const envDir = path.resolve(__dirname, 'envs');
-  loadEnv(mode, envDir);
-  return {
-    envDir
-  };
-};
-
 // https://vite.dev/config/
-export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
+export default defineConfig(({ command }: ConfigEnv): UserConfig => {
   let config: UserConfig = {
     clearScreen: false,
     optimizeDeps: {
@@ -118,11 +105,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 
   // 本地开发生效
   if (command === 'serve') {
-    // 获取本地环境变量
-    const { envDir } = developmentEnvs(mode);
     config = {
       ...config,
-      envDir,
       esbuild: {
         target: 'esnext'
       },

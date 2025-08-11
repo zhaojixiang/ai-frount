@@ -9,10 +9,12 @@ import whiteApi from './whiteApi';
 
 const TIMEOUT = 10000;
 
+const userId = localStorage.getItem('userId');
+
 // 模拟调试header信息，跳过授权检测
 export const DEBUG_HEADER_INFO = Os.debug
   ? {
-      'X-UAGW-userId': import.meta.env.VITE_ENV_NAME === 'fat' ? 200500167 : 70010268,
+      'X-UAGW-userId': userId,
       'X-UAGW-authMode': 1
     }
   : {};

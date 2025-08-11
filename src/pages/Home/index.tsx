@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { ErrorFallback } from '@/components/ErrorFallback';
-import { Loading } from '@/components/Loading';
 import { getDetail } from '@/services/api';
 
 export default function Home() {
@@ -34,9 +32,6 @@ export default function Home() {
   //       alert('保存失败！');
   //     });
   // };
-
-  if (isLoading) return <Loading />;
-  if (isError) return <ErrorFallback onRetry={refetch} />;
 
   return (
     <div style={{ padding: '2rem' }}>
