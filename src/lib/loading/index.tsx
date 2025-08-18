@@ -1,4 +1,5 @@
-import { Toast, type ToastShowProps } from 'antd-mobile';
+import type { ToastShowProps } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 
 class Loading {
   private toastHandler: (() => void) | null = null;

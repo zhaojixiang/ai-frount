@@ -1,6 +1,5 @@
-import React, { useRef } from 'react';
-
 import { Toast } from 'antd-mobile';
+import React, { useRef } from 'react';
 
 import noStockImg from '@/assets/image/no-coupon.png';
 import { pickCoupon } from '@/services/api';

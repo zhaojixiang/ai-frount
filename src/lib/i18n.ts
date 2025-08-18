@@ -1,11 +1,10 @@
-import { initReactI18next } from 'react-i18next';
-
 import { l10n } from '@jojo-design/fc';
 import i18n from 'i18next';
 import detector from 'i18next-browser-languagedetector';
 import chainedBackend from 'i18next-chained-backend';
 // import httpBackend from 'i18next-http-backend';
 import resourcesToBackend from 'i18next-resources-to-backend';
+import { initReactI18next } from 'react-i18next';
 
 /**
  * `l10n`和`i18next-browser-languagedetector`的参数保持一致

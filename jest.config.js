@@ -6,7 +6,6 @@ const transformIgnorePatterns = [
 ];
 
 export default {
-  testEnvironment: 'node',
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   // setupFiles: ['jest-useragent-mock'],

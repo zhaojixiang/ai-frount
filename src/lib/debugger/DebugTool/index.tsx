@@ -1,7 +1,6 @@
+import { Button, Form, Input, Popup } from 'antd-mobile';
 import React, { useRef, useState } from 'react';
 import { useDrag } from 'react-use-gesture';
-
-import { Button, Form, Input, Popup } from 'antd-mobile';
 
 import S from './index.module.less';
 

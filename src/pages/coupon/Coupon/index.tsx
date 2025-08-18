@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import qs from 'query-string';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import PageLoading from '@/components/PageLoading';
 import ReNew from '@/components/ReNew';

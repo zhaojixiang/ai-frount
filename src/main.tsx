@@ -1,15 +1,15 @@
+import './index.less';
+import './lib/i18n';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
 import { initJOJO } from '@/lib/jojo/initJOJO';
 
 import AppWrapper from './components/AppWrapper';
-import './index.less';
 import { initDebugger } from './lib/debugger';
-import './lib/i18n';
 import { initSensors } from './lib/sensors';
 import { initSentry } from './lib/sentry';
 import router from './routes';

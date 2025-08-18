@@ -7,14 +7,14 @@ import { type ShowPageConfig } from './lib/showPage';
 
 declare global {
   type ToastType = {
-    show(options: ToastShowProps): void;
-    error(options: ToastShowProps): void;
-    success(options: ToastShowProps): void;
-    close(): void;
+    show: (options: ToastShowProps) => void;
+    error: (options: ToastShowProps) => void;
+    success: (options: ToastShowProps) => void;
+    close: () => void;
   };
   type LoadingType = {
-    open(options?: ToastShowProps): void;
-    close(): void;
+    open: (options?: ToastShowProps) => void;
+    close: () => void;
   };
   interface JOJOTYPE {
     Os: OS;

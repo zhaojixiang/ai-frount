@@ -1,7 +1,10 @@
 import Os from '@/lib/os';
 
 // 环境前缀分隔符
-const separator = import.meta.env.VITE_ENV_NAME === 'pro' ? '' : Os.jojo ? '.' : '-';
+let separator = '';
+if (import.meta.env.VITE_ENV_NAME !== 'pro') {
+  separator = Os.jojo ? '.' : '-';
+}
 // 环境前缀
 const env = import.meta.env.VITE_ENV_NAME === 'pro' ? '' : import.meta.env.VITE_ENV_NAME;
 

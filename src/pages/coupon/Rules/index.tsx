@@ -1,7 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-import { useQuery } from '@tanstack/react-query';
 
 import PageLoading from '@/components/PageLoading';
 import { getCouponActivityDetail } from '@/services/api';

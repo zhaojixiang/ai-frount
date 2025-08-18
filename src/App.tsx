@@ -1,8 +1,8 @@
+import './App.less';
+
 import { Outlet } from 'react-router-dom';
 
 import DebugTool from '@/lib/debugger/DebugTool';
-
-import './App.less';
 
 function App() {
   return (
