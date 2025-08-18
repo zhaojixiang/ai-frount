@@ -1,7 +1,3 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useSearchParams } from 'react-router-dom';
-
 import AMapLoader from '@amap/amap-jsapi-loader';
 import { useQuery } from '@tanstack/react-query';
 import { Toast } from 'antd-mobile';
@@ -9,6 +5,9 @@ import { LeftOutline } from 'antd-mobile-icons';
 // import { Icon, Toast } from '@jojo-design/mobile';
 import dayjs from 'dayjs';
 import { isEmpty } from 'lodash';
+import React, { useEffect, useRef, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useSearchParams } from 'react-router-dom';
 
 import icon_copy from '@/assets/image/copy.png';
 import FixBottom from '@/components/FixBottom';
@@ -19,7 +18,6 @@ import { getDeliveryTrace, getOrderDetail } from '@/services/api/order';
 
 // import { fromTimeStampToDate } from '@/utils/dateUtils';
 // import { sensClickInitiative, sensPageView } from '@/utils/sensors';
-
 // import { goService } from '../ListV2/components/SelectOrderPopup';
 import DeliveryTimeLine from './components/DeliveryTimeLine';
 import S from './index.module.less';
