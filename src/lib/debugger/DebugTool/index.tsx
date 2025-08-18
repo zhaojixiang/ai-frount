@@ -58,53 +58,51 @@ const DebugTool: React.FC = () => {
   };
 
   return (
-    <>
-      <div
-        {...bind()}
-        className={S.debugTool}
-        style={{
-          position: 'fixed',
-          left: position.x,
-          top: position.y,
-          zIndex: 9999,
-          cursor: 'move',
-          touchAction: 'none' // 很关键：让拖动不会被浏览器原生手势打断
-        }}>
-        <div className={S.debugToolHeader} onClick={handleToggle}>
-          调试
-        </div>
-        <Popup
-          bodyClassName={S.debugToolContentWrapper}
-          visible={visible}
-          closeOnMaskClick={true}
-          onMaskClick={handleClose}>
-          <div className={S.debugToolContent}>
-            <h3>本地调试工具</h3>
-            <Form
-              layout='horizontal'
-              mode='card'
-              onFinish={onFinish}
-              initialValues={{ userId: curUserId }}
-              footer={
-                <Button block type='submit' color='primary' size='small'>
-                  提交
-                </Button>
-              }>
-              <Form.Item label='UserId' name='userId'>
-                <Input
-                  placeholder='请输入UserId'
-                  value={userId}
-                  clearable
-                  onChange={(val) => {
-                    setUserId(val);
-                  }}
-                />
-              </Form.Item>
-            </Form>
-          </div>
-        </Popup>
+    <div
+      {...bind()}
+      className={S.debugTool}
+      style={{
+        position: 'fixed',
+        left: position.x,
+        top: position.y,
+        zIndex: 9999,
+        cursor: 'move',
+        touchAction: 'none' // 很关键：让拖动不会被浏览器原生手势打断
+      }}>
+      <div className={S.debugToolHeader} onClick={handleToggle}>
+        调试
       </div>
-    </>
+      <Popup
+        bodyClassName={S.debugToolContentWrapper}
+        visible={visible}
+        closeOnMaskClick={true}
+        onMaskClick={handleClose}>
+        <div className={S.debugToolContent}>
+          <h3>本地调试工具</h3>
+          <Form
+            layout='horizontal'
+            mode='card'
+            onFinish={onFinish}
+            initialValues={{ userId: curUserId }}
+            footer={
+              <Button block type='submit' color='primary' size='small'>
+                提交
+              </Button>
+            }>
+            <Form.Item label='UserId' name='userId'>
+              <Input
+                placeholder='请输入UserId'
+                value={userId}
+                clearable
+                onChange={(val) => {
+                  setUserId(val);
+                }}
+              />
+            </Form.Item>
+          </Form>
+        </div>
+      </Popup>
+    </div>
   );
 };
 
