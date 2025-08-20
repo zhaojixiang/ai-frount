@@ -1,8 +1,8 @@
 import { Popup } from 'antd-mobile';
 import { CloseOutline } from 'antd-mobile-icons';
 import cx from 'classnames';
-import { cloneDeep, isEmpty } from 'lodash';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { cloneDeep, isEmpty } from 'lodash-es';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Check from '@/components/Check';
 import FixBottom from '@/components/FixBottom';
