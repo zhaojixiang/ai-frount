@@ -68,9 +68,6 @@ dependencies:
   js-cookie:
     specifier: ^3.0.5
     version: 3.0.5
-  jweixin-sdk-official:
-    specifier: ^1.1.1
-    version: 1.1.1
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
@@ -7957,10 +7954,6 @@ packages:
       object.assign: 4.1.7
       object.values: 1.2.1
     dev: true
-
-  /jweixin-sdk-official@1.1.1:
-    resolution: {integrity: sha512-P/8vhzfLxlhsNWcOq2XQXJeSn8K8K8NNsRsEX0B8RWs7XNOEwf7DfBQXc2BHkSmaMy9depiuq5XWOnLBsxRK6w==}
-    dev: false
 
   /keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
