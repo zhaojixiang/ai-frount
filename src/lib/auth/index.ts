@@ -149,21 +149,6 @@ export const wxAuth = async (props?: WxAuthOptions) => {
 };
 
 /**
- * 添加链接上的 needPopLogin 参数
- */
-const addNeedPopLoginInUrl = () => {
-  const existingParams = qs.parse(window.location.search.replace(/^\?/, ''));
-  const newQuery = {
-    ...existingParams,
-    needPopLogin: true
-  };
-  const curUrl = `${window.location.pathname?.replace('/mall/center', '')}?${qs.stringify(
-    newQuery
-  )}`;
-  JOJO.showPage(curUrl, { mode: 'replace' });
-};
-
-/**
  * 清除链接上的 needPopLogin 参数
  */
 const clearNeedPopLoginInUrl = () => {

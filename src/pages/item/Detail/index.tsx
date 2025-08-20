@@ -301,7 +301,7 @@ export default function Detail() {
     // 防止重复请求
     if (toConfirm.requesting) {
       console.log('to confirm requesting ...');
-      return false;
+      return;
     }
     toConfirm.requesting = true;
 
@@ -496,7 +496,7 @@ export default function Detail() {
   }
   // 参数错误
   if (!linkCode) {
-    return;
+    return null;
   }
   return (
     <div className={S.detail}>

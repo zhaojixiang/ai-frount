@@ -4,6 +4,7 @@ import socializePng from '@/assets/image/socialize.png';
 import socializeFriendsPng from '@/assets/image/socialize-friends.png';
 
 import S from './index.module.less';
+
 interface Props {
   visible: boolean;
   onClose: () => void;

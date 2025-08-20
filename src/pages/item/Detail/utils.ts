@@ -42,10 +42,12 @@ export const upgradeChinese = (useType: string, linkCode: string) => {
           window.location.href = url;
         }
       }
+      return '';
     } else {
       return 'env error';
     }
   }
+  return '';
 };
 
 /**

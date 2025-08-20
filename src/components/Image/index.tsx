@@ -22,7 +22,6 @@ function Image(props: Props) {
       // 使用传入的 fallbackSrc 或默认图片
       const fallback = fallbackSrc || DefaultImageSrc;
       setImgSrc(fallback);
-      event.target.src = fallback;
       // 调用外部传入的 onError 回调（如果存在）
       if (onError) {
         onError(event);

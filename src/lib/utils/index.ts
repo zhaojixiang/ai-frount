@@ -1,4 +1,5 @@
 import qs from 'query-string';
+
 export function setupFavicon() {
   const faviconMap: Record<string, string> = {
     jojo: '/jojo_logo.png',

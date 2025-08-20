@@ -1,4 +1,5 @@
-import { all, type BigNumber, create } from 'mathjs';
+import type { BigNumber } from 'mathjs';
+import { all, create } from 'mathjs';
 
 // 创建 mathjs 实例
 const math = create(all, { number: 'BigNumber', precision: 64 });

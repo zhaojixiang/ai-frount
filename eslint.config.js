@@ -71,6 +71,14 @@ export default [
       '@typescript-eslint/unified-signatures': 'error',
       '@typescript-eslint/no-explicit-any': 0,
       'no-nested-ternary': 'error',
+      'consistent-return': 'error',
+      'no-param-reassign': [
+        'error',
+        {
+          props: true // 🚨 禁止修改参数的属性
+        }
+      ],
+      'import/newline-after-import': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { vars: 'all', args: 'after-used', ignoreRestSiblings: true }
