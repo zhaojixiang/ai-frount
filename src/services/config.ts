@@ -71,7 +71,12 @@ export const UNBIND_URL = Os.jojoup
   : `https://jojoread${separatorEnv}.tinman.cn/page/userSubAccount/view/bind`;
 
 // UC授权地址
-export const UC_API_URL_BASE = `https://uc-api.${separatorEnv}.tinman.cn`;
+const uc_api_url_base: Record<string, string> = {
+  jojo: `https://uc-api${separatorEnv}.tinman.cn`,
+  jojoup: `https://pages${separatorEnv}.mohezi.cn/uc/r`,
+  matrix: `https://uc-api${separatorEnv}.cdssylkj.com`
+};
+export const UC_API_URL_BASE = uc_api_url_base[Os.appName];
 
 export const ACT_ORDER_TRANSFER_URL = '';
 

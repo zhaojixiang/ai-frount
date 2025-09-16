@@ -1,9 +1,9 @@
 import { Toast } from 'antd-mobile';
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
+import { isLogin, jojoAppDirectLogin, toAuthrize } from '@/modules/auth';
 import { serviceUrl } from '@/services/config';
 
-import { isLogin } from '../../modules/auth';
 import Os from '../os';
 import whiteApi from './whiteApi';
 
@@ -46,7 +46,7 @@ instance.interceptors.request.use(
 
 // 响应拦截器
 instance.interceptors.response.use(
-  (response: AxiosResponse) => {
+  async (response: AxiosResponse) => {
     const { resultCode, errorMsg } = response.data;
 
     // 请求成功
@@ -57,18 +57,31 @@ instance.interceptors.response.use(
     // 未登录
     if ([1001, 1005].includes(resultCode)) {
       Toast.show({ icon: 'fail', content: errorMsg || '未登录' });
+      // 跨租户使用链接：在非jojoup app中使用jojo的链接
+      const isCorssTenant = (Os.jojoReadApp && Os.jojoup) || (Os.jojoupApp && Os.jojo);
+      if (Os.app && !isCorssTenant) {
+        jojoAppDirectLogin();
+        return response.data;
+      }
+      const redirectUrl: string = await toAuthrize({
+        appId: response.data?.authWechatAppId,
+        mode: 1,
+        authBizType: 3
+      });
+      window.location.replace(redirectUrl);
       return Promise.reject(new Error(errorMsg || '未登录'));
     }
 
     // 需获取openId
     if ([1002].includes(resultCode)) {
       Toast.show({ icon: 'fail', content: errorMsg || '需要获取openId' });
-      // const redirectUrl = toAuthrize({
-      //   appId: data.authWechatAppId,
-      //   mode: 3,
-      //   wechatAuthType: 2
-      // });
-      // window.location.replace(redirectUrl);
+      const redirectUrl = await toAuthrize({
+        appId: response.data?.authWechatAppId,
+        mode: 3,
+        wechatAuthType: 2
+      });
+
+      window.location.replace(redirectUrl);
       return Promise.reject(new Error(errorMsg || '需要获取openId'));
     }
     return Promise.reject(response.data);

@@ -288,3 +288,43 @@ export const isAuditGuestLogin = async () => {
     return false;
   }
 };
+
+// 直接登录
+let appDirectloginTimer: any = null;
+export const jojoAppDirectLogin = async (url = '') => {
+  try {
+    if (JOJO.Os.jojoReadApp && JOJO.Os.jojoup) {
+      await jojoAccount.logout();
+      // 叫叫app中使用jojoup链接时, 走H5登录
+      const redirectUrl: string = await toAuthrize({
+        mode: 1,
+        authBizType: 3
+      });
+      window.location.replace(redirectUrl);
+    } else {
+      clearTimeout(appDirectloginTimer);
+      appDirectloginTimer = setTimeout(async () => {
+        let packageName = JOJO.Os.jojoup ? 'mp.mohezi.JoJoUp' : 'mp.tinman.JoJoRead';
+        const ua = window.navigator.userAgent;
+        const [{ status, data }, bundleID] = await Promise.all([
+          JOJO.bridge.call('nativeLogin'),
+          JOJO.Utils.getAppName()
+        ]);
+        if (/huiben/gim.test(ua)) {
+          packageName = 'com.jojoread.huiben';
+        } else if (bundleID) {
+          packageName = bundleID;
+        }
+        if (status === 200 && data && data.authToken) {
+          window.location.href = `${UC_API_URL_BASE}/page/appWeb/portal/appWebLogin?authToken=${
+            data.authToken
+          }&packageName=${packageName}&targetUrl=${encodeURIComponent(
+            url || window.location.href
+          )}`;
+        }
+      }, 300);
+    }
+  } catch (e) {
+    console.error('ERROR===', e);
+  }
+};
