@@ -1,0 +1,1 @@
+export { aliPay } from './aliPay';

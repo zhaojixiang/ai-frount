@@ -116,7 +116,13 @@ export default defineConfig(({ command }: ConfigEnv): UserConfig => {
         },
         open: false,
         host: '0.0.0.0',
-        // proxy: proxy(ENV_NAME),
+        proxy: {
+          '/api/user-center/manage': {
+            target: `https://mall.fat.tinman.cn`,
+            changeOrigin: true
+            // rewrite: (path) => path.replace(/^\/api/, '')
+          }
+        },
         port: 3001
       }
     };

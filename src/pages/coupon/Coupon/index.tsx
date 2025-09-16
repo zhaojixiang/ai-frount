@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import PageLoading from '@/components/PageLoading';
 import ReNew from '@/components/ReNew';
-import { needNewAuth } from '@/lib/auth';
+import { needNewAuth } from '@/modules/auth';
 import { getCouponActivityDetail } from '@/services/api';
 
 import CountDown from './components/CountDown';

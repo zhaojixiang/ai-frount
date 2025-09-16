@@ -1,12 +1,54 @@
 # 启动项目
 
-本地开发时的环境变量都定义在`envs`文件夹中，启动项目时传入不同的`mode`获取不用环境的环境变量配置
+本地开发时的环境变量都定义在`.env.local`文件夹中，启动项目 `pnpm start` 即可，如需切换环境，请直接修改 `.env.local` 文件即可
 
-- `dev`环境：`pnpm start --mode dev`
-- `fat`环境：`pnpm start --mode fat`
-- `uat`环境：`pnpm start --mode uat`
+示例：
+
+```
+VITE_ENV_NAME=dev | fat
+VITE_APP_NAME=jojo | jojoup | matrix
+```
 
 # 编码
+
+1. src/components 公共组件 例：Button、下拉刷新
+2. src/modules 与业务相关的公共模块 例：
+3. src/services/common 与请求接口相关的公共方法
+4. src/lib 工具
+
+```jsx
+public // 静态文件
+envs // 本地开发环境变量配置
+├── .env
+├── .env.dev
+├── .env.fat
+src/
+├── assets/                  // 静态资源
+│   ├── images/              // 图片资源
+│		│   ├── jojo/            // jojo图片资源
+│		│   └── jojoup/          // jojoup图片资源
+├── style/                   // 全局样式
+│   └── global.less          // 全局样式
+├── components/              // 通用组件
+├── pages/                   // 功能模块(按业务划分)
+│   ├── product/             // 产品模块
+│   ├── order/               // 订单模块
+│   └── ...                  // 其他业务模块
+│
+├── hooks/                   // 自定义hooks
+├── lib/                     // 第三方库封装/工具函数
+├── modules/                 // 与业务逻辑关联的模块
+├── routes/                  // 路由配置
+├── services/                // API服务层
+│   ├── api/                 // API请求封装
+│   ├── config.ts            // 各种服务配置
+│   ├── common.ts            // 获取请求参数的通用方法（区别于 lib & modules）
+│   └── models/              // 数据类型定义
+│
+├── App.tsx                  // 主应用组件
+├── main.tsx                 // 应用入口
+└── vite-env.d.ts            // Vite环境ts定义
+```
 
 ## 全局对象 JOJO
 
@@ -82,7 +124,7 @@ JOJO.request('/api/test', { method: 'GET' });
 loading 是对 antd-mobile toast 的封装，配置项与 antd-mobile toast 一致，详细信息请看 `@lib/loading/index.ts`
 
 ```js
-JOJO.loading.open({ content: '加载中...' });
+JOJO.loading.show({ content: '加载中...' });
 JOJO.loading.close();
 ```
 
@@ -102,4 +144,18 @@ JOJO.toast.success({
 });
 
 JOJO.toast.close();
+```
+
+### popup
+
+```js
+JOJO.popup.show(<div>1111</div>, {
+  bodyStyle: {}
+});
+```
+
+### bridge
+
+```js
+JOJO.bridge.userInfo();
 ```

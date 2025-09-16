@@ -11,7 +11,7 @@ export interface IJingTanGoodsItem {
 
 export interface IJingTanParams {
   orderCard?: OrderCardParams; // 订单卡片
-  origin: string; // 来源
+  origin: string | undefined; // 来源
   userId?: number; // 用户id，免鉴权接口必传
   channel: string; // 渠道
   channelId: number; // 渠道id

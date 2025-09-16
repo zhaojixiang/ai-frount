@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash-es';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
 // import WxShare from '@/lib/share/wxShare';
-import calculate from '@/lib/utils/mathUtils';
+import { divide, subtract } from '@/lib/utils/mathUtils';
 
 import S from './index.module.less';
 
@@ -30,7 +30,7 @@ export default function PriceAndTitle(props: any) {
    * @returns 券后价
    */
   const calculateAdjustedPrice = (price: number, discount: number): string => {
-    const adjustedPrice = calculate.subtract(price, discount || 0);
+    const adjustedPrice = subtract(price, discount || 0);
     return adjustedPrice.toString().replace(/(\.\d*?[1-9])0+$|\.0*$/, '$1');
   };
   /**
@@ -98,9 +98,9 @@ export default function PriceAndTitle(props: any) {
 
         // 订阅命中优惠券
         if (originPrice && !isEmpty(coupon)) {
-          if (calculate.divide(coupon?.threshold || 0, 100) <= originPrice) {
-            const couponDiscount = calculate.divide(coupon?.amount || 0, 100);
-            resPrice = calculateAdjustedPrice(Number(originPrice), couponDiscount);
+          if (divide(coupon?.threshold || 0, 100) <= originPrice) {
+            const couponDiscount = divide(coupon?.amount || 0, 100);
+            resPrice = calculateAdjustedPrice(Number(originPrice), Number(couponDiscount));
 
             if (!alreadyOverlayCoupon) {
               userDiscountRef.current = {
@@ -115,8 +115,8 @@ export default function PriceAndTitle(props: any) {
         const { discountedPrice } = sku;
         if (discountedPrice < originPrice) {
           // 立减金
-          const discount = calculate.subtract(originPrice, discountedPrice);
-          resPrice = calculate.subtract(resPrice, discount);
+          const discount = subtract(originPrice, discountedPrice);
+          resPrice = subtract(resPrice, discount);
           if (!alreadyOverlayCoupon) {
             userDiscountRef.current = {
               ...userDiscountRef.current,
@@ -137,9 +137,9 @@ export default function PriceAndTitle(props: any) {
 
         // 命中优惠券
         if (originPrice && !isEmpty(coupon)) {
-          if (calculate.divide(coupon?.threshold || 0, 100) <= originPrice) {
-            const couponDiscount = calculate.divide(coupon?.amount || 0, 100);
-            resPrice = calculateAdjustedPrice(Number(originPrice), couponDiscount);
+          if (divide(coupon?.threshold || 0, 100) <= originPrice) {
+            const couponDiscount = divide(coupon?.amount || 0, 100);
+            resPrice = calculateAdjustedPrice(Number(originPrice), Number(couponDiscount));
 
             if (!alreadyOverlayCoupon) {
               userDiscountRef.current = {
@@ -153,8 +153,8 @@ export default function PriceAndTitle(props: any) {
         // 命中立减
         if ((promotionPrice || promotionPrice === 0) && promotionPrice !== originPrice) {
           // 立减金
-          const discount = calculate.subtract(originPrice, promotionPrice);
-          resPrice = calculate.subtract(resPrice, discount);
+          const discount = subtract(originPrice, promotionPrice);
+          resPrice = subtract(resPrice, discount);
           if (!alreadyOverlayCoupon) {
             userDiscountRef.current = {
               ...userDiscountRef.current,

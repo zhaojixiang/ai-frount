@@ -4,6 +4,7 @@ import { type AxiosRequestConfig } from 'axios';
 
 import { type OS } from './lib/os/index.d';
 import { type ShowPageConfig } from './lib/showPage';
+import { type Utils } from './lib/utils/index.d';
 
 declare global {
   type ToastType = {
@@ -13,17 +14,18 @@ declare global {
     close: () => void;
   };
   type LoadingType = {
-    open: (options?: ToastShowProps) => void;
+    show: (options?: ToastShowProps) => void;
     close: () => void;
   };
   interface JOJOTYPE {
     Os: OS;
     loading: LoadingType;
-    Utils: any;
+    Utils: Utils;
     request: <T = any>(params: any, config?: AxiosRequestConfig) => Promise<T>;
     showPage: (url: string, { to, mode = 'navigate', params = {} }?: ShowPageConfig) => void;
     toast: ToastType;
     bridge: any;
+    popup: (content: React.ReactNode, options?: FullScreenPopupOptions) => { destroy: () => void };
   }
   /**
    * jojo
@@ -37,3 +39,27 @@ declare global {
 }
 
 declare module 'postcss-px-to-viewport';
+
+declare module '@woulsl/storage' {
+  interface StorageAPI {
+    get: (key: string) => any;
+    set: (key: string, value: any) => void;
+    remove: (key: string) => void;
+    clear: () => void;
+  }
+
+  const storage: StorageAPI;
+  export default storage;
+}
+
+declare module '@woulsl/storage/session' {
+  interface SessionStorageAPI {
+    get: (key: string) => any;
+    set: (key: string, value: any) => void;
+    remove: (key: string) => void;
+    clear: () => void;
+  }
+
+  const session: SessionStorageAPI;
+  export default session;
+}

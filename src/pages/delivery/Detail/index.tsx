@@ -1,28 +1,23 @@
 import AMapLoader from '@amap/amap-jsapi-loader';
-import { useQuery } from '@tanstack/react-query';
+import { useRequest } from 'ahooks';
 import { Toast } from 'antd-mobile';
 import { LeftOutline } from 'antd-mobile-icons';
-// import { Icon, Toast } from '@jojo-design/mobile';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lodash-es';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSearchParams } from 'react-router-dom';
 
 import icon_copy from '@/assets/image/copy.png';
 import FixBottom from '@/components/FixBottom';
-// import Loading from '@/components/Loading';
 import PageLoading, { LoadStatus } from '@/components/PageLoading';
-import { GAODE_MAP } from '@/lib/base';
+import type { IJingTanParams } from '@/modules/customerService';
+import { getJingTanPath, getOriginParams } from '@/modules/customerService';
 import { getDeliveryTrace, getOrderDetail } from '@/services/api/order';
+import { FROUNT_URL_OLD, GAODE_MAP, MARKETING_BASE_URL } from '@/services/config';
 
-// import { fromTimeStampToDate } from '@/utils/dateUtils';
-// import { sensClickInitiative, sensPageView } from '@/utils/sensors';
-// import { goService } from '../ListV2/components/SelectOrderPopup';
 import DeliveryTimeLine from './components/DeliveryTimeLine';
+import Skeleton from './components/Skeleton';
 import S from './index.module.less';
-
-// const { LeftBoldOutline } = Icon;
 
 let timer: any = null;
 
@@ -32,54 +27,34 @@ export default function Detail() {
   const expressNumber = searchParams.get('expressNumber') || '';
   const gpoNo = searchParams.get('gpoNo') || '';
   const expressNo = searchParams.get('expressNo') || '';
+  const orderId = searchParams.get('orderId') || '';
+  const skuId = searchParams.get('skuId') || '';
 
-  //   const [loadOptions, setLoadOptions] = useState({});
   const [detail, setDetail] = useState<any>({});
-  //   const [isLoading, setIsLoading] = useState<boolean>(false);
   const mapRef = useRef<any>(null);
 
   const locationRef = useRef<any>(null);
 
-  const {
-    data: pageDataRes,
-    isLoading,
-    refetch
-  } = useQuery({
-    queryKey: ['getDeliveryDetail'],
-    queryFn: () => getDeliveryTrace({ gpoNo, expressNo })
+  const { loading, runAsync: _getDeliveryTrace } = useRequest(getDeliveryTrace, {
+    manual: true
   });
 
   useEffect(() => {
-    console.log('pageDataRes', pageDataRes);
-
-    if (!isEmpty(pageDataRes?.data)) {
-      setDetail(pageDataRes?.data);
-      locationRef.current = {
-        city: pageDataRes?.data?.city,
-        area: pageDataRes?.data?.area
-      };
-      initMap();
-    }
-  }, [pageDataRes]);
-
-  //   const { data } = pageDataRes || {};
-
-  //   const getDeliveryDetail = async (val: any) => {
-  //     const params = {
-  //       gpoNo: val?.gpoNo,
-  //       expressNo: val?.expressNo
-  //     };
-  //     const res = await getDeliveryTrace({
-  //       ...params
-  //     });
-  //     const data = res.data || res.content || [];
-  //     setDetail(data);
-  //     locationRef.current = {
-  //       city: data?.city,
-  //       area: data?.area
-  //     };
-  //     initMap();
-  //   };
+    _getDeliveryTrace({ gpoNo, expressNo }).then((res) => {
+      if (res?.resultCode === 200) {
+        setDetail(res?.data);
+        locationRef.current = {
+          city: res?.data?.city,
+          area: res?.data?.area
+        };
+        initMap();
+      }
+    });
+    return () => {
+      mapRef.current?.destroy();
+      clearTimeout(timer);
+    };
+  }, []);
 
   const initMap = () => {
     // 本地调试设置密钥
@@ -117,21 +92,6 @@ export default function Detail() {
         });
       });
   };
-
-  useEffect(() => {
-    // sensPageView({
-    //   $title: '物流详情'
-    // });
-    // const a = document.querySelectorAll('meta');
-    // console.log(1111, a);
-    // a[1].parentNode?.removeChild(a[1]);
-
-    return () => {
-      mapRef.current?.destroy();
-      //   setIsLoading(false);
-      clearTimeout(timer);
-    };
-  }, []);
 
   const drawLines = () => {
     // 逆地理编码
@@ -187,21 +147,61 @@ export default function Detail() {
   /**
    * 跳转客服
    */
+  const goService = async (record: any) => {
+    const originParams = await getOriginParams();
+    const params: IJingTanParams = {
+      orderCard: {
+        orderStatus: 0,
+        statusCustom: record?.statusDesc || '',
+        createTime: record.createTime,
+        orderCode: record.orderId,
+        orderUrl: `${FROUNT_URL_OLD}/order/detail?orderId=${record.orderId}`,
+        goodsCount: record?.itemQt || 1,
+        totalFee: (record?.money ?? 0) * 100,
+        goods: [
+          {
+            pictureUrl: record?.imageUrl ?? '',
+            name: record?.title ?? ''
+          }
+        ]
+      },
+      ...originParams
+    };
+    let url = getJingTanPath(params);
+    url = `${MARKETING_BASE_URL}/transform/customerCenter?serviceUrl=${encodeURIComponent(
+      url
+    )}&fromType=mall`;
+    if (JOJO.Os.jojoReadApp) {
+      JOJO.showPage(url, {
+        mode: 'replace',
+        to: 'flutter'
+      });
+    } else {
+      JOJO.showPage(url, {
+        mode: 'replace',
+        to: 'externalWeb'
+      });
+    }
+
+    setTimeout(() => {
+      window.location.href = url;
+    }, 300);
+  };
+
+  /**
+   * 跳转客服
+   */
   const handleService = () => {
-    setIsLoading(true);
-    // sensClickInitiative({
-    //   $title: '物流详情',
-    //   $element_name: '联系客服'
-    // });
+    JOJO.loading.show({ content: '加载中...' });
     getOrderDetail({
-      orderId: query?.orderId,
-      skuId: query?.skuId || '',
+      orderId: orderId,
+      skuId: skuId || '',
       expressNumber: detail?.expressNo
     })
       .then((res: any) => {
         if (res?.resultCode === 200) {
           if (Object.keys(res?.data || {})?.length) {
-            // goService(res?.data);
+            goService(res?.data);
           } else {
             Toast.show({
               icon: 'fail',
@@ -216,7 +216,7 @@ export default function Detail() {
         }
       })
       .finally(() => {
-        setIsLoading(false);
+        JOJO.loading.close();
       });
   };
 
@@ -244,65 +244,65 @@ export default function Detail() {
     }
   }
 
-  return (
-    <PageLoading loading={isLoading} res={pageDataRes} retry={refetch}>
-      <div>
-        <div className={S.delivery_detail_wrap}>
-          <div className={S.mapWrap}>
-            <div id='amap' className={S.maps} />
-          </div>
-          <div id='panel' style={{ display: 'none' }} />
+  if (loading) {
+    return <Skeleton />;
+  }
 
-          <div className={S.tracesWrapper}>
-            <div className={S.tracesContentWrapper}>
-              <div className={S.tracesTop}>
-                <div className={S.tracesTopItem}>
-                  <div className={S.tracesTopItemLeft}>{detail?.expressOrgName}</div>
-                  <div className={S.tracesTopItemInfo}>{detail?.expressNo}</div>
-                  <CopyToClipboard
-                    onCopy={() => {
-                      Toast.show({
-                        icon: 'success',
-                        content: '复制成功'
-                      });
-                    }}
-                    text={detail?.expressNo}>
-                    <img className={S.copy} src={icon_copy} alt='copy' />
-                  </CopyToClipboard>
-                </div>
-                <div className={S.tracesTopItem}>
-                  <div className={S.tracesTopItemLeft}>发货时间</div>
-                  <div className={S.tracesTopItemInfo}>
-                    {dayjs(detail?.deliveredTime).format('YYYY-MM-DD')}
-                  </div>
-                </div>
-                <div className={S.tracesTopItem}>
-                  <div className={S.tracesTopItemLeft}>包裹内容</div>
-                  <div className={S.tracesTopItemInfo}>{detail?.deliveredDetail}</div>
+  return (
+    <div>
+      <div className={S.delivery_detail_wrap}>
+        <div className={S.mapWrap}>
+          <div id='amap' className={S.maps} />
+        </div>
+        <div id='panel' style={{ display: 'none' }} />
+
+        <div className={S.tracesWrapper}>
+          <div className={S.tracesContentWrapper}>
+            <div className={S.tracesTop}>
+              <div className={S.tracesTopItem}>
+                <div className={S.tracesTopItemLeft}>{detail?.expressOrgName}</div>
+                <div className={S.tracesTopItemInfo}>{detail?.expressNo}</div>
+                <CopyToClipboard
+                  onCopy={() => {
+                    Toast.show({
+                      icon: 'success',
+                      content: '复制成功'
+                    });
+                  }}
+                  text={detail?.expressNo}>
+                  <img className={S.copy} src={icon_copy} alt='copy' />
+                </CopyToClipboard>
+              </div>
+              <div className={S.tracesTopItem}>
+                <div className={S.tracesTopItemLeft}>发货时间</div>
+                <div className={S.tracesTopItemInfo}>
+                  {dayjs(detail?.deliveredTime).format('YYYY-MM-DD')}
                 </div>
               </div>
-              <div className={S.container}>
-                {detail.traceDetailList?.length ? (
-                  <DeliveryTimeLine traces={detail.traceDetailList} />
-                ) : (
-                  <div className={S.noContent}>暂无物流信息</div>
-                )}
+              <div className={S.tracesTopItem}>
+                <div className={S.tracesTopItemLeft}>包裹内容</div>
+                <div className={S.tracesTopItemInfo}>{detail?.deliveredDetail}</div>
               </div>
+            </div>
+            <div className={S.container}>
+              {detail.traceDetailList?.length ? (
+                <DeliveryTimeLine traces={detail.traceDetailList} />
+              ) : (
+                <div className={S.noContent}>暂无物流信息</div>
+              )}
             </div>
           </div>
-          <FixBottom className={S.bottom_style}>
-            <div className={S.service}>
-              咨询物流问题，请
-              <span className={S.call} onClick={handleService}>
-                联系客服
-              </span>
-              <LeftOutline className={S.icon} color='#ACB2BB' />
-              {/* <LeftBoldOutline className={S.icon} color='#ACB2BB' /> */}
-            </div>
-          </FixBottom>
         </div>
-        {/* <Loading visible={isLoading} maskStyle={{ background: 'rgba(0, 0, 0, 0.01)' }} /> */}
+        <FixBottom className={S.bottom_style}>
+          <div className={S.service}>
+            咨询物流问题，请
+            <span className={S.call} onClick={handleService}>
+              联系客服
+            </span>
+            <LeftOutline className={S.icon} color='#ACB2BB' />
+          </div>
+        </FixBottom>
       </div>
-    </PageLoading>
+    </div>
   );
 }

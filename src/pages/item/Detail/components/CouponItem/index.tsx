@@ -29,7 +29,7 @@ export default function CouponItem(props: { coupon: any; afterReceive: () => voi
     //   $element_name: '商品详情页_优惠券点击',
     //   $element_content: name
     // });
-    JOJO.loading.open({ content: '领取中...' });
+    JOJO.loading.show({ content: '领取中...' });
     const res: any = await pickCoupon({
       couponIds: [id],
       channel: '',

@@ -1,11 +1,12 @@
 import { Modal } from 'antd-mobile';
 import Cookies from 'js-cookie';
 
-import { isDoubleAccountLogin, isLogin, popupLogout } from '@/lib/auth';
 import { isIosApp } from '@/lib/utils';
-import calculate from '@/lib/utils/mathUtils';
+import { subtract } from '@/lib/utils/mathUtils';
+import { isDoubleAccountLogin, isLogin, popupLogout } from '@/modules/auth';
 import { precheckOrder, validateOrder } from '@/services/api/order';
 import { getItemDetail, getItemDetailWithoutAuth } from '@/services/api/product';
+import { getCacheTraceCode } from '@/services/common';
 import { JOJO_FROUNT_URL, JOJOUP_FROUNT_URL, UNBIND_URL } from '@/services/config';
 
 import type { SkuSaleResp } from './type';
@@ -90,21 +91,6 @@ export async function crossTenantForSale(params: any, option: any) {
 }
 
 /**
- * 获取l9生c1参数 traceCode
- */
-export function getCacheTraceCode() {
-  const useType = sessionStorage.getItem('l9UpdateC1UseType') || undefined;
-  let traceCode;
-  if (useType === 'UPGRADE_CHINESE') {
-    traceCode = localStorage.getItem('traceCode');
-    if (traceCode) {
-      traceCode = decodeURIComponent(traceCode);
-    }
-  }
-  return traceCode;
-}
-
-/**
  * 获取商品详情
  * @param params 商品详情参数
  * @param isLogin 是否登录
@@ -163,7 +149,13 @@ export async function getDetail(params: any, innerIsLogin: boolean) {
   }
 
   // 获取商品详情
-  const res = await req(reqParams, option);
+  let res: any = {};
+  try {
+    res = await req(reqParams, option);
+  } catch (error: any) {
+    console.log(error);
+  }
+
   return res;
 }
 
@@ -397,7 +389,7 @@ export const checkOrder = async (properties: any, callbacks: any) => {
  * @param discount 优惠金额
  * @returns 券后价
  */
-export const calculatePrice = (price: number, discount: number): string => {
-  const adjustedPrice = calculate.subtract(price, discount || 0);
+export const calculatePrice = (price: number | string, discount: number | string): string => {
+  const adjustedPrice = subtract(price, discount || 0);
   return adjustedPrice.toString().replace(/(\.\d*?[1-9])0+$|\.0*$/, '$1');
 };

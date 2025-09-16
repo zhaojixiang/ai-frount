@@ -42,9 +42,11 @@ export default [
       parser: tseslint.parser,
       parserOptions: {
         sourceType: 'module',
-        project: './tsconfig.eslint.json'
+        project: './tsconfig.eslint.json',
+        ecmaFeatures: { jsx: true }
       }
     },
+    // ignores: ['**/*.d.ts'],
     plugins: {
       '@typescript-eslint': tseslint.plugin
     },

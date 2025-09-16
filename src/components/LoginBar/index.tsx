@@ -2,7 +2,7 @@ import jojoAccount from '@jojo/account-sdk';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
-import { isLogin, popLogin, toAuthrize } from '@/lib/auth';
+import { isLogin, popLogin, toAuthrize } from '@/modules/auth';
 
 import S from './index.module.less';
 
@@ -96,7 +96,7 @@ export default function LoginBar(props: { onLoginSuccess?: () => void; isPopLogi
           <div className={S.user_info}>
             <div
               className={S.head_img}
-              style={{ backgroundImage: `url(${userInfo?.babyAvatarUrl})` }}
+              style={{ backgroundImage: `url(${userInfo?.babyAvatarUrl || ''})` }}
             />
             <div className={S.user_name}>
               <div className={S.user_name_text}>

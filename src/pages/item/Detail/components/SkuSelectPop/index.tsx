@@ -1,4 +1,4 @@
-import { Popup } from 'antd-mobile';
+import { Button, Popup } from 'antd-mobile';
 import { CloseOutline } from 'antd-mobile-icons';
 import cx from 'classnames';
 import { cloneDeep, isEmpty } from 'lodash-es';
@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Check from '@/components/Check';
 import FixBottom from '@/components/FixBottom';
 import Image from '@/components/Image';
-import calculate from '@/lib/utils/mathUtils';
+import { divide, subtract } from '@/lib/utils/mathUtils';
 
 import type { SkuSaleResp } from '../../type';
 // import { sensClickInitiative } from '@/utils/sensors';
@@ -184,11 +184,8 @@ export default function SkuSelectPop(props: IProps) {
 
       // 订阅命中优惠券
       if (originPrice && !isEmpty(couponInfo)) {
-        if (calculate.divide(couponInfo?.threshold || 0, 100) <= originPrice) {
-          resPrice = calculatePrice(
-            Number(originPrice),
-            calculate.divide(couponInfo?.amount || 0, 100)
-          );
+        if (divide(couponInfo?.threshold || 0, 100) <= originPrice) {
+          resPrice = calculatePrice(Number(originPrice), divide(couponInfo?.amount || 0, 100));
         }
       }
 
@@ -196,8 +193,8 @@ export default function SkuSelectPop(props: IProps) {
       const { discountedPrice } = sku;
       if (discountedPrice < originPrice) {
         // 立减金
-        const discount = calculate.subtract(originPrice, discountedPrice);
-        resPrice = calculate.subtract(resPrice, discount);
+        const discount = subtract(originPrice, discountedPrice);
+        resPrice = subtract(resPrice, discount);
       }
 
       return resPrice < 0 ? 0 : resPrice;
@@ -212,19 +209,16 @@ export default function SkuSelectPop(props: IProps) {
 
       // 命中优惠券
       if (originPrice && !isEmpty(couponInfo)) {
-        if (calculate.divide(couponInfo?.threshold || 0, 100) <= originPrice) {
-          resPrice = calculatePrice(
-            Number(originPrice),
-            calculate.divide(couponInfo?.amount || 0, 100)
-          );
+        if (divide(couponInfo?.threshold || 0, 100) <= originPrice) {
+          resPrice = calculatePrice(Number(originPrice), divide(couponInfo?.amount || 0, 100));
         }
       }
 
       // 命中立减
       if ((promotionPrice || promotionPrice === 0) && promotionPrice !== originPrice) {
         // 立减金
-        const discount = calculate.subtract(originPrice, promotionPrice);
-        resPrice = calculate.subtract(resPrice, discount);
+        const discount = subtract(originPrice, promotionPrice);
+        resPrice = subtract(resPrice, discount);
       }
 
       return resPrice < 0 ? 0 : resPrice;
@@ -268,26 +262,31 @@ export default function SkuSelectPop(props: IProps) {
     if (!skuDetail?.id) {
       return (
         <div className={S.confirmZone}>
-          <div className={cx(S.confirmText, S.disabled)}>请选择商品</div>
+          <Button shape='rounded' className={cx(S.confirmText, S.disabled)}>
+            请选择商品
+          </Button>
         </div>
       );
     }
     if (!skuDetail?.stock) {
       return (
         <div className={S.confirmZone}>
-          <div className={cx(S.confirmText, S.disabled)}>已售罄</div>
+          <Button shape='rounded' className={cx(S.confirmText, S.disabled)}>
+            已售罄
+          </Button>
         </div>
       );
     } else {
       return (
         <div className={S.confirmZone}>
-          <div
+          <Button
+            shape='rounded'
             className={cx(S.confirmText, !isEnough && S.disabled)}
             onClick={async () => {
               handleOk();
             }}>
             {learningPay ? '0元签约' : '确定'}
-          </div>
+          </Button>
         </div>
       );
     }

@@ -8,6 +8,7 @@ const Detail = lazy(() => import('@/pages/item/Detail'));
 const Coupon = lazy(() => import('@/pages/coupon/Coupon'));
 const Rules = lazy(() => import('@/pages/coupon/Rules'));
 const DeliveryDetail = lazy(() => import('@/pages/delivery/Detail'));
+const CreateOrder = lazy(() => import('@/pages/order/Create'));
 
 export const routes = [
   {
@@ -15,7 +16,8 @@ export const routes = [
     element: <App />,
     children: [
       { path: 'home', element: <Home /> },
-      { path: 'item/detail/:linkCode', element: <Detail /> },
+      { path: '/item/detail/:linkCode', element: <Detail /> },
+      { path: '/order/create', element: <CreateOrder /> },
       {
         path: 'coupon',
         children: [
@@ -24,7 +26,7 @@ export const routes = [
           { path: 'rules', element: <Rules /> }
         ]
       },
-      { path: 'delivery/detail', element: <DeliveryDetail /> }
+      { path: '/delivery/detail', element: <DeliveryDetail /> }
     ]
   }
 ];

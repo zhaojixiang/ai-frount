@@ -3,7 +3,7 @@ import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse 
 
 import { serviceUrl } from '@/services/config';
 
-import { isLogin } from '../auth';
+import { isLogin } from '../../modules/auth';
 import Os from '../os';
 import whiteApi from './whiteApi';
 
@@ -48,7 +48,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     const { resultCode, errorMsg } = response.data;
-    console.log('response', resultCode, response);
 
     // 请求成功
     if (resultCode === 200) {
@@ -58,8 +57,7 @@ instance.interceptors.response.use(
     // 未登录
     if ([1001, 1005].includes(resultCode)) {
       Toast.show({ icon: 'fail', content: errorMsg || '未登录' });
-      Promise.reject(new Error(errorMsg || '未登录'));
-      return response.data;
+      return Promise.reject(new Error(errorMsg || '未登录'));
     }
 
     // 需获取openId
@@ -71,12 +69,9 @@ instance.interceptors.response.use(
       //   wechatAuthType: 2
       // });
       // window.location.replace(redirectUrl);
-      Promise.reject(new Error(errorMsg || '需要获取openId'));
-      return response.data;
+      return Promise.reject(new Error(errorMsg || '需要获取openId'));
     }
-
-    Promise.reject(new Error(errorMsg || '请求失败'));
-    return response.data;
+    return Promise.reject(response.data);
   },
   (error) => {
     Toast.show({ icon: 'fail', content: error.message || '网络错误' });

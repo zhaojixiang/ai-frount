@@ -3,7 +3,7 @@
   box-sizing: border-box;
   width: 100%;
   text-align: center;
-  background: rgba(255, 255, 255, 1);
+  background: var(--bg-color-white);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 
   .purchaseZone {
@@ -33,18 +33,16 @@
       width: 100%;
       text-align: center;
       .btn {
-        background-color: #fcda00;
-        color: #544300;
+        background-color: var(--bg-color-primary);
+        color: var(--text-color-btn);
         border-radius: 25px;
-        display: inline-block;
         font-weight: 500;
         font-size: 16px;
-        text-align: center;
         width: 80%;
         height: 44px;
-        line-height: 44px;
+
         &.disabled {
-          background: #e9ecf0;
+          background: var(--bg-color-disabled);
         }
       }
       &.noSupport {

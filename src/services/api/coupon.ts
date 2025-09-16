@@ -24,3 +24,16 @@ export const pickCoupon = (params: { couponIds: any[]; channel: string; activity
     url: `/user/coupons`,
     method: 'POST'
   });
+
+/**
+ * 获取推荐代金券
+ * @param params
+ */
+export const getVoucherList = (params: {
+  skuId: string;
+  assetsType: 'OPTIMAL_CHOICE' | 'VALID' | 'USED' | 'EXPIRED';
+}) =>
+  JOJO.request(params, {
+    baseURL: serviceUrl.coupon,
+    url: `/v1/user/voucher-assets`
+  });

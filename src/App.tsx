@@ -3,8 +3,8 @@ import './style/global.less';
 
 import { Outlet } from 'react-router-dom';
 
+import { Os } from '@/lib';
 import DebugTool from '@/lib/debugger/DebugTool';
-import { Os } from '@/lib/jojo';
 
 function App() {
   return (

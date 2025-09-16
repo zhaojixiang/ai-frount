@@ -5,11 +5,11 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 import LoginBar from '@/components/LoginBar';
 import ReNew from '@/components/ReNew';
-import { isAuditGuestLogin, popLogin, wxAuth } from '@/lib/auth';
-import { appShareH5Config } from '@/lib/share/appShare';
-import WxShare, { WxConfigInit } from '@/lib/share/wxShare';
 import { getQuery } from '@/lib/utils';
+import { isAuditGuestLogin, popLogin, wxAuth } from '@/modules/auth';
 import { getJingTanPath } from '@/modules/customerService';
+import { appShareH5Config } from '@/modules/share/appShare';
+import WxShare, { WxConfigInit } from '@/modules/share/wxShare';
 import { getCouponList } from '@/services/api/coupon';
 import { FROUNT_URL_OLD } from '@/services/config';
 
@@ -20,6 +20,7 @@ import ImageSlider from './components/ImageSlider';
 import PriceAndTitle from './components/PriceAndTitle';
 import ProductDesc from './components/ProductDesc';
 import SharePop from './components/SharePop';
+import Skeleton from './components/Skeleton';
 import SkuSelectPop from './components/SkuSelectPop';
 import SoldOutPop from './components/SoldOutPop';
 import ValidatePayAfterPop from './components/ValidatePayAfterPop';
@@ -48,6 +49,8 @@ export default function Detail() {
   const needPopLogin = JSON.parse(searchParams.get('needPopLogin') || 'false');
 
   const [pageData, setPageData] = useState<any>({});
+
+  const [loading, setLoading] = useState(true);
 
   // 售罄弹窗
   const [soldOutVisible, setSoldOutVisible] = useState(false);
@@ -98,6 +101,7 @@ export default function Detail() {
    * 获取商品详情
    */
   const getProductDetail = async () => {
+    setLoading(true);
     const res = await getDetail({ linkCode }, isLoginInDetail());
     // 商品租户与当前域名不匹配，返回空，不进行后续处理，等待链接重定向处理
     isCrossTenant.current = res?.data?.isCorssTenant;
@@ -105,15 +109,15 @@ export default function Detail() {
     if (resultCode === 200) {
       const { productLabel, id } = data;
       setPageData({ ...data, productLabel: productLabel?.split(/[,，]/) || [] });
+      // 获取优惠券列表
+      if (isRequestAuthApi()) {
+        await _getRecommendCoupon(id);
+      }
+      setLoading(false);
 
       // 商品售罄弹窗
       if (data?.productState === 4) {
         setSoldOutVisible(true);
-      }
-
-      // 获取优惠券列表
-      if (isRequestAuthApi()) {
-        _getRecommendCoupon(id);
       }
 
       // 设置默认选中sku
@@ -370,9 +374,9 @@ export default function Detail() {
     if (channelNo && !['null', 'undefined'].includes(channelNo)) {
       urlParams.channelNo = channelNo;
     }
-    JOJO.showPage(`${FROUNT_URL_OLD}/order/create?${qs.stringify(urlParams)}`, {
-      to: 'externalWeb'
-    });
+    console.log('urlParams', qs.stringify(urlParams));
+
+    JOJO.showPage(`/order/create?${qs.stringify(urlParams)}`);
   };
 
   /**
@@ -497,6 +501,9 @@ export default function Detail() {
   // 参数错误
   if (!linkCode) {
     return null;
+  }
+  if (loading) {
+    return <Skeleton />;
   }
   return (
     <div className={S.detail}>

@@ -6,7 +6,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
-import { initJOJO } from '@/lib/jojo/initJOJO';
+import { initJOJO } from '@/lib/initJOJO';
 import { setupFavicon } from '@/lib/utils';
 
 import AppWrapper from './components/AppWrapper';

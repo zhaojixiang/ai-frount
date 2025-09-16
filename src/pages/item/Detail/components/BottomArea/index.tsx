@@ -1,3 +1,4 @@
+import { Button } from 'antd-mobile';
 import cx from 'classnames';
 import { isEmpty } from 'lodash-es';
 
@@ -50,13 +51,14 @@ const BottomArea: React.FC<Props> = (props) => {
       }
     }
     return (
-      <span
+      <Button
         className={S.btn}
+        shape='rounded'
         onClick={async (e) => {
           onHandleBuyBtn(e);
         }}>
         {btnText}
-      </span>
+      </Button>
     );
   };
   return (

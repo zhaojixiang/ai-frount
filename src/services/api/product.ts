@@ -38,3 +38,12 @@ export const getWxSignature = (params: { url: string }) => {
     url: `/wxmp/create-signature`
   });
 };
+/**
+ * 获取扩科
+ */
+export const getRecommendSkus = (params: { saleSkuId: string }) => {
+  return JOJO.request(params, {
+    baseURL: serviceUrl.product,
+    url: `/sale-skus/${params.saleSkuId}/recommend-skus`
+  });
+};

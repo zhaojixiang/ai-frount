@@ -5,7 +5,7 @@ import qs from 'query-string';
 import { getClassIdsByLinkCode } from '@/services/api';
 import { AUTH_SIGN_URL, UC_API_URL_BASE } from '@/services/config';
 
-import { isIosApp } from '../utils';
+import { isIosApp } from '../../lib/utils';
 import type { AuthorizeType, WxAuthOptions } from './index.d';
 
 const IS_NEW_ACCOUNT_AUTH = 'dubbleAccountLogin';
