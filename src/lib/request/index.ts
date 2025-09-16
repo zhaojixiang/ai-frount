@@ -1,11 +1,15 @@
 import { Toast } from 'antd-mobile';
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
-import { isLogin, jojoAppDirectLogin, toAuthrize } from '@/modules/auth';
+import {
+  //  isLogin,
+  jojoAppDirectLogin,
+  toAuthrize
+} from '@/modules/auth';
 import { serviceUrl } from '@/services/config';
 
 import Os from '../os';
-import whiteApi from './whiteApi';
+// import whiteApi from './whiteApi';
 
 const TIMEOUT = 10000;
 
@@ -31,10 +35,10 @@ const instance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     // 未登录拦截
-    if (!isLogin() && !whiteApi.includes(config.url || '')) {
-      Toast.show({ icon: 'fail', content: '请先登录' });
-      return Promise.reject(new Error('未登录或登录已过期'));
-    }
+    // if (!isLogin() && !whiteApi.includes(config.url || '')) {
+    //   Toast.show({ icon: 'fail', content: '请先登录' });
+    //   return Promise.reject(new Error('未登录或登录已过期'));
+    // }
 
     return config;
   },
