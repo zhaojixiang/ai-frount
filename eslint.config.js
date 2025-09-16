@@ -51,6 +51,7 @@ export default [
       '@typescript-eslint': tseslint.plugin
     },
     rules: {
+      'object-shorthand': 'error',
       '@typescript-eslint/array-type': 'error',
       '@typescript-eslint/method-signature-style': 'error',
       '@typescript-eslint/no-confusing-non-null-assertion': 'error',

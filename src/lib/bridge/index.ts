@@ -32,7 +32,7 @@ function initBridge() {
   return new Proxy(
     {},
     {
-      get: function (_, prop) {
+      get(_, prop) {
         if (prop === 'canUseBridge') {
           return () => false;
         }

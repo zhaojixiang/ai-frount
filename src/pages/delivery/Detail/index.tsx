@@ -194,7 +194,7 @@ export default function Detail() {
   const handleService = () => {
     JOJO.loading.show({ content: '加载中...' });
     getOrderDetail({
-      orderId: orderId,
+      orderId,
       skuId: skuId || '',
       expressNumber: detail?.expressNo
     })
