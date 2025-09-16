@@ -1,6 +1,6 @@
 import SentryConfig from '@woulsl/sentry-config';
 
-const envName = import.meta.env.VITE_ENV_NAME;
+const envName = window.process.env.ENV_NAME;
 const getSentryDNS = () => {
   if (JOJO.Os.matrix) {
     // 矩阵不需要上报sentry

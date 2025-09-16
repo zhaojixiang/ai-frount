@@ -1,11 +1,30 @@
 import legacy from '@vitejs/plugin-legacy';
-// import dotenv from 'dotenv';
 import istanbul from 'jojo-plugin-istanbul-vite';
 import path from 'path';
 import pxtovw from 'postcss-px-to-viewport';
 import type { ConfigEnv, UserConfig } from 'vite';
+import { loadEnv } from 'vite';
 import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
+
+//  html环境变量注入 将env环境变量注入到html中，替换掉window.env
+const htmlPlugin = () => {
+  // 获取非vite前缀的环境变量
+  const env = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
+  return {
+    name: 'html-transform',
+    transformIndexHtml(html: string) {
+      // 在根节点后面，替换 hmtl 上的window替换掉
+      return html.replace(
+        // /<div id="root"><\/div>/,
+        /<div id="root">\s*<span class="loading-spinner"><\/span>\s*<\/div>/,
+        `<div id="root"><span class="loading-spinner"></span></div><script id="env">window.process = {env:${JSON.stringify(
+          env
+        )}};</script>`
+      );
+    }
+  };
+};
 
 // https://vite.dev/config/
 export default defineConfig(({ command }: ConfigEnv): UserConfig => {
@@ -39,8 +58,8 @@ export default defineConfig(({ command }: ConfigEnv): UserConfig => {
         ],
         additionalLegacyPolyfills: ['regenerator-runtime/runtime']
       }),
-      istanbul({ exclude: [] })
-      // htmlPlugin()
+      istanbul({ exclude: [] }),
+      htmlPlugin()
     ],
     resolve: {
       alias: {
@@ -128,21 +147,14 @@ export default defineConfig(({ command }: ConfigEnv): UserConfig => {
     };
   }
 
-  const { CDN_DOMAIN = '', CDN_PREFIX = '' } = process.env || {};
+  // const { CDN_DOMAIN = '', CDN_PREFIX = '' } = process.env || {};
 
   // 构建之后生效
   if (command === 'build') {
-    Object.keys(process.env).forEach((item) => {
-      // 注入外部变量
-      const whiteKeys = ['ENV_NAME', 'ENV_BASE'];
-      if (whiteKeys.includes(item)) {
-        process.env[`VITE_${item}`] = process.env[item];
-      }
-    });
     config = {
       ...config,
-      // base: env.ALL_CDN_DOMAIN_AND_PREFIX_MD5_HASH,
-      base: CDN_DOMAIN + CDN_PREFIX,
+      base: process.env.ALL_CDN_DOMAIN_AND_PREFIX_MD5_HASH,
+      // base: CDN_DOMAIN + CDN_PREFIX,
       define: {
         'process.env.NODE_ENV': '"production"'
       }

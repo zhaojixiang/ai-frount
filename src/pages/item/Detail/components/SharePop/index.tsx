@@ -1,7 +1,7 @@
 import { Button, CenterPopup } from 'antd-mobile';
 
-import socializePng from '@/assets/image/socialize.png';
-import socializeFriendsPng from '@/assets/image/socialize-friends.png';
+import socializePng from '@/assets/images/socialize.png';
+import socializeFriendsPng from '@/assets/images/socialize-friends.png';
 
 import S from './index.module.less';
 

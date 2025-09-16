@@ -13,7 +13,7 @@ function wrapRoutes(routeList: any[]): any {
 }
 
 const router = createBrowserRouter(wrapRoutes(routes), {
-  basename: import.meta.env.VITE_ENV_BASE
+  basename: window.process.env.ENV_BASE
 });
 
 export default router;

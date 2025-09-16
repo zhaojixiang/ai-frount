@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import qs from 'query-string';
 import React, { useEffect, useState } from 'react';
 
-import recommendImg from '@/assets/image/recommend-img.png';
+import recommendImg from '@/assets/images/recommend-img.png';
 import { getProductsByLinkIds } from '@/services/api';
 
 import S from './index.module.less';

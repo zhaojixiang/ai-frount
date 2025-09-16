@@ -5,8 +5,8 @@
 示例：
 
 ```
-VITE_ENV_NAME=dev | fat
-VITE_APP_NAME=jojo | jojoup | matrix
+ENV_NAME=dev | fat
+APP_NAME=jojo | jojoup | matrix
 ```
 
 # 编码

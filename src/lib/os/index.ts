@@ -14,7 +14,7 @@ const Os: OS = {
    * 环境名称
    */
   get envName() {
-    return import.meta.env.VITE_ENV_NAME;
+    return window.process.env.ENV_NAME;
   },
   // APP名称
   get appName() {
@@ -67,19 +67,19 @@ const Os: OS = {
    * 当前 H5环境 是叫叫
    */
   get jojo() {
-    return import.meta.env.VITE_APP_NAME === 'jojo';
+    return window.process.env.APP_NAME === 'jojo';
   },
   /**
    * 当前 H5环境 是jojoup
    */
   get jojoup() {
-    return import.meta.env.VITE_APP_NAME === 'jojoup';
+    return window.process.env.APP_NAME === 'jojoup';
   },
   /**
    * 当前 H5环境 是矩阵
    */
   get matrix() {
-    return import.meta.env.VITE_APP_NAME === 'matrix';
+    return window.process.env.APP_NAME === 'matrix';
   },
   // 是小程序
   get xcx() {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import DefaultImageSrc from '@/assets/image/no-content.png';
+import DefaultImageSrc from '@/assets/images/no-content.png';
 
 interface Props {
   src: string;

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSearchParams } from 'react-router-dom';
 
-import icon_copy from '@/assets/image/copy.png';
+import icon_copy from '@/assets/images/copy.png';
 import FixBottom from '@/components/FixBottom';
 import PageLoading, { LoadStatus } from '@/components/PageLoading';
 import type { IJingTanParams } from '@/modules/customerService';

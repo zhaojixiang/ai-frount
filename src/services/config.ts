@@ -2,11 +2,11 @@ import Os from '@/lib/os';
 
 // 环境前缀分隔符
 let separator = '';
-if (import.meta.env.VITE_ENV_NAME !== 'pro') {
+if (window.process.env.ENV_NAME !== 'pro') {
   separator = Os.jojo ? '.' : '-';
 }
 // 环境前缀
-const env = import.meta.env.VITE_ENV_NAME === 'pro' ? '' : import.meta.env.VITE_ENV_NAME;
+const env = window.process.env.ENV_NAME === 'pro' ? '' : window.process.env.ENV_NAME;
 // 分隔符 + 环境前缀
 const separatorEnv = separator + env;
 

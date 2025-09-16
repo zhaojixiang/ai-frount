@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React, { useRef, useState } from 'react';
 
-import videoPlayIcon from '@/assets/image/play-video@2x.png';
+import videoPlayIcon from '@/assets/images/play-video@2x.png';
 
 import S from './index.module.less';
 

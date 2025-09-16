@@ -6,7 +6,7 @@ import S from './index.module.less';
 class Loading {
   private toastHandler: (() => void) | null = null;
 
-  open(options?: ToastShowProps) {
+  show(options?: ToastShowProps) {
     this.close();
     this.toastHandler = Toast.show({
       content: '加载中...',

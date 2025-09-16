@@ -5,7 +5,7 @@ export const initSensors = () => {
     return;
   }
   let platform = '其他';
-  const envName = import.meta.env.VITE_ENV_NAME;
+  const envName = window.process.env.ENV_NAME;
 
   if (JOJO.Os.xcx) {
     platform = '微信小程序';

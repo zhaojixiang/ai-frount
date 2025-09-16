@@ -1,10 +1,10 @@
 import { Button } from 'antd-mobile';
 
-import FailSrcJo from '@/assets/image/jojo/error-net.png';
-import ErrorSrcJo from '@/assets/image/jojo/error-others.png';
-import LoadingSrcJo from '@/assets/image/jojo/loading.gif';
-import ErrorSrcUp from '@/assets/image/jojoup/error-others.png';
-import LoadingSrcUp from '@/assets/image/jojoup/loading.gif';
+import FailSrcJo from '@/assets/images/jojo/error-net.png';
+import ErrorSrcJo from '@/assets/images/jojo/error-others.png';
+import LoadingSrcJo from '@/assets/images/jojo/loading.gif';
+import ErrorSrcUp from '@/assets/images/jojoup/error-others.png';
+import LoadingSrcUp from '@/assets/images/jojoup/loading.gif';
 import { Os } from '@/lib';
 
 import S from './index.module.less';

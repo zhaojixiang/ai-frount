@@ -3,7 +3,7 @@ import cx from 'classnames';
 import QRCode from 'qrcode';
 import { useEffect, useRef, useState } from 'react';
 
-import refreshIcon from '@/assets/image/refresh.png';
+import refreshIcon from '@/assets/images/refresh.png';
 import { billCheckOutByToken } from '@/services/api/orderPay';
 
 import S from './index.module.less';
