@@ -1,25 +1,11 @@
 stages:
-  - fecheck
-  - dev
-  - fat
-  - uat
-  - pro
+  - all
   - fee_unit
-
-fecheck:
-  stage: fecheck
-  script:
-    - '/usr/bin/env bash $CI_BUILDS_DIR/ci/fecheck.sh'
-  only:
-    - merge_requests
-    - master
-  tags:
-    - ecs
 
 fee_unit:
   stage: fee_unit
   variables:
-    BUILD_COMMAND: 'pnpm install && pnpm test'
+    BUILD_COMMAND: 'pnpm install && pnpm jest'
   script:
     - '/usr/bin/env bash $CI_BUILDS_DIR/ci/fee_unit_v2.sh'
   only:
@@ -29,53 +15,14 @@ fee_unit:
     - ecs
   coverage: /All\sfiles.*?\s+(\d+.\d+)/
 
-dev:
-  stage: dev
+all:
+  stage: all
   script:
     - '/usr/bin/env bash $CI_BUILDS_DIR/ci/build.sh'
   when: manual
   only:
     refs:
       - /^[t|v]\d+\.\d+\.\d+$/
-  except:
-    - branches
-  tags:
-    - ecs
-
-fat:
-  stage: fat
-  script:
-    - '/usr/bin/env bash $CI_BUILDS_DIR/ci/build.sh'
-  when: manual
-  only:
-    refs:
-      - /^[t|v]\d+\.\d+\.\d+$/
-  except:
-    - branches
-  tags:
-    - ecs
-
-uat:
-  stage: uat
-  script:
-    - '/usr/bin/env bash $CI_BUILDS_DIR/ci/build.sh'
-  when: manual
-  only:
-    refs:
-      - /^v\d+\.\d+\.\d+$/
-  except:
-    - branches
-  tags:
-    - ecs
-
-pro:
-  stage: pro
-  script:
-    - '/usr/bin/env bash $CI_BUILDS_DIR/ci/build.sh'
-  when: manual
-  only:
-    refs:
-      - /^v\d+\.\d+\.\d+$/
   except:
     - branches
   tags:

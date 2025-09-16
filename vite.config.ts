@@ -1,5 +1,4 @@
 import legacy from '@vitejs/plugin-legacy';
-import istanbul from 'jojo-plugin-istanbul-vite';
 import path from 'path';
 import pxtovw from 'postcss-px-to-viewport';
 import type { ConfigEnv, UserConfig } from 'vite';
@@ -57,7 +56,6 @@ export default defineConfig(({ command }: ConfigEnv): UserConfig => {
         ],
         additionalLegacyPolyfills: ['regenerator-runtime/runtime']
       }),
-      istanbul({ exclude: [] }),
       htmlPlugin()
     ],
     resolve: {
