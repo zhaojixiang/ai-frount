@@ -31,7 +31,7 @@ export async function toAuthrize({
     wechatAuthType,
     authBizType,
     dubbleAccountLoginClassIds: classIds,
-    requestUrl: encodeURIComponent(url)
+    requestUrl: url
   });
   console.log(`${AUTH_SIGN_URL}?${queryParams}`);
   return `${AUTH_SIGN_URL}?${queryParams}`;
