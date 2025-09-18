@@ -1,9 +1,9 @@
-import * as Big from 'big.js';
+// import * as Big from 'big.js';
+import { Big } from 'big.js';
 
 // 配置（可选：设置小数精度和舍入方式）
-// 使用 Big.DP 和 Big.RM 需要通过 Big() 构造函数来设置
-Big.prototype.constructor.DP = 2; // 默认小数点后保留 2 位
-Big.prototype.constructor.RM = Big.roundHalfUp; // 四舍五入
+Big.DP = 2; // 默认小数点后保留 2 位
+Big.RM = Big.roundHalfUp; // 四舍五入
 
 /**
  * 加法
