@@ -1,11 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useRequest } from 'ahooks';
 import Cookies from 'js-cookie';
 import qs from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import PageLoading from '@/components/PageLoading';
 import ReNew from '@/components/ReNew';
+import StateHandler, { LoadStatus } from '@/components/StateHandler';
 import { needNewAuth } from '@/modules/auth';
 import { getCouponActivityDetail } from '@/services/api';
 
@@ -20,16 +20,14 @@ export default function Coupon() {
   const useType = searchParams.get('useType');
   const activityId = searchParams.get('activityId') || '';
 
-  const {
-    data: pageDataRes,
-    isLoading,
-    refetch
-  } = useQuery({
-    queryKey: ['getCouponActivityDetail'],
-    queryFn: () => getCouponActivityDetail({ activityId })
+  const [pageStatus, setPageStatus] = useState<any>({});
+  const [detail, setDetail] = useState<any>({});
+
+  const { loading, runAsync: _getCouponActivityDetail } = useRequest(getCouponActivityDetail, {
+    manual: true
   });
 
-  const { data: activityDetail } = pageDataRes || {};
+  const { data: activityDetail } = detail || {};
   const { imageUrl, pickState, endTime, recommendProductLinks, bgColor } = activityDetail || {};
 
   useEffect(() => {
@@ -79,7 +77,35 @@ export default function Coupon() {
         }
       }
     }
+
+    initPage();
   }, []);
+
+  useEffect(() => {
+    if (loading) {
+      setPageStatus({
+        status: LoadStatus.Loading
+      });
+    }
+  }, [loading]);
+
+  const initPage = async () => {
+    try {
+      const res = await _getCouponActivityDetail({ activityId });
+      setPageStatus({ res });
+      const { resultCode, data } = res || {};
+      setPageStatus({ res });
+      if (resultCode === 200) {
+        setDetail(data);
+      }
+    } catch (error) {
+      console.log('获取优惠券详情失败', error);
+      setPageStatus({
+        status: LoadStatus.Error,
+        errorMsg: '获取优惠券详情失败'
+      });
+    }
+  };
 
   const onRuleClick = () => {
     // 我想要跳转到活动规则页面
@@ -90,7 +116,7 @@ export default function Coupon() {
   if (isShowModal) return <ReNew />;
 
   return (
-    <PageLoading loading={isLoading} res={pageDataRes} retry={refetch}>
+    <StateHandler options={pageStatus}>
       <div className={S.main} style={{ backgroundColor: bgColor || '#FFD037' }}>
         <div className={S.rules} onClick={onRuleClick}>
           活动规则
@@ -104,6 +130,6 @@ export default function Coupon() {
         {/* 推荐商品列表 */}
         {recommendProductLinks?.length ? <RecommendGoods activityDetail={activityDetail} /> : null}
       </div>
-    </PageLoading>
+    </StateHandler>
   );
 }

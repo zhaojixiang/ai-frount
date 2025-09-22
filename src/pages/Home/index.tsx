@@ -1,19 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-
-import { getDetail } from '@/services/api';
-
 export default function Home() {
-  const {
-    data: pageData,
-    isLoading,
-    isError,
-    refetch
-  } = useQuery({
-    queryKey: ['fruitList'],
-    queryFn: () => getDetail({ linkCode: 'NLAmSLwHTNN' })
-  });
-  console.log(222222, pageData, isLoading, isError, refetch);
-
   // const mutation = useMutation({
   //   mutationFn: saveItem,
   //   onSuccess: () => {

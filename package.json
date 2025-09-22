@@ -22,7 +22,6 @@
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@jojo/account-sdk": "^1.0.15",
-    "@tanstack/react-query": "^5.81.5",
     "@woulsl-app/js-bridge": "^0.0.23",
     "@woulsl-tools/sensors": "^1.2.6",
     "@woulsl/sentry-config": "^0.7.3",

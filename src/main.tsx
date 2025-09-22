@@ -2,7 +2,6 @@ import './index.less';
 import './lib/i18n';
 
 import jojoAccount from '@jojo/account-sdk';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
@@ -17,7 +16,6 @@ import { initSentry } from './lib/sentry';
 import router from './routes';
 import { JOJO_READ_BASE_URL, SERVICE_URL_PREFIX, UC_API_URL_BASE } from './services/config';
 
-const queryClient = new QueryClient();
 // 注册全局变量 JOJO
 initJOJO().then(() => {
   // 初始化Sentry
@@ -44,11 +42,9 @@ initJOJO().then(() => {
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <AppWrapper>
-          <RouterProvider router={router} />
-        </AppWrapper>
-      </QueryClientProvider>
+      <AppWrapper>
+        <RouterProvider router={router} />
+      </AppWrapper>
     </StrictMode>
   );
 });

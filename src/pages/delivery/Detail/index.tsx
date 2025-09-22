@@ -1,17 +1,14 @@
 import AMapLoader from '@amap/amap-jsapi-loader';
 import { useRequest } from 'ahooks';
-import { Toast } from 'antd-mobile';
 import { LeftOutline } from 'antd-mobile-icons';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSearchParams } from 'react-router-dom';
 
 import icon_copy from '@/assets/images/copy.png';
-import ErrorBlock from '@/components/ErrorBlock';
 import FixBottom from '@/components/FixBottom';
-import PageLoading, { LoadStatus } from '@/components/PageLoading';
+import StateHandler, { LoadStatus } from '@/components/StateHandler';
 import type { IJingTanParams } from '@/modules/customerService';
 import { getJingTanPath, getOriginParams } from '@/modules/customerService';
 import { getDeliveryTrace, getOrderDetail } from '@/services/api/order';
@@ -33,6 +30,7 @@ export default function Detail() {
   const skuId = searchParams.get('skuId') || '';
 
   const [detail, setDetail] = useState<any>({});
+  const [pageStatus, setPageStatus] = useState<any>({});
   const mapRef = useRef<any>(null);
 
   const locationRef = useRef<any>(null);
@@ -42,22 +40,65 @@ export default function Detail() {
   });
 
   useEffect(() => {
-    _getDeliveryTrace({ gpoNo, expressNo }).then((res) => {
-      if (res?.resultCode === 200) {
-        setDetail(res?.data);
-        locationRef.current = {
-          city: res?.data?.city,
-          area: res?.data?.area
-        };
-        initMap();
-      }
-    });
+    if (loading) {
+      setPageStatus({
+        status: LoadStatus.Loading,
+        loadingElement: <Skeleton />
+      });
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    initPage();
     return () => {
       mapRef.current?.destroy();
       clearTimeout(timer);
     };
   }, []);
 
+  const initPage = async () => {
+    if (searchParams.get('gpoNo')) {
+      if (!gpoNo || !expressNo) {
+        setPageStatus({
+          status: LoadStatus.Error,
+          errorMsg: '参数错误！'
+        });
+        return;
+      }
+    } else {
+      if (!deliveryRecordId || !expressNumber) {
+        setPageStatus({
+          status: LoadStatus.Error,
+          errorMsg: '参数错误！'
+        });
+        return;
+      }
+    }
+    try {
+      const res = await _getDeliveryTrace({ gpoNo, expressNo });
+
+      const { resultCode, data } = res || {};
+      setPageStatus({ res });
+      if (resultCode === 200) {
+        setDetail(data);
+        locationRef.current = {
+          city: data?.city,
+          area: data?.area
+        };
+        initMap();
+      }
+    } catch (error) {
+      console.error('获取物流轨迹失败', error);
+      setPageStatus({
+        status: LoadStatus.Error,
+        errorMsg: '获取物流轨迹失败！'
+      });
+    }
+  };
+
+  /**
+   * 初始化地图
+   */
   const initMap = () => {
     // 本地调试设置密钥
     if (JOJO.Os.debug || JOJO.Os.jojoup) {
@@ -67,7 +108,6 @@ export default function Detail() {
       };
     }
 
-    // setLoadOptions(LoadHandle({ resultCode: 200 }));
     // 加载地图
     AMapLoader.load({
       key: GAODE_MAP.key, // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -88,13 +128,16 @@ export default function Detail() {
         drawLines();
       })
       .catch(() => {
-        Toast.show({
+        JOJO.toast.show({
           icon: 'fail',
           content: '地图加载出错了'
         });
       });
   };
 
+  /**
+   * 绘制路线
+   */
   const drawLines = () => {
     // 逆地理编码
     const geocoder = new window.AMap.Geocoder({
@@ -205,13 +248,13 @@ export default function Detail() {
           if (Object.keys(res?.data || {})?.length) {
             goService(res?.data);
           } else {
-            Toast.show({
+            JOJO.toast.show({
               icon: 'fail',
               content: '未查询到该订单的相关信息'
             });
           }
         } else {
-          Toast.show({
+          JOJO.toast.show({
             icon: 'fail',
             content: res?.errorMsg
           });
@@ -222,40 +265,8 @@ export default function Detail() {
       });
   };
 
-  if (searchParams.get('gpoNo')) {
-    if (!gpoNo || !expressNo) {
-      return (
-        <PageLoading
-          options={{
-            status: LoadStatus.Error,
-            errorMsg: '参数错误！'
-          }}
-        />
-      );
-    }
-  } else {
-    if (!deliveryRecordId || !expressNumber) {
-      return (
-        <PageLoading
-          options={{
-            status: LoadStatus.Error,
-            errorMsg: '参数错误！'
-          }}
-        />
-      );
-    }
-  }
-
-  if (loading) {
-    return <Skeleton />;
-  }
-
-  if (isEmpty(detail)) {
-    return <ErrorBlock status='empty' />;
-  }
-
   return (
-    <div>
+    <StateHandler options={pageStatus}>
       <div className={S.delivery_detail_wrap}>
         <div className={S.mapWrap}>
           <div id='amap' className={S.maps} />
@@ -270,7 +281,7 @@ export default function Detail() {
                 <div className={S.tracesTopItemInfo}>{detail?.expressNo}</div>
                 <CopyToClipboard
                   onCopy={() => {
-                    Toast.show({
+                    JOJO.toast.show({
                       icon: 'success',
                       content: '复制成功'
                     });
@@ -309,6 +320,6 @@ export default function Detail() {
           </div>
         </FixBottom>
       </div>
-    </div>
+    </StateHandler>
   );
 }
