@@ -35,6 +35,8 @@ declare global {
     JOJO: JOJOTYPE;
     sensors: any;
     sensorsExpoSure: any;
+    forceWebGL: boolean;
+    _AMapSecurityConfig: any;
   }
 }
 

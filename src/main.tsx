@@ -40,6 +40,14 @@ initJOJO().then(() => {
     }
   });
 
+  // 设置高德地图
+  // 强制使用webGL
+  window.forceWebGL = true;
+  // 设置高德安全密钥
+  window._AMapSecurityConfig = {
+    serviceHost: window.location.origin + '/_AMapService'
+  };
+
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <AppWrapper>
