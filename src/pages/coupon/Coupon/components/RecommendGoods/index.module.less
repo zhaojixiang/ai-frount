@@ -1,0 +1,99 @@
+.recommendGoods {
+  margin-top: 32px;
+  padding-bottom: 20px;
+  .img {
+    text-align: center;
+    img {
+      width: 124px;
+    }
+  }
+  .goodsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 20px 0;
+    .goodsItem {
+      box-sizing: border-box;
+      min-width: 172px;
+      height: 213px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.11);
+      &:nth-child(even) {
+        margin-bottom: 10px;
+        margin-left: 10px;
+      }
+
+      img {
+        width: 141px;
+        height: 141px;
+      }
+
+      .goodsInfo {
+        position: relative;
+        h3 {
+          width: 140px;
+          height: 18px;
+          margin: 0;
+          overflow: hidden;
+          color: rgba(0, 0, 0, 1);
+          font-weight: bold;
+          font-size: 13px;
+          line-height: 18px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        .price {
+          margin: 2px 0;
+          color: rgba(255, 88, 79, 1);
+          font-size: 10px;
+          line-height: 14px;
+          em {
+            margin: 0 2px;
+            font-size: 20px;
+            font-style: unset;
+            line-height: 24px;
+          }
+        }
+        .btn {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          padding: 3px 14px;
+          color: #fff;
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 17px;
+          background: #ff584f;
+          border-radius: 18px;
+        }
+      }
+    }
+    .oneGoods {
+      display: inline-flex;
+      height: 162px;
+      .goodsInfo {
+        position: relative;
+        padding: 14px 37px 0 16px;
+        h3 {
+          width: 131px;
+        }
+        .price {
+          margin-top: 12px;
+        }
+        .btn {
+          position: absolute;
+          right: 10px;
+          bottom: 0;
+          padding: 8px 24px;
+          color: #fff;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 17px;
+          background: #ff584f;
+          border-radius: 18px;
+        }
+      }
+    }
+  }
+}

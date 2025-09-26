@@ -1,0 +1,132 @@
+.skuDetailZone {
+  width: 335px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 8px;
+  .skuDetail {
+    display: flex;
+    color: rgba(0, 0, 0, 1);
+
+    .skuImageWp {
+      margin-right: 10px;
+      .skuImage {
+        width: 74px;
+        height: 74px;
+        overflow: hidden;
+        border-radius: 10px;
+        background: no-repeat center/cover;
+      }
+    }
+    .rightBox {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      .skuTitle {
+        color: #404040;
+        font-weight: 600;
+        font-size: 18px;
+      }
+      .grate {
+        margin-top: 10px;
+        color: #544300;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #fcf3ba;
+        padding: 3px 9px;
+        width: max-content;
+        font-weight: 500;
+      }
+    }
+  }
+  .giftSkuWrap {
+    margin-top: 12px;
+    .giftItem {
+      display: flex;
+      align-items: flex-start;
+      &:not(:first-child) {
+        margin-top: 8px;
+      }
+      .title {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: #986c31;
+        display: flex;
+        align-items: center;
+        padding: 2px 12px;
+        background-color: #fef7e5;
+        width: max-content;
+        flex-shrink: 0;
+        border-radius: 4px;
+        .labelIcon {
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+          &.courseIcon {
+            background: url('@/assets/images/course_icon.png') no-repeat center/contain;
+          }
+          &.giftIcon {
+            background: url('@/assets/images/gift_icon.png') no-repeat center/contain;
+          }
+          &.entityIcon {
+            background: url('@/assets/images/entity_icon.png') no-repeat center/contain;
+          }
+        }
+      }
+      .giftContent {
+        color: #666666;
+        font-size: 14px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 150%;
+        padding-left: 8px;
+      }
+    }
+  }
+
+  .tagItem {
+    display: flex;
+    align-items: flex-start;
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #986c31;
+      display: flex;
+      align-items: center;
+      padding: 2px 12px;
+      background-color: #fef7e5;
+      width: max-content;
+      flex-shrink: 0;
+      border-radius: 4px;
+      .labelIcon {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        margin-top: -2px;
+        &.friendIcon {
+          background: url('@/assets/images/friendtag_icon.png') no-repeat center/contain;
+        }
+      }
+    }
+    .tagContent {
+      color: #666666;
+      font-size: 14px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 150%;
+      padding-left: 8px;
+    }
+  }
+}

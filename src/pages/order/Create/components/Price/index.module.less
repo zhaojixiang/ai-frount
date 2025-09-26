@@ -1,0 +1,99 @@
+.priceWrap {
+  width: 335px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 16px;
+
+  .total_price {
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+
+    .label {
+      font-size: 16px;
+    }
+    .price {
+      font-size: 18px;
+    }
+  }
+
+  .itemBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+
+    &:first-child {
+      margin-top: 8px;
+    }
+    .label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      .labelIcon {
+        width: 24px;
+        height: 24px;
+        margin-right: 2px;
+        background: no-repeat center/contain;
+        &.couponIcon {
+          background-image: url('@/assets/images/coupon_icon.png');
+        }
+        &.voucherIcon {
+          background-image: url('@/assets/images/voucher_icon.png');
+        }
+        &.discountIcon {
+          background-image: url('@/assets/images/discount_icon.png');
+        }
+      }
+    }
+    .priceBox {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .price {
+        font-weight: 600;
+        color: #ff715c;
+        font-size: 16px;
+      }
+      .selectCoupon {
+        color: #666;
+      }
+      .noCoupon {
+        color: #b2b2b2;
+      }
+      .rightIcon {
+        background: url('@/assets/images/arrow.png') no-repeat center/contain;
+        background-size: contain;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  .res_price {
+    border-top: 1px solid #f5f4f4;
+    padding: 5px 0;
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    .discount {
+      color: #ff715c;
+      padding: 0 10px 0 4px;
+    }
+    .yuan {
+      color: #404040;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 0 4px;
+      position: relative;
+      bottom: -3px;
+    }
+    .total {
+      color: #404040;
+      font-weight: 500;
+      font-size: 18px;
+      position: relative;
+      bottom: -2px;
+    }
+  }
+}

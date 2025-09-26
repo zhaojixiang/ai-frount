@@ -1,0 +1,41 @@
+.bottomArea {
+  .agreement {
+    margin-bottom: 5px;
+  }
+  .handleZone {
+    height: 70px;
+    background: var(--bg-color-white);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .confirm {
+      width: 280px;
+      height: 44px;
+      color: var(--text-color-btn);
+      font-size: 18px;
+      background: var(--bg-color-primary);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      position: relative;
+
+      .btnTips {
+        background: url('@/assets/images/timeLimit24.png') no-repeat center/contain;
+        width: 79px;
+        height: 25px;
+        margin-right: 8px;
+        position: absolute;
+        top: -16px;
+        right: 40px;
+      }
+
+      &.disabled {
+        background: var(--bg-color-disabled);
+      }
+    }
+  }
+}

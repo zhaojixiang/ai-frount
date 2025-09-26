@@ -1,0 +1,114 @@
+// 将所有 以px为单位的值，都除以2
+.timeLine {
+  position: relative;
+  margin: 0 auto;
+  background-color: #fff;
+  div {
+    box-sizing: border-box;
+  }
+  &::after {
+    position: absolute;
+    top: 6px;
+    bottom: 50px;
+    left: 8px;
+    width: 2px;
+    background-color: #d0d0d0;
+    content: '';
+  }
+
+  .container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: inherit;
+    &.last {
+      &::after {
+        position: absolute;
+        top: 6px;
+        bottom: 0;
+        left: 8px;
+        width: 2px;
+        background-color: #fff;
+        content: '';
+        z-index: 1;
+      }
+    }
+
+    .contentLeft {
+      width: 38px;
+      padding-right: 20px;
+      color: rgba(154, 154, 154, 1);
+      font-size: 12px;
+      text-align: right;
+      div {
+        line-height: 17px;
+        &:last-child {
+          margin-top: 3px;
+          font-size: 10px;
+          line-height: 14px;
+        }
+      }
+    }
+    .contentRight {
+      color: rgba(154, 154, 154, 1);
+      text-align: left;
+      flex: 1;
+      width: 290px;
+      .title {
+        width: 100%;
+        margin-bottom: 2px;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 21px;
+
+        &::before {
+          position: absolute;
+          top: 6px;
+          left: 4px;
+          z-index: 3;
+          box-sizing: border-box;
+          width: 9px;
+          height: 9px;
+          background-color: #d0d0d0;
+          border-radius: 50%;
+          content: '';
+        }
+        .state {
+          margin-right: 5px;
+        }
+        .time {
+          font-weight: 400;
+          font-size: 14px;
+          color: rgba(154, 154, 154, 1);
+          font-size: 14px;
+        }
+      }
+      .desc {
+        width: 100%;
+        margin-bottom: 24px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+      }
+    }
+    .active {
+      color: #2e2e2e;
+      .title {
+        color: #ff584f;
+        .time {
+          color: #ff584f;
+        }
+        &::before {
+          top: 2px;
+          left: 1px;
+          z-index: 3;
+          width: 17px;
+          height: 17px;
+          background-color: #ff584f;
+          border: 3px solid #ffb3af;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

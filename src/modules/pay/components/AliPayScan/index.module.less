@@ -1,0 +1,143 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background: rgba(242, 245, 247, 1);
+}
+
+.qrCodeContainer {
+  position: fixed;
+  width: 375px;
+  height: 100%;
+  background-color: #f8f8fa;
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-sizing: border-box;
+    width: 280px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+
+    .contentDetail {
+      width: 280px;
+      background-color: #fff;
+      border: 0.5px solid #e9ecf0;
+      border-radius: 16px;
+    }
+
+    .paddingContentDetail {
+      padding-bottom: 30px;
+    }
+
+    .detailTitle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      color: white;
+      font-size: 14px;
+      line-height: 48px;
+      text-align: center;
+      background: #027aff;
+      border-radius: 16px 16px 0 0;
+
+      .titleIcon {
+        width: 24px;
+        height: 24px;
+        background: url(@/assets/images/aliPayIcon.png) no-repeat center/cover;
+      }
+    }
+
+    div {
+      margin: 0;
+      text-align: center;
+
+      .detailPrice {
+        color: #2b323c;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 32px;
+        padding: 8px 0;
+      }
+
+      .qrcode {
+        width: 100%;
+        height: 220px;
+        font-size: 0;
+        position: relative;
+
+        .loadingMask {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          left: 50%;
+          top: 0;
+          background: rgba(0, 0, 0, 0.3);
+          width: 220px;
+          height: 220px;
+          transform: translate(-50%, 0);
+
+          .refreshIcon {
+            width: 20%;
+            height: 20%;
+            animation: Rotate 1.5s infinite linear both;
+          }
+        }
+
+        img {
+          width: 220px;
+          height: 220px;
+        }
+      }
+    }
+  }
+
+  .refreshText {
+    margin: 12px 0 18px;
+    font-size: 12px;
+    color: #6491d9;
+    text-decoration: underline;
+  }
+  .payWay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px 0 18px;
+    .payWayItem {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #544300;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+  .btn {
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    font-size: 16px;
+    line-height: 44px;
+    text-align: center;
+    border-radius: 32px;
+  }
+  .cancelBtn {
+    margin-top: 10px;
+    color: #acb2bb;
+    background-color: #f8f8fa;
+    border: 1px solid #acb2bb;
+  }
+}
+
+@keyframes Rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

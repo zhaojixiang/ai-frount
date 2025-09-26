@@ -1,0 +1,82 @@
+.addressWrap {
+  width: 335px;
+  // height: 172px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 8px 14px;
+  .locationIcon {
+    width: 32px;
+    height: 32px;
+    background: no-repeat center/contain url('@/assets/images/position_gray.png');
+  }
+  .addressItem {
+    box-sizing: border-box;
+    color: #757575;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .addressContent {
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .itemTop {
+        font-size: 16px;
+        color: #000;
+        line-height: 200%;
+
+        .phone {
+          padding-left: 10px;
+          text-align: left;
+        }
+      }
+      .itemBottom {
+        box-sizing: border-box;
+        font-size: 14px;
+        line-height: 120%;
+      }
+    }
+    .rightIcon {
+      background: url('@/assets/images/arrow.png') no-repeat center/contain;
+      background-size: contain;
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .addressAddInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    line-height: 24px;
+    .noAddressText {
+      width: 50%;
+      padding-left: 10px;
+      font-weight: 400;
+      font-size: 16px;
+      font-weight: 500;
+      color: #404040;
+      flex: 1;
+    }
+    .addAddressText {
+      width: 95px;
+      height: 30px;
+      color: #544300;
+      font-size: 14px;
+      text-align: right;
+      background-color: #fcda00;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      .rightIcon {
+        transform: rotate(180deg);
+        font-size: 18px;
+        position: relative;
+        color: #544300;
+        font-size: 16px;
+      }
+    }
+  }
+}

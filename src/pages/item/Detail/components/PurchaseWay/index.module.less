@@ -1,0 +1,134 @@
+.title {
+  margin-bottom: 6px;
+  color: rgba(30, 30, 30, 1);
+  font-weight: 500;
+  font-size: 16px;
+  // font-family: @PFFontMedium;
+}
+
+.subscribeWp {
+  padding-top: 10px;
+  padding-bottom: 8px;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item {
+    position: relative;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 100px;
+    height: 119px;
+    margin-right: 8px;
+    padding: 17px 0;
+    overflow: visible;
+    color: #292929;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid rgba(239, 242, 244, 1);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.08);
+
+    .payWayTitle {
+      margin: 0 0 3px;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    &.active {
+      background-color: #fff2f0;
+      border: 1px solid rgba(255, 16, 2, 1);
+    }
+
+    &.disabled {
+      color: #9a9a9a;
+      background: #f8f8fa;
+
+      .byStagePriceContainer {
+        color: #9a9a9a;
+      }
+    }
+
+    .byStagePriceContainer {
+      color: #fe5867;
+      font-weight: 600;
+      line-height: 34px;
+
+      .byStagePriceLabel {
+        font-size: 12px;
+      }
+
+      .byStagePrice {
+        font-size: 24px;
+      }
+    }
+
+    .detailContainer {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      height: 35px;
+      color: #acb2bb;
+      font-weight: 400;
+      font-size: 12px;
+
+      .nextPrice {
+        display: flex;
+        align-items: center;
+      }
+
+      .tipIcon {
+        width: 16px;
+        height: 16px;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAYAAABX5MJvAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAO+SURBVHgB7VddbttGEJ7ZpfOsnqDMCaqcoBJQuzCK2CEc91XyCRyfwNIJGp/A6mvdgJKDwIBdQLpB3BOEuYGAJE/i7mR2yZVIailRQB7ykA8gRO3O7nw7v0uAH/iOgLAj4njaSoO0LQja/Pdn3qIFQHN+/6gRHk+f789gRzQmcfP2ocOKjwmwz0pbG7aco4CxkHIYHXYT+BYkzMm1TC8J4BXsCBQ4akIGtxAItVBTQgrdGBE88s8EBMyCIE3ceJoGIWjoCKAeIYYrBZiIPdndRAQ3EVBSvXemR6BEI5418fmb2/s+EFw6MtuIiDoCxgKOABH9LdSXZ02D7uToYCT03jNWPrbrgUK9UNP4bhr65APfoJbq0ix0BE6PD/qwI6KoazImupncjxCxZ/ZTi/Sax7pV2TV3GFNyBlxnk5TwqZ5WZbJM4Y0JOpYop6hAujIWqMqawFYinfJmbSuL0K1adM0dTKC3nNxTXR9JJJiy4j6YgOUHWYEh/u/twxQ8FiEBF8tTc6xUZUSFdcg/HUuG9CQ6PExgDVisEfP8cegYK1VX5CefOZn47i6sJcH14MVSFcoReHBytP+a3XTGEtHLo/2fzMM2vlptkh3CQ34pky6CF8WZcmAi/Mr+sJBKzqAGRd/bTAJ1TO5USIlvjdlPyTSTEfhLca5kCQ40Z+p5Ht0bUS1mJpA5jmY+WbsfYWL16FXxWyPBQvkkbiVgsEZAsi5vHFXh9GQou0NwNyRohPjdfVupkgW6zQiAMXnpkCVLcNFIcqkW7AB246QRAdeDEOpJkMaP+WvLl2pFRH8cPNosIbqST9Rr2AJjuZUi+r84V3IHCRpzMTm3f7TuwCq3vfBVyDpoJc4h9zWJrKc4lMq2LbEy/cCvxh1zqYKndVmSddn02mQUBXT2J1sGamDvJEK9N0HsawUld9gSS+CKir3M1G2cF7aOKdlC4V+wATrQ5y6LNDfE6vxa7wh0YPxrT29uU3Wxwb0ice98g0qgBmY9t4CBlWMrBE/0aCuJzPx4tlRAEP9TDKocL49+G5vAZH9eiMWnC/AgfjdtI2FcGBr6sqj2ZnUzeRiwqZfu4PfByfP9ITRE/Pa/c0W0zBq2xvD0+PeBT3bjHXONiHWBHgq1N/YFbH4p7nNc9dz9YRuBrSQM3tw+vOLYMESqBWzGzxzzEs8B18aC4hxzXjs85c67SUej7444vguVkAP2SQ8aIrvuL4ZNKulOX2CGjJayk9++zKmrFxyuojAR6vMoiqJGTfCbII7jnfrMD2zCV0qTzVhiQc+/AAAAAElFTkSuQmCC');
+        background-size: 100%;
+      }
+    }
+
+    .subDiscount {
+      position: absolute;
+      top: 0;
+      left: -1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 10px;
+      color: #fff;
+      font-weight: 400;
+      font-size: 12px;
+      background: #ff644c;
+      border-radius: 10px 10px 10px 0;
+      transform: translate(0, -50%);
+    }
+
+    .recommandText {
+      position: absolute;
+      top: 0;
+      left: -1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 10px;
+      color: #ff644c;
+      font-weight: 400;
+      font-size: 12px;
+      background: #ffe9eb;
+      border-radius: 10px 10px 10px 0;
+      transform: translate(0, -50%);
+    }
+  }
+}
+
+.subscribeDescription {
+  margin-bottom: 16px;
+  color: #acb2bb;
+  font-size: 12px;
+  line-height: 150%;
+}

@@ -1,0 +1,105 @@
+.loginBar {
+  height: 44px;
+  background: rgba(104, 100, 95, 0.26);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  * {
+    box-sizing: border-box;
+  }
+  .noLogin {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    .logo {
+      display: flex;
+      align-items: center;
+      .jojoLogo {
+        width: 33px;
+        height: 33px;
+        background: url('@/assets/images/jojo/userhead_icon.png') no-repeat center/cover;
+        border-radius: 33px;
+        border: 1px solid #f0ead3;
+        box-sizing: content-box;
+      }
+      .jojoupLogo {
+        width: 33px;
+        height: 33px;
+        background: url('@/assets/images/jojoup/userhead_icon.png') no-repeat center/cover;
+        border-radius: 33px;
+        border: 1px solid #f0ead3;
+        box-sizing: content-box;
+      }
+      .unLoginText {
+        color: #fff;
+        font-size: 12px;
+        padding-left: 5px;
+      }
+    }
+
+    .login_btn {
+      width: 50px;
+      height: 24px;
+      border: 1px solid #fcda00;
+      border-radius: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      color: #544300;
+      font-size: 12px;
+    }
+  }
+  .hasLogin {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    .user_info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .head_img {
+        height: 33px;
+        width: 33px;
+        background: no-repeat center/contain;
+        border-radius: 33px;
+        background-color: #ccc;
+      }
+      .user_name {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        font-size: 12px;
+        padding-left: 5px;
+        .user_name_text {
+          color: #fff;
+        }
+        .user_phone {
+          color: #fff;
+        }
+      }
+    }
+    .login_btn {
+      border-radius: 16px;
+      width: 60px;
+      height: 24px;
+      border: 1px solid #fcda00;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      color: #544300;
+      font-size: 12px;
+    }
+  }
+}

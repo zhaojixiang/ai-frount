@@ -1,0 +1,29 @@
+stages:
+  - all
+  - fee_unit
+
+fee_unit:
+  stage: fee_unit
+  variables:
+    BUILD_COMMAND: 'pnpm install && pnpm jest'
+  script:
+    - '/usr/bin/env bash $CI_BUILDS_DIR/ci/fee_unit_v2.sh'
+  only:
+    refs:
+      - /^[t|v]\d+\.\d+\.\d+$/
+  tags:
+    - ecs
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+
+all:
+  stage: all
+  script:
+    - '/usr/bin/env bash $CI_BUILDS_DIR/ci/build.sh'
+  when: manual
+  only:
+    refs:
+      - /^[t|v]\d+\.\d+\.\d+$/
+  except:
+    - branches
+  tags:
+    - ecs

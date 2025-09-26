@@ -1,0 +1,90 @@
+:root {
+  /* 主要颜色 */
+  //   --primary-color: #fd5825;
+  //   --secondary-color: #fe5867;
+  //   --success-color: #52c41a;
+  //   --warning-color: #f70;
+  //   --error-color: #ff644c;
+
+  /* 文字颜色 */
+  // --text-color-primary: #404040;
+  --text-color-price: #fd5825;
+  --text-color-btn: #544300;
+  --text-color-disabled: #acb2bb;
+  //   --text-color-placeholder: #acb2bb;
+  //   --text-color-heading: rgba(30, 30, 30, 1);
+
+  //   /* 背景颜色 */
+  --bg-color-primary: #fcda00;
+  --bg-color-white: #fff;
+  --bg-color-disabled: #e9ecf0;
+  //   --bg-color-disabled: #f8f8fa;
+  //   --bg-color-warning: #ffecdc;
+  //   --bg-color-tip: #ffe9eb;
+  //   --bg-color-promotion: #fff2f0;
+
+  //   /* 边框颜色 */
+  --border-color-default: #fafafa;
+  //   --border-color-light: #f5f4f4;
+  //   --border-color-disabled: #e9ecf0;
+
+  //   /* 其他功能性颜色 */
+  //   --link-color: #1890ff;
+  //   --highlight-color: #fcda00;
+  //   --tag-color: #544300;
+  //   --tag-bg-color: #fcf3ba;
+}
+
+// 关闭按钮
+.close {
+  width: 16px;
+  height: 16px;
+  background: url('@/assets/images/close.png') no-repeat center/contain;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+
+.adm-center-popup-wrap {
+  max-width: 100% !important;
+}
+
+// toast
+.adm-toast-mask {
+  .adm-toast-main {
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+  }
+  .adm-toast-main-icon {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    .adm-toast-icon {
+      margin-right: 6px;
+      margin-bottom: 0;
+    }
+  }
+}
+// loading
+.loadingMask {
+  .adm-toast-main {
+    flex-direction: column;
+  }
+  .adm-toast-main-icon {
+    min-width: 80px;
+    .adm-toast-icon {
+      margin-bottom: 4px;
+      margin-right: 0;
+    }
+  }
+}
+.adm-center-popup-wrap {
+  transition-duration: 10ms !important;
+}

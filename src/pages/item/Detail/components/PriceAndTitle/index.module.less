@@ -1,0 +1,178 @@
+.priceContainer {
+  .priceZone {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 8px 4px 16px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.05);
+
+    .priceShow {
+      width: 100%;
+      .price {
+        display: flex;
+        justify-content: flex-start;
+
+        .priceTextWrap {
+          font-size: 24px;
+          color: #fd5825;
+          font-weight: 600;
+          //   font-family: @defaultFont;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          .originPrice {
+            font-size: 24px;
+            color: #fd5825;
+            font-weight: 600;
+            // font-family: @defaultFont;
+            .priceSymbol {
+              font-size: 18px;
+            }
+            .original {
+              font-size: 16px;
+              padding-left: 8px;
+              padding-top: 5px;
+              padding-bottom: 3px;
+              font-weight: 400;
+              color: #666;
+              .line {
+                display: inline-block;
+                width: 1px;
+                height: 12px;
+                background-color: #e0dfdf;
+                margin-right: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .priceDesc {
+        font-size: 12px;
+        color: #c4c3c3;
+        font-weight: 400;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        display: flex;
+        align-items: center;
+        .icon {
+          display: inline-block;
+          width: 14px;
+          height: 14px;
+          margin-right: 2px;
+          background: url('@/assets/images/info_icon.png') no-repeat center/contain;
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+  }
+
+  .titleZone {
+    position: relative;
+    margin-bottom: 8px;
+    padding: 0 10px 0 20px;
+    background-color: #fff;
+    .tags {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 6px;
+      margin-top: -7px;
+      .line {
+        height: 12px;
+        width: 2px;
+        background-color: #ff9c8c;
+        margin: 0 5px;
+      }
+      .tagItem {
+        display: flex;
+        align-items: center;
+        color: #ff715c;
+        font-weight: 500;
+        font-size: 12px;
+        .couponIcon {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 2px;
+          background: no-repeat center/contain;
+          background-image: url('@/assets/images/coupon_icon.png');
+        }
+
+        .discountIcon {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 2px;
+          background: no-repeat center/contain;
+          background-image: url('@/assets/images/discount_icon.png');
+        }
+      }
+    }
+
+    .titleTextWp {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      .subscribe_tag {
+        width: 44px;
+        height: 22px;
+        background: linear-gradient(140deg, rgba(255, 88, 79, 0.4) 19.17%, #ff584f 84.66%), #ff9045;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 6px;
+        color: #fff;
+        margin-right: 5px;
+      }
+      .payAfterTag {
+        width: max-content;
+        background: linear-gradient(140deg, rgba(47, 128, 237, 0.4) 19.17%, #2f80ed 84.66%), #3bf;
+        padding: 4px 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 6px;
+        color: #fff;
+        margin-right: 10px;
+      }
+      .titleText {
+        width: 80%;
+        flex: 1;
+        min-width: 0;
+        color: rgba(0, 0, 0, 1);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        font-weight: 500;
+        font-size: 18px;
+        // font-family: @PFFontMedium;
+        line-height: 20px;
+      }
+      .share {
+        width: 42px;
+        color: rgba(179, 200, 211, 1);
+        font-weight: 400;
+        font-size: 10px;
+        flex-shrink: 0;
+        .shareIcon {
+          background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAOkSURBVHgB7ZlNUhpBFMffa6wIrsgJQk4As0oJlSrYJIEsxBOoJ1BPIJ4gegLxBJJFFNxAFoJZwZgDZHICXemYqumXbiCGj+mhZzIjlar5bRhmuod+3a//7/UDICYm5r8GYUlc9PpFBHZCwEvldcOCgKzoNjzr99Nr9souARWRKEcIad2+iNi4X3V2Ng3jbuZRRhjR/nLV3/xYMAYQAKbT6PLa3F17YD/EbNVAGOBn8BIiqibvE1XF48wKY+3z7k0VArDQgNY384ATHPkdtB8IIM2Qzlq97wfgE08D5MwThxo8E3KF/RqhNEBssoyY+T0IC+5YOs2kEc3ezQloot7EPFEERhnFrwyAofamI3K+lt8aHdCGtpvXZo6Iby5SKKUByGDL9dUcDsuFbA2ihiAnFUp4gqfMKuNAq2veumxc68N69jUE4PKqnyO2skHIq3JwPrpaDudKmVXuAVfVITDBJzJ+XHTNOmesP5Rhf4OXDGVWqKGrR2jFgScQb/00l7Oeslkf0d0ddZEyK1y37qZQ/gzwgZwxOeviMgMhIVfwvGtOKWMkBsiZBweOIAIY4sbkd+1cSJdh/AB2Ji5Dj9wiDxN7kO9M3gt/BYjVIES3eXotwamdpOKspIa6AqMU+d82rBsiIziu5LOuWUGoBiAkDoaaocYSStYhh36KxhkddZKBs+IROEMzQM6+TLVn7yPBHUd+LC7rk8s/as+UBoz77ZcLRh08CG8FiG3PxnW59I8pXnM5yCzCQpkH5RcfckIxoN3upx+n3cESmr1TyftJ4Kb6lt4V9I6ZoRhgv0hU8a/vW0HPuSOZpKqfvqEYQEi5sfcEH7yUyRTtTbpbU0RdQryzk05D5YahGIDIG0hsS2y6YIOfSdFlApi0sSMus3JlU3ZCumfJrW8oBohBd8THSwgAJ75fKRhPaYeM5GizNkwFw3l1+0PoqYQuSRsGdpKX5ja6jOSoH8mXZkCpNPTpzux9UUN6tSAYThFZOv1cxAYsG6UBMheZuyeCDESOaynHUrX2ONTP133k2bTVvfkEESC1f1zQysw/RUvVT61C5HwWxaHi3G2kvWbPrHq9NAj4ICve5HqKI3BOlf1UD2SC9mtVVKQjLOpq4lmLUrrQSKenz5/LgDO+7/XcU4Xe542GSM4OYUkMT2NvjIZXG62/mER+si3qlLKolIHnYXieGOdYnvj6j0wawjCxQVxIXQR7Q6QRA4fD6WPK6QQ4xcXExMQsgd9M6pEQObSAlQAAAABJRU5ErkJggg==)
+            center center no-repeat;
+          background-size: contain;
+          padding-top: 20px;
+          text-align: center;
+          background-position: center top;
+          background-size: 50% auto;
+        }
+      }
+    }
+  }
+}

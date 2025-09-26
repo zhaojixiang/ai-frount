@@ -1,0 +1,63 @@
+.priceWrap {
+  width: 335px;
+  border-radius: 10px;
+  padding: 8px 16px 16px;
+  * {
+    box-sizing: border-box;
+  }
+  .itemBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    .check {
+      width: 24px;
+      height: 24px;
+      background-color: #fcda00;
+      font-size: 14px;
+    }
+    .noCheck {
+      width: 24px;
+      height: 24px;
+      border-width: 2px;
+    }
+    .label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      .payAfterTips {
+        font-size: 12px;
+        color: #666;
+        padding-left: 10px;
+      }
+      .labelIcon {
+        width: 24px;
+        height: 24px;
+        margin-right: 2px;
+        background: no-repeat center/contain;
+        &.alipayIcon {
+          background-image: url('@/assets/images/alipay.png');
+        }
+        &.wxpayIcon {
+          background-image: url('@/assets/images/wxpay.png');
+        }
+        &.aliscanIcon {
+          background-image: url('@/assets/images/aliscan.png');
+        }
+        &.payAfterIcon {
+          background-image: url('@/assets/images/payafter.png');
+        }
+        &.appleIcon {
+          width: 29px;
+          height: 29px;
+          background-image: url('@/assets/images/apple_Pay.png');
+        }
+        &.googleIcon {
+          width: 29px;
+          height: 29px;
+          background-image: url('@/assets/images/google_pay.png');
+        }
+      }
+    }
+  }
+}

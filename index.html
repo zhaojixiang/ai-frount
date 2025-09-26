@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  </head>
+  <style>
+    .loading-spinner {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 150px;
+      background: url('/src/assets/images/jojo/loadingV2.gif') no-repeat center/cover;
+      z-index: 9999;
+    }
+  </style>
+  <body>
+    <div id="root">
+      <span class="loading-spinner"></span>
+    </div>
+
+    <script type="module">
+      import('/src/main.tsx');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 888;
+  background: rgba(0, 0, 0, 0.7);
+  margin: 0;
+  color: #fff;
+  .top {
+    padding: 20px 15px 0 0;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    .guideArrow {
+      width: 165px;
+      height: 112px;
+      margin-left: 38px;
+      background: url(@/assets/images/guide-arrow.png) no-repeat center/cover;
+    }
+  }
+  .bottom {
+    margin: 10px 0 0 37px;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    .wxRightTopBtn {
+      width: 34px;
+      height: 17px;
+      margin-right: 5px;
+      margin-left: 5px;
+      background: url(@/assets/images/wx-right-top-btn.png) no-repeat center/cover;
+    }
+  }
+}
