@@ -29,7 +29,8 @@ const Index: React.FC<any> = () => {
   useEffect(() => {
     if (loading) {
       setPageStatus({
-        status: LoadStatus.Loading
+        status: LoadStatus.Loading,
+        option: {}
         // loadingElement: <Skeleton />
       });
     }

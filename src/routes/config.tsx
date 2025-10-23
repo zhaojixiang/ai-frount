@@ -9,6 +9,8 @@ const Coupon = lazy(() => import('@/pages/coupon/Coupon'));
 const Rules = lazy(() => import('@/pages/coupon/Rules'));
 const DeliveryDetail = lazy(() => import('@/pages/delivery/Detail'));
 const CreateOrder = lazy(() => import('@/pages/order/Create'));
+const RightsProtection = lazy(() => import('@/pages/rightsProtection'));
+const AddressPage = lazy(() => import('@/pages/rightsProtection/address'));
 
 export const routes = [
   {
@@ -26,7 +28,15 @@ export const routes = [
           { path: 'rules', element: <Rules /> }
         ]
       },
-      { path: '/delivery/detail', element: <DeliveryDetail /> }
+      { path: '/delivery/detail', element: <DeliveryDetail /> },
+      {
+        path: 'rightsProtection',
+        children: [
+          { index: true, element: <Navigate to='index' replace /> },
+          { path: 'index', element: <RightsProtection /> },
+          { path: 'address', element: <AddressPage /> }
+        ]
+      }
     ]
   }
 ];
