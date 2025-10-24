@@ -47,7 +47,8 @@ const RightsProtection = () => {
   // 异常状态页面展示
   const [errorPageStatus, setErrorPageStatus] = useState({
     visible: false,
-    message: ''
+    text: '',
+    type: 'error'
   });
   // 已保价页面展示
   const [successPageStatus, setSuccessPageStatus] = useState({
@@ -103,7 +104,8 @@ const RightsProtection = () => {
     } else {
       setErrorPageStatus({
         visible: true,
-        message: '获取订单保障规则失败'
+        text: '获取订单保障规则失败',
+        type: 'error'
       });
     }
 
@@ -134,6 +136,7 @@ const RightsProtection = () => {
     };
   };
 
+  // 生成name字符串
   const creatName = (skus: SkuItem[]) => {
     const result = skus
       .map((sku) => sku.skuName) // 取出每个 skuName
@@ -173,7 +176,8 @@ const RightsProtection = () => {
         } else {
           setErrorPageStatus({
             visible: true,
-            message: '获取订单保障规则失败'
+            text: '获取订单保障规则失败',
+            type: 'error'
           });
           setPageStatus({
             status: LoadStatus.Success
@@ -188,7 +192,8 @@ const RightsProtection = () => {
         } else {
           setErrorPageStatus({
             visible: true,
-            message: '获取订单信息出错'
+            text: '获取订单信息出错',
+            type: 'error'
           });
           setPageStatus({
             status: LoadStatus.Success
@@ -210,7 +215,8 @@ const RightsProtection = () => {
       } else {
         setErrorPageStatus({
           visible: true,
-          message: data?.errorMsg || '获取订单保障信息失败'
+          text: data?.errorMsg || '获取订单保障信息失败',
+          type: 'error'
         });
         setPageStatus({
           status: LoadStatus.Success
@@ -225,7 +231,8 @@ const RightsProtection = () => {
     if (!orderId) {
       setErrorPageStatus({
         visible: true,
-        message: '订单号不能为空'
+        text: '订单号不能为空',
+        type: 'error'
       });
       return;
     }
@@ -237,7 +244,7 @@ const RightsProtection = () => {
   }
 
   if (errorPageStatus.visible) {
-    return <ErrorPage />;
+    return <ErrorPage {...errorPageStatus} />;
   }
 
   const { classList, giftList } = productData;
@@ -320,7 +327,7 @@ const RightsProtection = () => {
         ) : (
           <>
             <div className={styles['protection-container']}>
-              {/* <LoginBar /> */}
+              <LoginBar isPopLogin={false} onLoginSuccess={() => window.location.reload()} />
               <img src={''} alt='' className={styles['protection-img']} />
               <div
                 className={styles.btn}
