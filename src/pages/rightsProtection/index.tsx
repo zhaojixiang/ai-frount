@@ -17,6 +17,13 @@ import ErrorPage from './components/errorPage';
 import SuccessPage from './components/successPage';
 import styles from './index.module.less';
 
+export const creatName = (skus: SkuItem[]) => {
+  const result = skus
+    .map((sku) => sku.skuName) // 取出每个 skuName
+    .filter((name) => name && name.trim() !== '') // 过滤空值（安全起见）
+    .join('、');
+  return result;
+};
 interface SkuItem {
   /** SKU ID */
   skuId: number;
@@ -136,13 +143,6 @@ const RightsProtection = () => {
   };
 
   // 生成name字符串
-  const creatName = (skus: SkuItem[]) => {
-    const result = skus
-      .map((sku) => sku.skuName) // 取出每个 skuName
-      .filter((name) => name && name.trim() !== '') // 过滤空值（安全起见）
-      .join('、');
-    return result;
-  };
 
   const initPage = async (oId: string) => {
     try {
@@ -239,7 +239,7 @@ const RightsProtection = () => {
   }, [orderId]);
 
   if (successPageStatus.visible) {
-    return <SuccessPage />;
+    return <SuccessPage {...productData} />;
   }
 
   if (errorPageStatus.visible) {
