@@ -9,8 +9,6 @@ import { type Utils } from './lib/utils/index.d';
 declare global {
   type ToastType = {
     show: (options: ToastShowProps) => void;
-    error: (options: ToastShowProps) => void;
-    success: (options: ToastShowProps) => void;
     close: () => void;
   };
   type LoadingType = {
