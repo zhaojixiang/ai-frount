@@ -761,11 +761,11 @@ const RightsProtection = () => {
       });
       return;
     }
-    const b = getCurrentPromotionList(a);
+    // const b = getCurrentPromotionList(a);
 
-    setPromotionData(b);
+    // setPromotionData(b);
 
-    // initPage(orderId);
+    initPage(orderId);
   }, [orderId]);
 
   if (successPageStatus.visible) {
@@ -795,7 +795,7 @@ const RightsProtection = () => {
       <main className={styles.main}>
         <title>{!hasMakeSure ? '权益升级页面' : '权益保障页面'}</title>
 
-        {!hasMakeSure ? (
+        {hasMakeSure ? (
           <>
             <div className={styles['upgrade-container']}>
               <div className={styles.tips}>
@@ -879,7 +879,8 @@ const RightsProtection = () => {
                     setModalStatus({
                       visible: true,
                       content: '确认后将为您更换新赠课赠品，原有赠课赠品将会被回收',
-                      btnText: '确认升级'
+                      btnText: '确认升级',
+                      type: 'submit'
                     });
                   }}>
                   确认升级赠品
