@@ -1,3 +1,4 @@
+import { Toast } from 'antd-mobile';
 import dayjs from 'dayjs';
 import { cloneDeep, isEmpty } from 'lodash-es';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -160,6 +161,7 @@ const a = [
             productGroupName: '促销赠品组',
             // 是否为固定赠品
             fixedGift: true,
+            skuType: '',
             // 发货时机
             shipMoment: 'IMMEDIATE'
           },
@@ -170,9 +172,9 @@ const a = [
             skuName: '精美礼品盒10002',
             skuImageUrl:
               'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券
-            resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
+            resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
             // 是否和首期发货
-            mergeDelivery: true,
+            mergeDelivery: false,
             // 赠品上限数量
             giftMaxNum: 1,
             // 赠品已使用数量
@@ -183,6 +185,8 @@ const a = [
             productGroupName: '促销赠品组',
             // 是否为固定赠品
             fixedGift: true,
+            skuType: '',
+
             // 发货时机
             shipMoment: 'IMMEDIATE'
           }
@@ -247,6 +251,8 @@ const a = [
             // 是否和首期发货
             mergeDelivery: true,
             // 赠品上限数量
+            skuType: '',
+
             giftMaxNum: 1,
             // 赠品已使用数量
             giftUsedNum: 0,
@@ -255,7 +261,7 @@ const a = [
             // 产品组名称
             productGroupName: '促销赠品组',
             // 是否为固定赠品
-            fixedGift: false,
+            fixedGift: true,
             // 发货时机
             shipMoment: 'IMMEDIATE'
           },
@@ -278,7 +284,7 @@ const a = [
             // 产品组名称
             productGroupName: '促销赠品组',
             // 是否为固定赠品
-            fixedGift: false,
+            fixedGift: true,
             // 发货时机
             shipMoment: 'IMMEDIATE'
           }
@@ -313,7 +319,9 @@ const a = [
             // 产品组名称
             productGroupName: '促销赠品组',
             // 是否为固定赠品
-            fixedGift: true,
+            fixedGift: false,
+            skuType: 'ENTITY',
+
             // 发货时机
             shipMoment: 'IMMEDIATE'
           },
@@ -336,7 +344,7 @@ const a = [
             // 产品组名称
             productGroupName: '促销赠品组',
             // 是否为固定赠品
-            fixedGift: true,
+            fixedGift: false,
             // 发货时机
             shipMoment: 'IMMEDIATE'
           }
@@ -483,11 +491,11 @@ const RightsProtection = () => {
     //   hitPromotionList?.filter((item: any) => item.giftStrategy === 'NORMAL_GIFT') ?? [];
     // const choiceList =
     //   hitPromotionList?.filter((item: any) => item.giftStrategy === 'CHOICES_GIFT') ?? [];
-    if (normalList.length > 1 && choiceList.length > 0) {
+    if (normalList.length > 0 && choiceList.length > 0) {
       type = 'MIX_GIFT';
-    } else if (normalList.length > 1 && choiceList.length === 0) {
+    } else if (normalList.length > 0 && choiceList.length === 0) {
       type = 'NORMAL_GIFT';
-    } else if (normalList.length === 1 && choiceList.length > 0) {
+    } else if (normalList.length === 0 && choiceList.length > 0) {
       type = 'CHOICES_GIFT';
     } else {
       setErrorPageStatus({
@@ -630,6 +638,16 @@ const RightsProtection = () => {
     }
   };
 
+  const getSelectStatus = () => {
+    // 如果数组为空，直接返回 true
+    if (!choicesChoiceData || choicesChoiceData.length === 0) {
+      return true;
+    }
+
+    // 遍历每个 item，检查 skuIds 长度是否等于 giftOptionalNum
+    return choicesChoiceData.every((item: any) => item.skuIds.length === item.giftOptionalNum);
+  };
+
   // 地址填写后调用
   const onAddressSubmit = (addressId: number) => {
     if (addressId) {
@@ -734,20 +752,23 @@ const RightsProtection = () => {
 
   const Empty = classList.length === 0 && giftList.length === 0;
 
+  console.log(choicesChoiceData, 'ia m choicesChoiceData');
+
   return (
     <StateHandler options={pageStatus}>
+      <SubmitModal
+        {...modalStatus}
+        onCancel={() =>
+          setModalStatus({
+            ...modalStatus,
+            visible: false
+          })
+        }
+        onSubmit={onSubmit}
+      />
       <main className={styles.main}>
-        <SubmitModal
-          {...modalStatus}
-          onCancel={() =>
-            setModalStatus({
-              ...modalStatus,
-              visible: false
-            })
-          }
-          onSubmit={onSubmit}
-        />
         <title>{!hasMakeSure ? '权益升级页面' : '权益保障页面'}</title>
+
         {!hasMakeSure ? (
           <>
             <div className={styles['upgrade-container']}>
@@ -824,6 +845,11 @@ const RightsProtection = () => {
                 <div
                   className={styles.btn}
                   onClick={() => {
+                    const isSelectAll = getSelectStatus();
+                    if (!isSelectAll) {
+                      Toast.show('请先选择赠品');
+                      return;
+                    }
                     setModalStatus({
                       visible: true,
                       content: '确认后将为您更换新赠课赠品，原有赠课赠品将会被回收',

@@ -134,14 +134,14 @@ const ChoiceGift = (props: any) => {
       {/* 普通奖池用户选择 */}
       {giftPoolsType !== 'CHOICES_GIFT' ? (
         <>
-          <div className={styles['choice-class']}>
+          <div className={styles['choice-class']} key='normal-choice-class'>
             {normalClassList.length > 0 && (
-              <div className={styles['choice-class-header']}>
+              <div className={styles['choice-class-header']} key='normal-choice-class-header'>
                 <img src={ClassIcon} alt='' className={styles['choice-class-icon']} />
                 <div className={styles['choice-class-title']}>赠课</div>
               </div>
             )}
-            <div className={styles['choice-list']}>
+            <div className={styles['choice-list']} key='normal-choice-class-list'>
               {normalClassList?.map((item: GiftSku) => {
                 const isEmpty = item?.giftMaxNum - item?.giftUsedNum <= 0;
                 return (
@@ -156,14 +156,14 @@ const ChoiceGift = (props: any) => {
               })}
             </div>
           </div>
-          <div className={styles['choice-gift']}>
+          <div className={styles['choice-gift']} key='normal-choice-gift'>
             {normalGiftList.length > 0 && (
-              <div className={styles['choice-gift-header']}>
+              <div className={styles['choice-gift-header']} key='normal-choice-gift-header'>
                 <img src={GiftIcon} alt='' className={styles['choice-gift-icon']} />
                 <div className={styles['choice-gift-title']}>赠品</div>
               </div>
             )}
-            <div className={styles['choice-list']}>
+            <div className={styles['choice-list']} key='normal-choice-gift-list'>
               {normalGiftList?.map((item: GiftSku) => {
                 const isEmpty = item?.giftMaxNum - item?.giftUsedNum <= 0;
                 return (
@@ -192,10 +192,11 @@ const ChoiceGift = (props: any) => {
                 <div
                   className={cx(
                     styles['choice-class'],
-                    giftPoolsType !== 'MIX_GIFT' && styles['choice-class-mix']
-                  )}>
+                    giftPoolsType !== 'NORMAL_GIFT' && styles['choice-class-mix']
+                  )}
+                  key={poolItem.poolId}>
                   {giftSkus?.length > 0 && (
-                    <div className={styles['choice-class-header']}>
+                    <div className={styles['choice-class-header']} key='mn-choice-class-header'>
                       <img src={ClassIcon} alt='' className={styles['choice-class-icon']} />
                       <div className={styles['choice-class-title']}>{poolItem?.poolName}</div>
                       <div
@@ -205,7 +206,7 @@ const ChoiceGift = (props: any) => {
                     </div>
                   )}
 
-                  <div className={styles['choice-list']}>
+                  <div className={styles['choice-list']} key={'mn-choice-class-list'}>
                     {giftSkus?.map((item: GiftSku) => {
                       const isEmpty = item?.giftMaxNum - item?.giftUsedNum <= 0;
                       const Selected = selectedSkuIds.includes(item?.skuId);

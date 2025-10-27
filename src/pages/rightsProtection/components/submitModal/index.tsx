@@ -7,6 +7,7 @@ const SubmitModal = (props) => {
   return (
     <Mask
       visible={visible}
+      opacity='thin'
       onMaskClick={() => {
         onCancel();
       }}
