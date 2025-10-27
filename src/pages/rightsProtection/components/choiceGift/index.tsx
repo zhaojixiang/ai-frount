@@ -9,581 +9,18 @@ import GiftIcon from '@/assets/images/jojo/rightsProtection/gift.png';
 import SelectedIcon from '@/assets/images/jojo/rightsProtection/selected.png';
 import UnselectIcon from '@/assets/images/jojo/rightsProtection/unselect.png';
 
+import type { GiftPool, GiftSku } from '../../index';
 import styles from './index.module.less';
 
 const ChoiceGift = (props: any) => {
-  const { giftPoolsType, /* PromotionList */ onUserHandleClick, choicesChoiceData } = props;
-  const normalList = [
-    {
-      // 是否命中促销
-      hitPromotion: true,
-      // 命中的促销活动ID
-      promotionId: 123456789,
-      // 命中的促销活动版本号
-      promotionVersion: 1,
-      //赠送策略， 赠送策略：NORMAL_GIFT-普通赠送；CHOICES_GIFT-M选N
-      giftStrategy: 'NORMAL_GIFT',
-      // SKU ID
-      skuId: 10001,
-      // 标准价格
-      price: 10000,
-      // 促销价格
-      promotionPrice: 8000,
-      // 立减金额
-      discountAmount: 2000,
-      // 赠品池信息列表
-      giftPools: [
-        {
-          // 赠品池ID
-          poolId: 5001,
-          // 赠品池名称
-          poolName: '双十一专属赠品池',
-          // 赠品总可选数量
-          giftOptionalNum: 3,
-          //赠品池数量如何判断？ giftSkus.size() 已确认
-          // 赠品SKU信息列表
-          giftSkus: [
-            {
-              // 赠品SKU ID
-              skuId: 20000,
-              // 赠品SKU名称
-              skuName: '精美礼品盒1',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: 'ENTITY',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 20001,
-              // 赠品SKU名称
-              skuName: '精美礼品盒2',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 20002,
-              // 赠品SKU名称
-              skuName: '精美礼品盒3',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 20003,
-              // 赠品SKU名称
-              skuName: '精美礼品盒4',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 1,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            }
-          ]
-        }
-      ],
-      // 目标用户ID
-      targetUserId: 100001,
-      // 规则冲突策略：COUPON_FIRST-优惠券优先；DISCOUNT_COUPON_COMBINATION-立减、优惠券叠加
-      ruleConflictStrategy: 'COUPON_FIRST',
-      // 促销信息（具体结构参考PromotionInfoResp类）
-      promotionInfo: {
-        // 促销活动名称
-        promotionName: '双十一大促',
-        // 促销类型
-        promotionType: 'DISCOUNT'
-      },
+  const {
+    giftPoolsType,
+    normalList = [],
+    choiceList = [],
+    onUserHandleClick,
+    choicesChoiceData
+  } = props;
 
-      // 匹配促销规则时间（时间戳）
-      matchedRuleTime: 1704067200000
-    },
-    {
-      // 是否命中促销
-      hitPromotion: true,
-      // 命中的促销活动ID
-      promotionId: 123456789,
-      // 命中的促销活动版本号
-      promotionVersion: 1,
-      //赠送策略， 赠送策略：NORMAL_GIFT-普通赠送；CHOICES_GIFT-M选N
-      giftStrategy: 'NORMAL_GIFT',
-      // SKU ID
-      skuId: 10002,
-      // 标准价格
-      price: 10000,
-      // 促销价格
-      promotionPrice: 8000,
-      // 立减金额
-      discountAmount: 2000,
-      // 赠品池信息列表
-      giftPools: [
-        {
-          // 赠品池ID
-          poolId: 5002,
-          // 赠品池名称
-          poolName: '双十一专属赠品池',
-          // 赠品总可选数量
-          giftOptionalNum: 3,
-          //赠品池数量如何判断？ giftSkus.size() 已确认
-          // 赠品SKU信息列表
-          giftSkus: [
-            {
-              // 赠品SKU ID
-              skuId: 20004,
-              // 赠品SKU名称
-              skuName: '汉字真神奇汉字真神奇汉字真神奇汉字真神奇1',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 20005,
-              // 赠品SKU名称
-              skuName: '汉字真神奇汉字真神奇汉字真神奇汉字真神奇2',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            }
-          ]
-        }
-      ],
-      // 目标用户ID
-      targetUserId: 100001,
-      // 规则冲突策略：COUPON_FIRST-优惠券优先；DISCOUNT_COUPON_COMBINATION-立减、优惠券叠加
-      ruleConflictStrategy: 'COUPON_FIRST',
-      // 促销信息（具体结构参考PromotionInfoResp类）
-      promotionInfo: {
-        // 促销活动名称
-        promotionName: '双十一大促',
-        // 促销类型
-        promotionType: 'DISCOUNT'
-      },
-
-      // 匹配促销规则时间（时间戳）
-      matchedRuleTime: 1704067200000
-    }
-  ];
-
-  const choiceList = [
-    {
-      // 是否命中促销
-      hitPromotion: true,
-      // 命中的促销活动ID
-      promotionId: 123456789,
-      // 命中的促销活动版本号
-      promotionVersion: 1,
-      //赠送策略， 赠送策略：NORMAL_GIFT-普通赠送；CHOICES_GIFT-M选N
-      giftStrategy: 'CHOICES_GIFT',
-      // SKU ID
-      skuId: 10001,
-      // 标准价格
-      price: 10000,
-      // 促销价格
-      promotionPrice: 8000,
-      // 立减金额
-      discountAmount: 2000,
-      // 赠品池信息列表
-      giftPools: [
-        {
-          // 赠品池ID
-          poolId: 5001,
-          // 赠品池名称
-          poolName: '双十一专属赠品池1',
-          // 赠品总可选数量
-          giftOptionalNum: 2,
-          //赠品池数量如何判断？ giftSkus.size() 已确认
-          // 赠品SKU信息列表
-          giftSkus: [
-            {
-              // 赠品SKU ID
-              skuId: 20000,
-              // 赠品SKU名称
-              skuName: '精美礼品盒1',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 20001,
-              // 赠品SKU名称
-              skuName: '精美礼品盒2',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 20002,
-              // 赠品SKU名称
-              skuName: '精美礼品盒3',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 20003,
-              // 赠品SKU名称
-              skuName: '精美礼品盒4',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 1,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            }
-          ]
-        }
-      ],
-      // 目标用户ID
-      targetUserId: 100001,
-      // 规则冲突策略：COUPON_FIRST-优惠券优先；DISCOUNT_COUPON_COMBINATION-立减、优惠券叠加
-      ruleConflictStrategy: 'COUPON_FIRST',
-      // 促销信息（具体结构参考PromotionInfoResp类）
-      promotionInfo: {
-        // 促销活动名称
-        promotionName: '双十一大促',
-        // 促销类型
-        promotionType: 'DISCOUNT'
-      },
-
-      // 匹配促销规则时间（时间戳）
-      matchedRuleTime: 1704067200000
-    },
-    {
-      // 是否命中促销
-      hitPromotion: true,
-      // 命中的促销活动ID
-      promotionId: 123456789,
-      // 命中的促销活动版本号
-      promotionVersion: 1,
-      //赠送策略， 赠送策略：NORMAL_GIFT-普通赠送；CHOICES_GIFT-M选N
-      giftStrategy: 'CHOICES_GIFT',
-      // SKU ID
-      skuId: 10001,
-      // 标准价格
-      price: 10000,
-      // 促销价格
-      promotionPrice: 8000,
-      // 立减金额
-      discountAmount: 2000,
-      // 赠品池信息列表
-      giftPools: [
-        {
-          // 赠品池ID
-          poolId: 5002,
-          // 赠品池名称
-          poolName: '双十一专属赠品池2',
-          // 赠品总可选数量
-          giftOptionalNum: 2,
-          //赠品池数量如何判断？ giftSkus.size() 已确认
-          // 赠品SKU信息列表
-          giftSkus: [
-            {
-              // 赠品SKU ID
-              skuId: 30000,
-              // 赠品SKU名称
-              skuName: '3精美礼品盒1',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 30001,
-              // 赠品SKU名称
-              skuName: '3精美礼品盒2',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 30002,
-              // 赠品SKU名称
-              skuName: '精美礼品盒3',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 0,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            },
-            {
-              // 赠品SKU ID
-              skuId: 30003,
-              // 赠品SKU名称
-              skuName: '3精美礼品盒4',
-              skuImageUrl:
-                'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联
-              skuType: '',
-              // 库存ID
-              stockId: 30001,
-              skuStock: 1, //可用库存 新的rpc没有 需要新增
-              resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
-              // 是否和首期发货
-              mergeDelivery: true,
-              // 赠品上限数量
-              giftMaxNum: 1,
-              // 产品组ID
-              productGroupId: 4001,
-              // 产品组名称
-              productGroupName: '促销赠品组',
-              // 赠品已使用数量
-              giftUsedNum: 1,
-              // 是否为固定赠品
-              fixedGift: false,
-              // 发货时机
-              shipMoment: 'IMMEDIATE'
-            }
-          ]
-        }
-      ],
-      // 目标用户ID
-      targetUserId: 100001,
-      // 规则冲突策略：COUPON_FIRST-优惠券优先；DISCOUNT_COUPON_COMBINATION-立减、优惠券叠加
-      ruleConflictStrategy: 'COUPON_FIRST',
-      // 促销信息（具体结构参考PromotionInfoResp类）
-      promotionInfo: {
-        // 促销活动名称
-        promotionName: '双十一大促',
-        // 促销类型
-        promotionType: 'DISCOUNT'
-      },
-
-      // 匹配促销规则时间（时间戳）
-      matchedRuleTime: 1704067200000
-    }
-  ];
   // 普通赠品奖池
   const [normalPools, setNormalPools] = useState<any>({
     normalClassList: [],
@@ -594,7 +31,7 @@ const ChoiceGift = (props: any) => {
 
   const onHanldeClick = (poolId: number, skuId: number, needAddress: boolean) => {
     const newlist = cloneDeep(choicesChoiceData);
-    const isEditeItem = newlist.find((item: any) => item.poolId === poolId);
+    const isEditeItem = newlist.find((item: GiftPool) => item.poolId === poolId);
     if (!Array.isArray(isEditeItem?.skuIds) || isEditeItem.length === 0) {
       Toast.show({
         content: '出错了，请重试',
@@ -632,26 +69,26 @@ const ChoiceGift = (props: any) => {
     const defaultChoiceData: any = [];
 
     if (Array.isArray(normalList) && normalList.length > 0) {
-      const flatGiftPools = normalList
-        .filter((item) => item.giftPools?.length > 0)
-        .flatMap((item) => item.giftPools);
+      // const flatGiftPools = normalList
+      //   .filter((item) => item.giftPools?.length > 0)
+      //   .flatMap((item) => item.giftPools);
       // 遍历所有赠品池
 
-      flatGiftPools?.forEach((poolItem) => {
+      normalList?.forEach((poolItem) => {
         const isneedAddress =
-          poolItem?.giftSkus?.some((skusItem) => skusItem?.skuType === 'ENTITY') || false;
+          poolItem?.giftSkus?.some((skusItem: GiftSku) => skusItem?.skuType === 'ENTITY') || false;
         normalChoiceData.push({
           poolId: poolItem?.poolId,
           skuIds: poolItem?.giftSkus
-            ?.filter((skusItem) => skusItem?.giftMaxNum - skusItem?.giftUsedNum > 0)
-            ?.map((skusItem) => skusItem?.skuId)
-            ?.filter((skuId) => skuId !== undefined),
+            ?.filter((skusItem: GiftSku) => skusItem?.giftMaxNum - skusItem?.giftUsedNum > 0)
+            ?.map((skusItem: GiftSku) => skusItem?.skuId)
+            ?.filter((skuId: GiftSku) => skuId !== undefined),
           needAddress: isneedAddress
         });
       });
 
       // 遍历所有奖品池与奖品SKU
-      const flatGiftSkus = flatGiftPools.flatMap((pool) => pool.giftSkus);
+      const flatGiftSkus = normalList.flatMap((pool) => pool.giftSkus);
       // 获取赠课奖池list
       const normalClassList = flatGiftSkus.filter((sku) => sku.resourcePlatform === 1);
       // 获取赠品奖池list
@@ -663,32 +100,32 @@ const ChoiceGift = (props: any) => {
       });
     }
     if (Array.isArray(choiceList) && choiceList.length > 0) {
-      const flatGiftPools = choiceList
-        .filter((item) => item.giftPools?.length > 0)
-        .flatMap((item) => item.giftPools);
-      const processedData = flatGiftPools.map((poolItem) => {
-        const choiceClassList = poolItem.giftSkus.filter((sku) => sku.resourcePlatform === 1);
-        const choiceGiftList = poolItem.giftSkus.filter((sku) => sku.resourcePlatform !== 1);
+      // const flatGiftPools = choiceList
+      //   .filter((item) => item.giftPools?.length > 0)
+      //   .flatMap((item) => item.giftPools);
+      choiceList?.forEach((poolItem) => {
+        // const choiceClassList = poolItem.giftSkus.filter((sku) => sku.resourcePlatform === 1);
+        // const choiceGiftList = poolItem.giftSkus.filter((sku) => sku.resourcePlatform !== 1);
         defaultChoiceData.push({
           poolId: poolItem?.poolId,
           skuIds: [],
           giftOptionalNum: poolItem?.giftOptionalNum,
           needAddress: false
         });
-        return {
-          ...poolItem,
-          choiceClassList,
-          choiceGiftList
-        };
+        // return {
+        // ...poolItem
+        // choiceClassList,
+        // choiceGiftList
+        // };
       });
-      setChoicePools(processedData);
+      setChoicePools(choiceList);
     }
 
     onUserHandleClick({
       normalData: normalChoiceData,
       choicesData: defaultChoiceData
     });
-  }, [onUserHandleClick]);
+  }, [normalList, choiceList, onUserHandleClick]);
 
   const { normalClassList, normalGiftList } = normalPools;
 
@@ -705,7 +142,7 @@ const ChoiceGift = (props: any) => {
               </div>
             )}
             <div className={styles['choice-list']}>
-              {normalClassList?.map((item) => {
+              {normalClassList?.map((item: GiftSku) => {
                 const isEmpty = item?.giftMaxNum - item?.giftUsedNum <= 0;
                 return (
                   <div className={styles['choice-item']} key={item?.skuId}>
@@ -727,7 +164,7 @@ const ChoiceGift = (props: any) => {
               </div>
             )}
             <div className={styles['choice-list']}>
-              {normalGiftList?.map((item) => {
+              {normalGiftList?.map((item: GiftSku) => {
                 const isEmpty = item?.giftMaxNum - item?.giftUsedNum <= 0;
                 return (
                   <div className={styles['choice-item']} key={item?.skuId}>
@@ -747,7 +184,7 @@ const ChoiceGift = (props: any) => {
       {giftPoolsType !== 'NORMAL_GIFT' ? (
         <>
           {choicePools?.map((poolItem: any) => {
-            const { choiceClassList, choiceGiftList } = poolItem;
+            const { giftSkus = [] } = poolItem;
             const editItem = choicesChoiceData.find((item: any) => item.poolId === poolItem.poolId);
             const selectedSkuIds = editItem?.skuIds || [];
             return (
@@ -757,12 +194,10 @@ const ChoiceGift = (props: any) => {
                     styles['choice-class'],
                     giftPoolsType !== 'MIX_GIFT' && styles['choice-class-mix']
                   )}>
-                  {choiceClassList.length > 0 && (
+                  {giftSkus?.length > 0 && (
                     <div className={styles['choice-class-header']}>
                       <img src={ClassIcon} alt='' className={styles['choice-class-icon']} />
-                      <div className={styles['choice-class-title']}>
-                        {choicePools.length > 1 ? poolItem?.poolName : '赠课'}
-                      </div>
+                      <div className={styles['choice-class-title']}>{poolItem?.poolName}</div>
                       <div
                         className={
                           styles['choice-class-tip']
@@ -771,7 +206,7 @@ const ChoiceGift = (props: any) => {
                   )}
 
                   <div className={styles['choice-list']}>
-                    {choiceClassList?.map((item) => {
+                    {giftSkus?.map((item: GiftSku) => {
                       const isEmpty = item?.giftMaxNum - item?.giftUsedNum <= 0;
                       const Selected = selectedSkuIds.includes(item?.skuId);
                       return (
@@ -801,7 +236,7 @@ const ChoiceGift = (props: any) => {
                     })}
                   </div>
                 </div>
-                <div className={styles['choice-gift']}>
+                {/* <div className={styles['choice-gift']}>
                   {choiceGiftList.length > 0 && (
                     <div className={styles['choice-gift-header']}>
                       <img src={GiftIcon} alt='' className={styles['choice-gift-icon']} />
@@ -847,7 +282,7 @@ const ChoiceGift = (props: any) => {
                       );
                     })}
                   </div>
-                </div>
+                </div> */}
               </>
             );
           })}

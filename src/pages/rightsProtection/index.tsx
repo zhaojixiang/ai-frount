@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { isEmpty } from 'lodash-es';
+import { cloneDeep, isEmpty } from 'lodash-es';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -21,6 +21,64 @@ import ErrorPage from './components/errorPage';
 import SubmitModal from './components/submitModal';
 import SuccessPage from './components/successPage';
 import styles from './index.module.less';
+
+export interface GiftSku {
+  skuId: number;
+  skuName: string;
+  skuImageUrl: string;
+  skuType?: 'COMBINE' | 'ENTITY' | 'COURSE' | 'COUPON';
+  resourcePlatform: number;
+  mergeDelivery: boolean;
+  giftMaxNum: number;
+  giftUsedNum: number;
+  productGroupId: number;
+  productGroupName: string;
+  fixedGift: boolean;
+  shipMoment: 'IMMEDIATE' | string;
+}
+
+export interface PromotionItem {
+  // 是否命中促销
+  hitPromotion: boolean;
+  // 命中的促销活动 ID
+  promotionId: number;
+  // 命中的促销活动版本号
+  promotionVersion: number;
+  // 赠送策略，NORMAL_GIFT-普通赠送；CHOICES_GIFT-M选N
+  giftStrategy: 'NORMAL_GIFT' | 'CHOICES_GIFT' | string;
+  // SKU ID
+  skuId: number;
+  // 标准价格
+  price: number;
+  // 促销价格
+  promotionPrice: number;
+  // 立减金额
+  discountAmount: number;
+  // 赠品池信息列表
+  giftPools: GiftPool[];
+  // 目标用户 ID
+  targetUserId: number;
+  // 规则冲突策略，COUPON_FIRST-优惠券优先；DISCOUNT_COUPON_COMBINATION-立减、优惠券叠加
+  ruleConflictStrategy: 'COUPON_FIRST' | 'DISCOUNT_COUPON_COMBINATION' | string;
+  // 促销信息
+  promotionInfo: PromotionInfo;
+  // 匹配促销规则时间（时间戳）
+  matchedRuleTime: number;
+}
+
+export interface PromotionInfo {
+  // 促销活动名称
+  promotionName: string;
+  // 促销类型
+  promotionType: 'DISCOUNT' | string;
+}
+
+export interface GiftPool {
+  poolId: number;
+  poolName: string;
+  giftOptionalNum: number;
+  giftSkus: GiftSku[];
+}
 
 export const creatName = (skus: SkuItem[]) => {
   const result = skus
@@ -51,6 +109,259 @@ interface SkuItem {
   /** 可选的基础 SKU 列表（可选） */
   optionalBaseSkus?: any[] | null;
 }
+
+const a = [
+  {
+    // 是否命中促销
+    hitPromotion: true,
+    // 命中的促销活动ID
+    promotionId: 123456789,
+    // 命中的促销活动版本号
+    promotionVersion: 1,
+    //赠送策略， 赠送策略：NORMAL_GIFT-普通赠送；CHOICES_GIFT-M选N
+    giftStrategy: 'NORMAL_GIFT',
+    // SKU ID
+    skuId: 10001,
+    // 标准价格
+    price: 10000,
+    // 促销价格
+    promotionPrice: 8000,
+    // 立减金额
+    discountAmount: 2000,
+    // 赠品池信息列表
+    giftPools: [
+      {
+        // 赠品池ID
+        poolId: 5001,
+        // 赠品池名称
+        poolName: '双十一专属赠品池5001',
+        // 赠品总可选数量
+        giftOptionalNum: 1,
+        //赠品池数量如何判断？ giftSkus.size() 已确认
+        // 赠品SKU信息列表
+        giftSkus: [
+          {
+            // 赠品SKU ID
+            skuId: 10001,
+            // 赠品SKU名称
+            skuName: '精美礼品盒10001',
+            skuImageUrl:
+              'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png',
+            resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
+            // 是否和首期发货
+            mergeDelivery: true,
+            // 赠品上限数量
+            giftMaxNum: 1,
+            // 赠品已使用数量
+            giftUsedNum: 0,
+            // 产品组ID
+            productGroupId: 4001,
+            // 产品组名称
+            productGroupName: '促销赠品组',
+            // 是否为固定赠品
+            fixedGift: true,
+            // 发货时机
+            shipMoment: 'IMMEDIATE'
+          },
+          {
+            // 赠品SKU ID
+            skuId: 10002,
+            // 赠品SKU名称
+            skuName: '精美礼品盒10002',
+            skuImageUrl:
+              'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券
+            resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
+            // 是否和首期发货
+            mergeDelivery: true,
+            // 赠品上限数量
+            giftMaxNum: 1,
+            // 赠品已使用数量
+            giftUsedNum: 0,
+            // 产品组ID
+            productGroupId: 4001,
+            // 产品组名称
+            productGroupName: '促销赠品组',
+            // 是否为固定赠品
+            fixedGift: true,
+            // 发货时机
+            shipMoment: 'IMMEDIATE'
+          }
+        ]
+      }
+    ],
+
+    // 目标用户ID
+    targetUserId: 100001,
+
+    // 规则冲突策略：COUPON_FIRST-优惠券优先；DISCOUNT_COUPON_COMBINATION-立减、优惠券叠加
+    ruleConflictStrategy: 'COUPON_FIRST',
+
+    // 促销信息（具体结构参考PromotionInfoResp类）
+    promotionInfo: {
+      // 促销活动名称
+      promotionName: '双十一大促',
+      // 促销类型
+      promotionType: 'DISCOUNT'
+    },
+
+    // 匹配促销规则时间（时间戳）
+    matchedRuleTime: 1704067200000
+  },
+  {
+    // 是否命中促销
+    hitPromotion: true,
+    // 命中的促销活动ID
+    promotionId: 123456789,
+    // 命中的促销活动版本号
+    promotionVersion: 1,
+    //赠送策略， 赠送策略：NORMAL_GIFT-普通赠送；CHOICES_GIFT-M选N
+    giftStrategy: 'NORMAL_GIFT',
+    // SKU ID
+    skuId: 10001,
+    // 标准价格
+    price: 10000,
+    // 促销价格
+    promotionPrice: 8000,
+    // 立减金额
+    discountAmount: 2000,
+    // 赠品池信息列表
+    giftPools: [
+      {
+        // 赠品池ID
+        poolId: 5002,
+        // 赠品池名称
+        poolName: '双十一专属赠品池5002',
+        // 赠品总可选数量
+        giftOptionalNum: 1,
+        //赠品池数量如何判断？ giftSkus.size() 已确认
+        // 赠品SKU信息列表
+        giftSkus: [
+          {
+            // 赠品SKU ID
+            skuId: 20001,
+            // 赠品SKU名称
+            skuName: '精美礼品盒2001',
+            skuImageUrl:
+              'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券
+            resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
+            // 是否和首期发货
+            mergeDelivery: true,
+            // 赠品上限数量
+            giftMaxNum: 1,
+            // 赠品已使用数量
+            giftUsedNum: 0,
+            // 产品组ID
+            productGroupId: 4001,
+            // 产品组名称
+            productGroupName: '促销赠品组',
+            // 是否为固定赠品
+            fixedGift: false,
+            // 发货时机
+            shipMoment: 'IMMEDIATE'
+          },
+          {
+            // 赠品SKU ID
+            skuId: 20002,
+            // 赠品SKU名称
+            skuName: '精美礼品盒2002',
+            skuImageUrl:
+              'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券
+            resourcePlatform: 2, //1是阅读,用于判断赠课/赠品 缺少,自己关联
+            // 是否和首期发货
+            mergeDelivery: true,
+            // 赠品上限数量
+            giftMaxNum: 1,
+            // 赠品已使用数量
+            giftUsedNum: 0,
+            // 产品组ID
+            productGroupId: 4001,
+            // 产品组名称
+            productGroupName: '促销赠品组',
+            // 是否为固定赠品
+            fixedGift: false,
+            // 发货时机
+            shipMoment: 'IMMEDIATE'
+          }
+        ]
+      },
+      {
+        // 赠品池ID
+        poolId: 5003,
+        // 赠品池名称
+        poolName: '双十一专属赠品池5003',
+        // 赠品总可选数量
+        giftOptionalNum: 1,
+        //赠品池数量如何判断？ giftSkus.size() 已确认
+        // 赠品SKU信息列表
+        giftSkus: [
+          {
+            // 赠品SKU ID
+            skuId: 30001,
+            // 赠品SKU名称
+            skuName: '精美礼品盒3001',
+            skuImageUrl:
+              'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券
+            resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
+            // 是否和首期发货
+            mergeDelivery: true,
+            // 赠品上限数量
+            giftMaxNum: 1,
+            // 赠品已使用数量
+            giftUsedNum: 0,
+            // 产品组ID
+            productGroupId: 4001,
+            // 产品组名称
+            productGroupName: '促销赠品组',
+            // 是否为固定赠品
+            fixedGift: true,
+            // 发货时机
+            shipMoment: 'IMMEDIATE'
+          },
+          {
+            // 赠品SKU ID
+            skuId: 30002,
+            // 赠品SKU名称
+            skuName: '精美礼品盒3002',
+            skuImageUrl:
+              'https://jojostorage.oss-cn-hangzhou.aliyuncs.com/uc/userDefaultHeadImg.png', //赠品售卖SKU图  缺少,自己关联            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券            skuType: 'ENTITY', //sku类型，COMBINE：组合；ENTITY：实物；COURSE：虚拟；COUPON：优惠券
+            resourcePlatform: 1, //1是阅读,用于判断赠课/赠品 缺少,自己关联
+            // 是否和首期发货
+            mergeDelivery: true,
+            // 赠品上限数量
+            giftMaxNum: 1,
+            // 赠品已使用数量
+            giftUsedNum: 0,
+            // 产品组ID
+            productGroupId: 4001,
+            // 产品组名称
+            productGroupName: '促销赠品组',
+            // 是否为固定赠品
+            fixedGift: true,
+            // 发货时机
+            shipMoment: 'IMMEDIATE'
+          }
+        ]
+      }
+    ],
+
+    // 目标用户ID
+    targetUserId: 100001,
+
+    // 规则冲突策略：COUPON_FIRST-优惠券优先；DISCOUNT_COUPON_COMBINATION-立减、优惠券叠加
+    ruleConflictStrategy: 'COUPON_FIRST',
+
+    // 促销信息（具体结构参考PromotionInfoResp类）
+    promotionInfo: {
+      // 促销活动名称
+      promotionName: '双十一大促',
+      // 促销类型
+      promotionType: 'DISCOUNT'
+    },
+
+    // 匹配促销规则时间（时间戳）
+    matchedRuleTime: 1704067200000
+  }
+];
 
 const RightsProtection = () => {
   const { orderId } = useParams();
@@ -110,35 +421,74 @@ const RightsProtection = () => {
 
   // 获取到奖池规则
   const getCurrentPromotionList = (discounts: any) => {
-    let giftPoolsType = 'NORMAL_GIFT';
     // 获取到命中规则的奖池List
     const hitPromotionList = discounts?.filter((item: any) => item.hitPromotion === true) ?? [];
-    const normalList =
-      hitPromotionList?.filter((item: any) => item.giftStrategy === 'NORMAL_GIFT') ?? [];
-    const choiceList =
-      hitPromotionList?.filter((item: any) => item.giftStrategy === 'CHOICES_GIFT') ?? [];
-    if (hitPromotionList.length === 1) {
-      giftPoolsType = hitPromotionList[0].giftStrategy;
-    } else if (hitPromotionList.length > 1) {
-      let hasNormal = false;
-      let hasChoices = false;
-      hitPromotionList.forEach((item: any) => {
-        if (item.giftStrategy === 'NORMAL_GIFT') {
-          hasNormal = true;
-        }
-        if (item.giftStrategy === 'CHOICES_GIFT') {
-          hasChoices = true;
+    const poolList = hitPromotionList
+      .filter((item: PromotionItem) => item.giftPools?.length > 0)
+      .flatMap((item: PromotionItem) => item.giftPools);
+
+    let normalList = poolList
+      .map((pool: GiftPool) => ({
+        poolId: pool.poolId,
+        poolName: pool.poolName,
+        giftOptionalNum: pool.giftOptionalNum,
+        giftSkus: pool.giftSkus.filter((sku) => sku.fixedGift).map((sku) => cloneDeep(sku))
+      }))
+      .filter((pool: GiftPool) => pool.giftSkus.length > 0);
+
+    const choiceList = poolList
+      .map((pool: GiftPool) => ({
+        poolId: pool.poolId,
+        poolName: pool.poolName,
+        giftOptionalNum: pool.giftOptionalNum,
+        giftSkus: pool.giftSkus.filter((sku) => !sku.fixedGift).map((sku) => cloneDeep(sku))
+      }))
+      .filter((pool: GiftPool) => pool.giftSkus.length > 0);
+
+    const seenSkusGlobal = new Set(); // 用于跨奖池去重
+    const deduplicatedList: any = [];
+
+    normalList.forEach((pool: GiftPool) => {
+      const seenSkusInPool = new Set(); // 用于奖池内去重
+      const uniqueSkus: any = [];
+
+      // 奖池内去重
+      pool.giftSkus.forEach((sku) => {
+        const skuId = sku.skuId;
+        if (!seenSkusInPool.has(skuId)) {
+          seenSkusInPool.add(skuId);
+          // 跨奖池去重：只保留第一个奖池中的 skuId
+          if (!seenSkusGlobal.has(skuId)) {
+            seenSkusGlobal.add(skuId);
+            uniqueSkus.push(cloneDeep(sku));
+          }
         }
       });
-      if (hasNormal && hasChoices) {
-        giftPoolsType = 'MIX_GIFT';
+
+      // 如果奖池内有 sku，添加到结果
+      if (uniqueSkus.length > 0) {
+        deduplicatedList.push({
+          poolId: pool.poolId,
+          poolName: pool.poolName,
+          giftOptionalNum: pool.giftOptionalNum,
+          giftSkus: uniqueSkus
+        });
       }
-      if (hasNormal && !hasChoices) {
-        giftPoolsType = 'NORMAL_GIFT';
-      }
-      if (!hasNormal && hasChoices) {
-        giftPoolsType = 'CHOICES_GIFT';
-      }
+    });
+
+    normalList = deduplicatedList;
+
+    let type = 'MIX_GIFT';
+    // const normalList =
+    //   hitPromotionList?.filter((item: any) => item.giftStrategy === 'NORMAL_GIFT') ?? [];
+    // const choiceList =
+    //   hitPromotionList?.filter((item: any) => item.giftStrategy === 'CHOICES_GIFT') ?? [];
+    if (normalList.length > 1 && choiceList.length > 0) {
+      type = 'MIX_GIFT';
+    } else if (normalList.length > 1 && choiceList.length === 0) {
+      type = 'NORMAL_GIFT';
+    } else if (normalList.length === 1 && choiceList.length > 0) {
+      type = 'CHOICES_GIFT';
     } else {
       setErrorPageStatus({
         visible: true,
@@ -148,7 +498,7 @@ const RightsProtection = () => {
     }
 
     return {
-      giftPoolsType,
+      giftPoolsType: type,
       normalList,
       choiceList,
       poolNum: hitPromotionList?.length
@@ -178,6 +528,7 @@ const RightsProtection = () => {
 
   const [initData, setInitData] = useState<any>({});
 
+  // 用户点击选择商品
   const userHandleClick = useCallback(
     ({ normalData = [], choicesData = [] }: { normalData: any; choicesData: any }) => {
       if (normalData.length > 0) {
@@ -363,6 +714,11 @@ const RightsProtection = () => {
       });
       return;
     }
+    const b = getCurrentPromotionList(a);
+    console.log(b, 'i am b');
+
+    setPromotionData(b);
+
     // initPage(orderId);
   }, [orderId]);
 
