@@ -1,3 +1,4 @@
+import { customError } from '@woulsl/sentry-config';
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
 import {
@@ -99,6 +100,16 @@ instance.interceptors.response.use(
   },
   (error) => {
     toast.show({ icon: 'fail', content: error.message || '网络错误' });
+    customError({
+      name: '接口请求失败',
+      message: error.message,
+      captureContext: {
+        level: 'info',
+        extra: {
+          err: error
+        }
+      }
+    });
     return Promise.reject(error);
   }
 );
