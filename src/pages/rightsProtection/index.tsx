@@ -461,6 +461,8 @@ const RightsProtection = () => {
       setSuccessPageStatus({
         visible: true
       });
+      JOJO.loading.close();
+
       setPageStatus({
         status: LoadStatus.Success,
         loadingElement: <Skeleton />
@@ -475,6 +477,8 @@ const RightsProtection = () => {
         btnText: '我知道了',
         type: 'error'
       });
+      JOJO.loading.close();
+
       setPageStatus({
         status: LoadStatus.Success,
         loadingElement: <Skeleton />
@@ -508,15 +512,13 @@ const RightsProtection = () => {
       reqParams.chooseGifts = paramsdata;
     }
     const submitRes = await submitPriceProtection(reqParams);
-    const { resultCode, data, message } = submitRes || {};
-    if (resultCode === 200 && data) {
+    const { resultCode, message } = submitRes || {};
+    if (resultCode === 200) {
       timer.current = setTimeout(() => {
         jumpToSuccessPage();
-        JOJO.loading.close();
       }, 1000);
     } else {
       JOJO.loading.close();
-
       setModalStatus({
         visible: true,
         content: message || '出错了，请重试',
