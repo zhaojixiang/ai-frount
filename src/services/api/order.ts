@@ -185,3 +185,62 @@ export const createOrder = async (params: {
     }
   );
 };
+
+/**
+ * 获取下一级区域
+ */
+export const getRegion = (params: { parentId: number | string }) => {
+  return JOJO.request(params, {
+    baseURL: serviceUrl.order,
+    url: `/address/get-region`
+  });
+};
+/**
+ * 获取省
+ */
+export const getProvince = () => {
+  return JOJO.request(
+    {},
+    {
+      baseURL: serviceUrl.order,
+      url: `/address/get-province`
+    }
+  );
+};
+/**
+ * 创建地址
+ */
+export const createAddress = (params: {
+  recipientName: string;
+  recipientPhone: string;
+  addressDetail: string;
+  provinceRegionId: number;
+  cityRegionId: number;
+  areaRegionId: number;
+  regionCode: string;
+}) => {
+  return JOJO.request(params, {
+    baseURL: serviceUrl.order,
+    method: 'POST',
+    url: `/address/create-userAddress`
+  });
+};
+/**
+ * 更新地址
+ */
+export const updateAddress = (params: {
+  id: string;
+  recipientName?: string;
+  recipientPhone?: string;
+  addressDetail?: string;
+  provinceRegionId?: number;
+  cityRegionId?: number;
+  areaRegionId?: number;
+  regionCode?: string;
+}) => {
+  return JOJO.request(params, {
+    baseURL: serviceUrl.order,
+    method: 'POST',
+    url: `/address/update-userAddress`
+  });
+};

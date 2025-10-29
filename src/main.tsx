@@ -2,7 +2,6 @@ import './index.less';
 import './lib/i18n';
 
 import jojoAccount from '@jojo/account-sdk';
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
@@ -49,10 +48,8 @@ initJOJO().then(() => {
   };
 
   createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <AppWrapper>
-        <RouterProvider router={router} />
-      </AppWrapper>
-    </StrictMode>
+    <AppWrapper>
+      <RouterProvider router={router} />
+    </AppWrapper>
   );
 });

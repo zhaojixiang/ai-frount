@@ -5,4 +5,5 @@ export { default as bridge } from './bridge';
 export { default as Os } from './os';
 export { default as request } from './request';
 export { default as showPage } from './showPage';
+export { default as toast } from './toast';
 export { default as Utils } from './utils/index';
