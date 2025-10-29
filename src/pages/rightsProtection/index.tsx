@@ -441,6 +441,7 @@ const RightsProtection = () => {
           backgroundColor: '#fff'
         }
       });
+      return;
     }
     onSure();
     JOJO.loading.show({ content: '赠品升级中' });
