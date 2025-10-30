@@ -211,6 +211,9 @@ const ChoiceGift = (props: any) => {
                           className={cx(styles['choice-item'], Selected && styles['selected'])}
                           key={item?.skuId}
                           onClick={() => {
+                            if (isEmpty) {
+                              return;
+                            }
                             onHanldeClick(poolItem.poolId, item.skuId, item.skuType === 'ENTITY');
                           }}>
                           <div className={styles['choice-item-img-container']}>
