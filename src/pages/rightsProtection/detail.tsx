@@ -348,9 +348,8 @@ const RightsProtectionDetail = () => {
         if (productCode === 200 && productdata) {
           const { products, orderAddress } = productdata;
           const productItem = getCurrentProductList(products);
-
           const isEmptyOrder = isEmpty(orderAddress);
-          setProductData({ ...productItem, ...createTime });
+          setProductData({ ...productItem, createTime });
           setHasAddress(!isEmptyOrder);
         } else {
           setErrorPageStatus({
