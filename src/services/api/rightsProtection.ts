@@ -6,8 +6,8 @@ import { serviceUrl } from '@/services/config';
 export const getOrderProtection = (params: { orderId: string }, option?: AxiosRequestConfig) => {
   return JOJO.request(params, {
     baseURL: serviceUrl.cashback,
-
     url: `/api/fe/user/orders/${params.orderId}/price-protection`,
+    handleResultCode: true,
     ...option
   });
 };
@@ -53,6 +53,7 @@ export const submitPriceProtection = (
     baseURL: serviceUrl.cashback,
     url: `/api/fe/user/orders/${params?.orderId}/price-protection`,
     method: 'POST',
+    handleResultCode: true,
     ...option
   });
 };
