@@ -58,7 +58,7 @@ const SuccessPage = (props: any) => {
 
                       {classList.map((item: any) => {
                         return (
-                          <div className={styles['gift-item']}>
+                          <div className={styles['gift-item']} key={item?.skuId}>
                             <img src={item?.skuImageUrl} alt='' className={styles['gift-img']} />
                             <div className={styles['gift-name']}>{item?.skuName}</div>
                           </div>
@@ -75,7 +75,7 @@ const SuccessPage = (props: any) => {
                       </div>
                       {giftList.map((item: any) => {
                         return (
-                          <div className={styles['gift-item']}>
+                          <div className={styles['gift-item']} key={item?.skuId}>
                             <img src={item?.skuImageUrl} alt='' className={styles['gift-img']} />
                             <div className={styles['gift-name']}>{item?.skuName}</div>
                           </div>
