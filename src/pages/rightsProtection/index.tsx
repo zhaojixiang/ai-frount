@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import FixBottom from '@/components/FixBottom';
 import LoginBar from '@/components/LoginBar';
 import StateHandler, { LoadStatus } from '@/components/StateHandler';
+import { sensClickInitiative, sensPageView } from '@/lib/utils/sensors';
 import { getApolloBackground, getOrderProtection } from '@/services/api/rightsProtection';
 
 import ErrorPage from './components/errorPage';
@@ -54,6 +55,9 @@ const RightsProtection = () => {
           setPageStatus({
             status: LoadStatus.Success,
             loadingElement: <Skeleton />
+          });
+          sensPageView({
+            $title: '保价说明页'
           });
         }
       } else {
@@ -124,6 +128,9 @@ const RightsProtection = () => {
                 className={styles.btn}
                 shape='rounded'
                 onClick={() => {
+                  sensClickInitiative({
+                    $element_name: '同意规则'
+                  });
                   gotoDetailPage();
                 }}>
                 已阅读并同意上述规则

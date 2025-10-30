@@ -9,6 +9,7 @@ import GiftIcon from '@/assets/images/jojo/rightsProtection/gift.png';
 import WarnIcon from '@/assets/images/jojo/rightsProtection/warn.png';
 import FixBottom from '@/components/FixBottom';
 import StateHandler, { LoadStatus } from '@/components/StateHandler';
+import { sensClickInitiative, sensElementView, sensPageView } from '@/lib/utils/sensors';
 import Address from '@/modules/Address';
 import {
   getOrderProduct,
@@ -359,6 +360,9 @@ const RightsProtectionDetail = () => {
           });
           return;
         }
+        sensPageView({
+          $title: '保价详情页'
+        });
         setPageStatus({
           status: LoadStatus.Success,
           loadingElement: <Skeleton />
@@ -524,6 +528,10 @@ const RightsProtectionDetail = () => {
             btnText: '我知道了',
             type: 'error'
           });
+          sensElementView({
+            c_element_name: '异常弹窗',
+            material_ids: [resultCode]
+          });
           break;
         default:
           setModalStatus({
@@ -531,6 +539,10 @@ const RightsProtectionDetail = () => {
             content: errorMsg || '出错了，请重试',
             btnText: '我知道了',
             type: 'error'
+          });
+          sensElementView({
+            c_element_name: '异常弹窗',
+            material_ids: [resultCode]
           });
           break;
       }
@@ -551,7 +563,7 @@ const RightsProtectionDetail = () => {
   }, [orderId]);
 
   if (successPageStatus.visible) {
-    return <SuccessPage {...productData} />;
+    return <SuccessPage {...productData} visible={successPageStatus.visible} />;
   }
 
   if (errorPageStatus.visible) {
@@ -654,6 +666,9 @@ const RightsProtectionDetail = () => {
                     Toast.show('请先选择赠品');
                     return;
                   }
+                  sensClickInitiative({
+                    $element_name: '升级赠品'
+                  });
                   setModalStatus({
                     visible: true,
                     content: '确认后将为您更换新赠课赠品，原有赠课赠品将会被回收',
