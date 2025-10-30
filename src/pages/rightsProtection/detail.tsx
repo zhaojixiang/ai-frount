@@ -9,8 +9,12 @@ import GiftIcon from '@/assets/images/jojo/rightsProtection/gift.png';
 import WarnIcon from '@/assets/images/jojo/rightsProtection/warn.png';
 import FixBottom from '@/components/FixBottom';
 import StateHandler, { LoadStatus } from '@/components/StateHandler';
-import { sensClickInitiative, sensElementView, sensPageView } from '@/lib/utils/sensors';
 import Address from '@/modules/Address';
+import {
+  sensClickInitiative,
+  sensElementView,
+  sensPageView
+} from '@/pages/rightsProtection/sensors';
 import {
   getOrderProduct,
   getOrderProtection,
@@ -344,9 +348,8 @@ const RightsProtectionDetail = () => {
         if (productCode === 200 && productdata) {
           const { products, orderAddress } = productdata;
           const productItem = getCurrentProductList(products);
-
           const isEmptyOrder = isEmpty(orderAddress);
-          setProductData({ ...productItem, ...createTime });
+          setProductData({ ...productItem, createTime });
           setHasAddress(!isEmptyOrder);
         } else {
           setErrorPageStatus({

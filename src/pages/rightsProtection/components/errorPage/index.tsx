@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import Error from '@/assets/images/jojo/rightsProtection/error.png';
 import OverTime from '@/assets/images/jojo/rightsProtection/overtime.png';
 import LoginBar from '@/components/LoginBar';
-import { sensPageView } from '@/lib/utils/sensors';
+import { sensPageView } from '@/pages/rightsProtection/sensors';
 
 import styles from './index.module.less';
 

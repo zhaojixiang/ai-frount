@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import FixBottom from '@/components/FixBottom';
 import LoginBar from '@/components/LoginBar';
 import StateHandler, { LoadStatus } from '@/components/StateHandler';
-import { sensClickInitiative, sensPageView } from '@/lib/utils/sensors';
+import { sensClickInitiative, sensPageView } from '@/pages/rightsProtection/sensors';
 import { getApolloBackground, getOrderProtection } from '@/services/api/rightsProtection';
 
 import ErrorPage from './components/errorPage';

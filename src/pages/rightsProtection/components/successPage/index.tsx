@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import ClassIcon from '@/assets/images/jojo/rightsProtection/class.png';
 import GiftIcon from '@/assets/images/jojo/rightsProtection/gift.png';
 import Success from '@/assets/images/jojo/rightsProtection/success.png';
-import { sensPageView } from '@/lib/utils/sensors';
+import { sensPageView } from '@/pages/rightsProtection/sensors';
 
 import styles from './index.module.less';
 
