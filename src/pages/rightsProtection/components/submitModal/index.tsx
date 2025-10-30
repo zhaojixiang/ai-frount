@@ -6,6 +6,7 @@ import styles from './index.module.less';
 
 const SubmitModal = (props: any) => {
   const { visible, onCancel, type = 'submit', onSubmit, content, btnText } = props;
+
   return (
     <Mask
       visible={visible}

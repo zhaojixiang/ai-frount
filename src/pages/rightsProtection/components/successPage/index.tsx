@@ -1,13 +1,21 @@
+import { useEffect } from 'react';
+
 import ClassIcon from '@/assets/images/jojo/rightsProtection/class.png';
 import GiftIcon from '@/assets/images/jojo/rightsProtection/gift.png';
 import Success from '@/assets/images/jojo/rightsProtection/success.png';
+import { sensPageView } from '@/lib/utils/sensors';
 
 import styles from './index.module.less';
 
 const SuccessPage = (props: any) => {
-  const { productName, headImageUrl, classList, giftList } = props;
+  const { productName, headImageUrl, visible, classList, giftList } = props;
 
   const isEmpty = classList.length === 0 && giftList.length === 0;
+  useEffect(() => {
+    if (visible) {
+      sensPageView({ $title: '成功页' });
+    }
+  }, [visible]);
 
   return (
     <div className={styles['success-page']}>
