@@ -502,7 +502,7 @@ const RightsProtectionDetail = () => {
       reqParams.chooseGifts = paramsdata;
     }
     const submitRes = await submitPriceProtection(reqParams);
-    const { resultCode, message } = submitRes || {};
+    const { resultCode, errorMsg } = submitRes || {};
     if (resultCode === 200) {
       timer.current = setTimeout(() => {
         jumpToSuccessPage();
@@ -511,7 +511,7 @@ const RightsProtectionDetail = () => {
       JOJO.loading.close();
       setModalStatus({
         visible: true,
-        content: message || '出错了，请重试',
+        content: errorMsg || '出错了，请重试',
         btnText: '我知道了',
         type: 'error'
       });
