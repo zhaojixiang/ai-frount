@@ -109,7 +109,7 @@ instance.interceptors.response.use(
       name: '接口请求失败',
       message: error.message,
       captureContext: {
-        level: 'info',
+        level: 'warning',
         extra: {
           err: error
         }
