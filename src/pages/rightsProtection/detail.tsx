@@ -375,6 +375,13 @@ const RightsProtectionDetail = () => {
           case 15301:
             jumpToSuccessPage();
             break;
+          case 15302:
+            setErrorPageStatus({
+              visible: true,
+              text: errorMsg || '出错了，请重试',
+              type: 'overTime'
+            });
+            break;
           case 15303:
             setErrorPageStatus({
               visible: true,
