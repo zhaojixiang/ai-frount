@@ -6,6 +6,13 @@ import { type OS } from './lib/os/index.d';
 import { type ShowPageConfig } from './lib/showPage';
 import { type Utils } from './lib/utils/index.d';
 
+// 扩展 Axios 类型
+declare module 'axios' {
+  export interface InternalAxiosRequestConfig extends AxiosRequestConfig {
+    handleResultCode?: boolean;
+  }
+}
+
 declare global {
   type ToastType = {
     show: (options: ToastShowProps) => void;
