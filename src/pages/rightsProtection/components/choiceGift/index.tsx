@@ -9,7 +9,7 @@ import GiftIcon from '@/assets/images/jojo/rightsProtection/gift.png';
 import SelectedIcon from '@/assets/images/jojo/rightsProtection/selected.png';
 import UnselectIcon from '@/assets/images/jojo/rightsProtection/unselect.png';
 
-import type { GiftPool, GiftSku } from '../../index';
+import type { GiftPool, GiftSku } from '../../detail';
 import styles from './index.module.less';
 
 const ChoiceGift = (props: any) => {

@@ -1,5 +1,7 @@
 import { Mask } from 'antd-mobile';
 
+import CloseIcon from '@/assets/images/jojo/rightsProtection/close.png';
+
 import styles from './index.module.less';
 
 const SubmitModal = (props: any) => {
@@ -8,11 +10,17 @@ const SubmitModal = (props: any) => {
     <Mask
       visible={visible}
       opacity='thin'
-      onMaskClick={() => {
-        onCancel();
-      }}
+      onMaskClick={() => {}}
       className={styles['submit-modal']}>
       <div className={styles.container}>
+        <img
+          src={CloseIcon}
+          alt=''
+          className={styles.close}
+          onClick={() => {
+            onCancel();
+          }}
+        />
         <div className={styles.title}>
           {content ? content : '确认后将为您更换新赠课赠品，原有赠课赠品将会被回收'}
         </div>

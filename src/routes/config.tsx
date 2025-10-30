@@ -9,8 +9,10 @@ const Coupon = lazy(() => import('@/pages/coupon/Coupon'));
 const Rules = lazy(() => import('@/pages/coupon/Rules'));
 const DeliveryDetail = lazy(() => import('@/pages/delivery/Detail'));
 const CreateOrder = lazy(() => import('@/pages/order/Create'));
-const RightsProtection = lazy(() => import('@/pages/rightsProtection'));
+const RightsProtection = lazy(() => import('@/pages/rightsProtection/index'));
+const RightsProtectionDetail = lazy(() => import('@/pages/rightsProtection/detail'));
 
+const NotFound = lazy(() => import('@/pages/NotFount'));
 export const routes = [
   {
     path: '/',
@@ -29,12 +31,14 @@ export const routes = [
       },
       { path: '/delivery/detail', element: <DeliveryDetail /> },
       {
-        path: 'rightsProtection',
+        path: '/rightsProtection',
         children: [
-          { index: true, element: <RightsProtection /> }, // 直接渲染 RightsProtection
-          { path: ':orderId', element: <RightsProtection /> } // 动态路由
+          { path: ':orderId', element: <RightsProtection /> }, // 权益保障页面,
+          { path: 'detail/:orderId', element: <RightsProtectionDetail /> }, // 权益升级页面,
+          { index: true, element: <NotFound /> }
         ]
-      }
+      },
+      { path: '*', element: <NotFound /> }
     ]
   }
 ];

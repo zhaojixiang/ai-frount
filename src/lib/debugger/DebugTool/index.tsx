@@ -7,7 +7,7 @@ import S from './index.module.less';
 const DebugTool: React.FC = () => {
   const curUserId = localStorage.getItem('userId');
   const initX = window.innerWidth - 390;
-  const initY = 10;
+  const initY = window.innerHeight - 45;
   const [visible, setVisible] = useState(false);
   const [userId, setUserId] = useState(curUserId || '');
 
@@ -69,7 +69,7 @@ const DebugTool: React.FC = () => {
         touchAction: 'none' // 很关键：让拖动不会被浏览器原生手势打断
       }}>
       <div className={S.debugToolHeader} onClick={handleToggle}>
-        调试
+        账号
       </div>
       <Popup
         bodyClassName={S.debugToolContentWrapper}
