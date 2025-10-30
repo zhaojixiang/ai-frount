@@ -1,3 +1,4 @@
+import { Button } from 'antd-mobile';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -109,12 +110,15 @@ const RightsProtection = () => {
           <LoginBar isPopLogin={false} onLoginSuccess={() => window.location.reload()} />
           <img src={bg} alt='' className={styles['protection-img']} />
           <FixBottom>
-            <div
-              className={styles.btn}
-              onClick={() => {
-                gotoDetailPage();
-              }}>
-              <span>已阅读并同意上述规则</span>
+            <div className={styles['btn-container']}>
+              <Button
+                className={styles.btn}
+                shape='rounded'
+                onClick={() => {
+                  gotoDetailPage();
+                }}>
+                已阅读并同意上述规则
+              </Button>
             </div>
           </FixBottom>
         </div>

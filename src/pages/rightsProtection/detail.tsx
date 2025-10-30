@@ -1,4 +1,4 @@
-import { Toast } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile';
 import dayjs from 'dayjs';
 import { cloneDeep, isEmpty } from 'lodash-es';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -502,7 +502,7 @@ const RightsProtectionDetail = () => {
       reqParams.chooseGifts = paramsdata;
     }
     const submitRes = await submitPriceProtection(reqParams);
-    const { resultCode, message } = submitRes || {};
+    const { resultCode, errorMsg } = submitRes || {};
     if (resultCode === 200) {
       timer.current = setTimeout(() => {
         jumpToSuccessPage();
@@ -511,7 +511,7 @@ const RightsProtectionDetail = () => {
       JOJO.loading.close();
       setModalStatus({
         visible: true,
-        content: message || '出错了，请重试',
+        content: errorMsg || '出错了，请重试',
         btnText: '我知道了',
         type: 'error'
       });
@@ -626,7 +626,8 @@ const RightsProtectionDetail = () => {
           </div>
           <FixBottom>
             <div className={styles['bottom-btn']}>
-              <div
+              <Button
+                shape='rounded'
                 className={styles.btn}
                 onClick={() => {
                   const isSelectAll = getSelectStatus();
@@ -642,7 +643,7 @@ const RightsProtectionDetail = () => {
                   });
                 }}>
                 确认升级赠品
-              </div>
+              </Button>
             </div>
           </FixBottom>
         </div>
