@@ -368,6 +368,13 @@ const RightsProtectionDetail = () => {
           case 15301:
             jumpToSuccessPage();
             break;
+          case 15303:
+            setErrorPageStatus({
+              visible: true,
+              text: '出错了，请联系指导师',
+              type: 'error'
+            });
+            break;
           default:
             setErrorPageStatus({
               visible: true,
@@ -509,12 +516,24 @@ const RightsProtectionDetail = () => {
       }, 1000);
     } else {
       JOJO.loading.close();
-      setModalStatus({
-        visible: true,
-        content: errorMsg || '出错了，请重试',
-        btnText: '我知道了',
-        type: 'error'
-      });
+      switch (resultCode) {
+        case 15303:
+          setModalStatus({
+            visible: true,
+            content: '出错了，请联系指导师',
+            btnText: '我知道了',
+            type: 'error'
+          });
+          break;
+        default:
+          setModalStatus({
+            visible: true,
+            content: errorMsg || '出错了，请重试',
+            btnText: '我知道了',
+            type: 'error'
+          });
+          break;
+      }
     }
   };
 

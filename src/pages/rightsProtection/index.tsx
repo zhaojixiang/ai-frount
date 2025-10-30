@@ -61,6 +61,13 @@ const RightsProtection = () => {
           case 15301:
             gotoDetailPage();
             break;
+          case 15303:
+            setErrorPageStatus({
+              visible: true,
+              text: '出错了，请联系指导师',
+              type: 'error'
+            });
+            break;
           default:
             setErrorPageStatus({
               visible: true,
