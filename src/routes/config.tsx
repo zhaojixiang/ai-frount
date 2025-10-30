@@ -32,7 +32,7 @@ export const routes = [
         path: '/rightsProtection',
         children: [
           { path: ':orderId', element: <RightsProtection /> }, // 动态路由,
-          { path: '', element: <NotFound /> }
+          { index: true, element: <NotFound /> }
         ]
       },
       { path: '*', element: <NotFound /> }
