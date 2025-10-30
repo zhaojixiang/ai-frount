@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 import ClassIcon from '@/assets/images/jojo/rightsProtection/class.png';
 import GiftIcon from '@/assets/images/jojo/rightsProtection/gift.png';
 import Success from '@/assets/images/jojo/rightsProtection/success.png';
@@ -7,7 +5,7 @@ import Success from '@/assets/images/jojo/rightsProtection/success.png';
 import styles from './index.module.less';
 
 const SuccessPage = (props: any) => {
-  const { productName, headImageUrl, createTime, classList, giftList } = props;
+  const { productName, headImageUrl, classList, giftList } = props;
 
   const isEmpty = classList.length === 0 && giftList.length === 0;
 
