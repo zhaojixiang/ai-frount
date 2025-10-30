@@ -33,7 +33,7 @@ const RightsProtection = () => {
   const [bg, setBg] = useState('');
 
   const gotoDetailPage = () => {
-    window.location.href = `/rightsProtection/detail/${orderId}`;
+    window.location.href = `/velocity/rightsProtection/detail/${orderId}`;
   };
 
   // 初始加载
