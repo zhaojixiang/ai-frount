@@ -1,6 +1,7 @@
 import { Button } from 'antd-mobile';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import FixBottom from '@/components/FixBottom';
 import LoginBar from '@/components/LoginBar';
@@ -13,6 +14,7 @@ import styles from './index.module.less';
 
 const RightsProtection = () => {
   const { orderId } = useParams();
+  const navigate = useNavigate();
 
   // 异常状态页面展示
   const [errorPageStatus, setErrorPageStatus] = useState({
@@ -33,7 +35,7 @@ const RightsProtection = () => {
   const [bg, setBg] = useState('');
 
   const gotoDetailPage = () => {
-    window.location.href = `/rightsProtection/detail/${orderId}`;
+    navigate(`/rightsProtection/detail/${orderId}`);
   };
 
   // 初始加载
