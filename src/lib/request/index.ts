@@ -96,8 +96,12 @@ instance.interceptors.response.use(
       window.location.replace(redirectUrl);
       return Promise.reject(new Error(errorMsg || '需要获取openId'));
     }
-
-    return response.data;
+    // 当接口需求单独处理结果时，我们需要根据配置来判断后续的处理。
+    // 可以在请求时配置 handleResultCode: true 来返回非200的自定义状态码
+    if (response.config?.handleResultCode && resultCode !== 200) {
+      return response.data;
+    }
+    return Promise.reject(response.data);
   },
   (error) => {
     toast.show({ icon: 'fail', content: error.message || '网络错误' });
