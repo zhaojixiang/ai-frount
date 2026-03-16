@@ -10,6 +10,10 @@ export const routes = [
     path: '/',
     element: <App />,
     children: [
+      {
+        index: true,
+        element: <Home />
+      },
       { path: 'home', element: <Home /> },
       { path: '*', element: <NotFound /> }
     ]
