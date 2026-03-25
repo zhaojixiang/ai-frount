@@ -61,27 +61,3 @@ declare global {
 }
 
 declare module 'postcss-px-to-viewport';
-
-declare module '@woulsl/storage' {
-  interface StorageAPI {
-    get: (key: string) => any;
-    set: (key: string, value: any) => void;
-    remove: (key: string) => void;
-    clear: () => void;
-  }
-
-  const storage: StorageAPI;
-  export default storage;
-}
-
-declare module '@woulsl/storage/session' {
-  interface SessionStorageAPI {
-    get: (key: string) => any;
-    set: (key: string, value: any) => void;
-    remove: (key: string) => void;
-    clear: () => void;
-  }
-
-  const session: SessionStorageAPI;
-  export default session;
-}
