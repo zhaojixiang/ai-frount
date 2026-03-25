@@ -1,8 +1,6 @@
 import type { ToastShowProps } from 'antd-mobile';
 import { Toast } from 'antd-mobile';
 
-import S from './index.module.less';
-
 class ToastWrapper {
   private toastHandler: (() => void) | null = null;
 
@@ -13,17 +11,9 @@ class ToastWrapper {
     }
     // 如果有未关闭的 toast，先关闭
     this.close();
-    const iconOptions = {
-      fail: <div className={S.failIcon} />,
-      success: <div className={S.successIcon} />,
-      warning: <div className={S.warningIcon} />
-    };
 
     this.toastHandler = Toast.show({
-      ...options,
-      icon: ['fail', 'success', 'warning'].includes(options.icon as string)
-        ? iconOptions[options.icon as keyof typeof iconOptions]
-        : options.icon
+      ...options
     }).close;
   }
 
