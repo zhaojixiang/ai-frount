@@ -84,8 +84,8 @@ export default defineConfig(({ command }: ConfigEnv): UserConfig => {
         open: true, // PC端开发自动打开浏览器
         host: '0.0.0.0',
         proxy: {
-          '/api/user-center/manage': {
-            target: `https://mall.fat.tinman.cn`,
+          '/api': {
+            target: `http://jjtools.store`,
             changeOrigin: true
           }
         },
