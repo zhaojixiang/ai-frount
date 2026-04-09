@@ -1,7 +1,5 @@
-# Place as ai-frontend/Dockerfile — build context = repository root.
-# Copy nginx-default.conf to docker/nginx/default.conf in the app repo, or adjust COPY paths.
-
 # syntax=docker/dockerfile:1
+# build context = repository root
 
 FROM node:20-alpine AS builder
 
@@ -27,7 +25,7 @@ RUN pnpm run build
 
 FROM nginx:1.27-alpine
 
-COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
