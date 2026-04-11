@@ -75,9 +75,6 @@ jobs:
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
-        env:
-          VERSION: ${{ needs.build.outputs.version }}
-          DEPLOY_ENV: ${{ needs.build.outputs.deploy_env }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -90,4 +87,6 @@ jobs:
             cd "$DEPLOY_ROOT"
             git pull --ff-only || true
             echo "${{ secrets.ACR_PASSWORD }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+            VERSION="${{ needs.build.outputs.version }}"
+            DEPLOY_ENV="${{ needs.build.outputs.deploy_env }}"
             ./scripts/blue-green-deploy.sh frontend "$VERSION" "$DEPLOY_ENV"
