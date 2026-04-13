@@ -1,18 +1,21 @@
 # 项目概览
 
-这是一个基于 **React + Vite** 的前端工程（原本更像“商城模板”），当前正在叠加一套 **AI 视频分镜编辑/预览** 的实验性功能页（`/editor`）。本文件用于“下次直接读取即可接上手”，重点记录：**怎么跑、核心页面、关键数据结构、前后端接口约定、已知风险与下一步**。
+这是一个基于 **React + Vite** 的前端工程，在保留原工程基建的前提下，已扩展 **个人站点式** 页面（首页、博客、生活、工具库等）以及 **AI 视频分镜编辑**（`/editor`）等能力。本文件用于快速接手，重点记录：**怎么跑、页面与业务总览、关键实现与风险**。
+
+**接口路径、请求/响应字段、库表思路** 的详细说明不在此展开，统一见仓库内 **`docs/pages/`**（按路由拆分的 Markdown，索引见 [`docs/pages/README.md`](../docs/pages/README.md)）。
 
 ## 快速运行
 
-- **启动开发**：`npm run start`（Vite dev server，默认 `http://localhost:3000`）
-- **构建**：`npm run build`
-- **预览**：`npm run preview`
-- **Lint**：`npm run lint` / `npm run lint:fix`
+- **启动开发**：`pnpm start` 或 `npm run start`（Vite dev server，默认 `http://localhost:3000`）
+- **构建**：`pnpm run build` / `npm run build`
+- **预览**：`pnpm run preview` / `npm run preview`
+- **Lint**：`pnpm run lint` / `npm run lint`
 
 ## 技术栈与关键依赖（当前仓库实际情况）
 
 - **框架**：React 18 + TypeScript + Vite 6（`type: module`）
 - **路由**：`react-router-dom@7`（懒加载 pages）
+- **博客正文**：`react-markdown`、`remark-gfm`
 - **UI**：`antd-mobile`（工程里有 antd-mobile 相关依赖；Vite 手动分包里写了 `antd`，但依赖里未看到 `antd`）
 - **请求**：Axios（见 `src/lib/request/index.ts`）
 - **国际化/工具**：i18next、ahooks、lodash-es、dayjs 等
@@ -24,19 +27,33 @@
   - 初始化：`initJJ()` → `initDebugger()` → `setupFavicon()`
   - 额外全局：`window.forceWebGL = true`；`window._AMapSecurityConfig`（高德）
   - 挂载：`<RouterProvider router={router} />`
-- **路由配置**：`src/routes/config.tsx`
-  - `/`：`App`（layout）
-  - `/home`：`Home`
-  - `/chat-api`：`ChatApi`（演示/实验页）
-  - `/editor`：`Editor`（AI 视频编辑器）
-  - `*`：`NotFound`（文件名为 `NotFount`，注意拼写）
+- **路由配置**：`src/routes/config.tsx`（子路由均在 `App` 的 `<Outlet />` 下，**懒加载**）
+
+## 页面与业务概述
+
+下表只做**业务级说明**；**接口命名、JSON 字段、分页与数据库提示** 见对应文档。
+
+| 路由 | 源码目录 | 业务概述 | 详细设计文档 |
+| --- | --- | --- | --- |
+| `/`、`/home` | `src/pages/Home` | 站点首页：导航、Hero、最新文章入口、推荐工具、生活摘要、页脚 | [`docs/pages/home.md`](../docs/pages/home.md) |
+| `/blog` | `src/pages/blog/BlogList` | 文章列表：封面与元信息、分页 | [`docs/pages/blog-list.md`](../docs/pages/blog-list.md) |
+| `/blog/:id` | `src/pages/blog/BlogDetail` | 文章详情：Markdown 正文、阅读数据、上一篇/下一篇 | [`docs/pages/blog-detail.md`](../docs/pages/blog-detail.md) |
+| `/life` | `src/pages/Life` | 生活记录：年月归档、时间轴与图文卡片 | [`docs/pages/life.md`](../docs/pages/life.md) |
+| `/toolkit` | `src/pages/Toolkit` | 工具库：分类筛选、搜索、卡片 Grid（渐变样式为前端表现） | [`docs/pages/toolkit.md`](../docs/pages/toolkit.md) |
+| `/editor` | `src/pages/Editor` | 提交视频 URL → 任务 ID → 轮询分镜列表，驱动时间轴与播放器 | [`docs/pages/editor.md`](../docs/pages/editor.md) |
+| `/chat-api` | `src/pages/ChatApi` | 对话流式演示（当前直连第三方，生产应改为后端代理） | [`docs/pages/chat-api.md`](../docs/pages/chat-api.md) |
+| `*` | `src/pages/NotFount` | 404 占位（组件名拼写为 `NotFount`） | [`docs/pages/not-found.md`](../docs/pages/not-found.md) |
+
+根目录 [`README.md`](../README.md) 中的「功能模块」表与上表互补（偏工程路径与依赖）。
 
 ## AI 视频编辑器（当前已实现到的程度）
 
+**接口与 Scene 字段约定**见 [`docs/pages/editor.md`](../docs/pages/editor.md)；以下为组件层行为摘要。
+
 ### 页面：`src/pages/Editor/index.tsx`
 
-- **职责**：用一个固定 `videoId`（当前写死为 `1773750942214`）轮询接口拿分镜数据，然后交给 `VideoPlayer` 展示。
-- **轮询策略**：如果 `res.code === 200` 就 `setScenes(res.data)`；否则 `setTimeout(fetchData, 2000)` 继续轮询；同时 `setStatus(res.status)`。
+- **职责**：用户提交视频 URL → `submitVideo` 拿到 **任务 ID** → 用该 ID 调用 `getScenes` **轮询**直至返回分镜数组，再交给 `VideoPlayer` 展示。
+- **轮询策略**：若 `res.code === 200` 且 `data` 为有效分镜数据则 `setScenes` 并结束；否则约 `2s` 后继续轮询；同时可展示 `res.status`。
 
 ### 组件：`src/components/VideoPlayer/index.tsx`
 
@@ -65,7 +82,8 @@
   - 响应拦截：默认直接 `return response.data`；如果配置了 `handleResultCode` 且 `code !== 200` 则返回原样数据（用于调用方自己处理 code）
   - 有一条 `console.log(444, response)`（调试残留）
 - **API**：`src/services/api/index.ts`
-  - `getScenes(id: string)` → `GET /video/{id}/scenes`（通过 `request`）
+  - `submitVideo(url)` → `POST /api/video/process`
+  - `getScenes(id)` → `GET /api/video/{id}/scenes`（`id` 为任务 ID，见 [`docs/pages/editor.md`](../docs/pages/editor.md)）
 
 ## 数据结构与约定（建议以接口返回为准）
 

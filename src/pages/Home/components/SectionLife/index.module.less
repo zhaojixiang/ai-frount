@@ -1,0 +1,122 @@
+@import '../../styles/variables.less';
+
+.section {
+  padding: clamp(3rem, 7vw, 4.5rem) 0;
+
+  .inner {
+    .container();
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .headAside {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .more {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: @home-fg-muted;
+    text-decoration: none;
+    transition: color 0.2s @home-ease;
+
+    &:hover {
+      color: @home-fg;
+    }
+  }
+
+  .title {
+    font-family: @font-serif;
+    font-size: 1.375rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: @home-fg;
+  }
+
+  .meta {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: @home-fg-muted;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid @home-border-subtle;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    @media (max-width: 640px) {
+      grid-template-columns: 72px 1fr;
+    }
+  }
+
+  .thumb {
+    width: 88px;
+    height: 88px;
+    background: @home-bg-elevated;
+    border: 1px solid @home-border-subtle;
+    border-radius: 2px;
+    object-fit: cover;
+
+    @media (max-width: 640px) {
+      width: 72px;
+      height: 72px;
+    }
+  }
+
+  .thumbPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: @home-fg-muted;
+  }
+
+  .body {
+    min-width: 0;
+  }
+
+  .date {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: @home-fg-muted;
+    margin-bottom: 0.35rem;
+  }
+
+  .text {
+    font-size: 0.9375rem;
+    color: @home-fg;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

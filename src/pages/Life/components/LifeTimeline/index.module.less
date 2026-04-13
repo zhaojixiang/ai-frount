@@ -1,0 +1,66 @@
+@import '../../../Home/styles/variables.less';
+
+.timeline {
+  .monthSection {
+    scroll-margin-top: 96px;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .monthHeading {
+    font-family: @font-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: @home-fg;
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid @home-border-subtle;
+  }
+
+  .track {
+    position: relative;
+    padding-left: 1.35rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        @home-border,
+        @home-border-subtle 40%,
+        @home-border-subtle
+      );
+    }
+  }
+
+  .node {
+    position: relative;
+    padding-bottom: 0.25rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -1.42rem;
+      top: 1.85rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: @home-bg;
+      border: 2px solid @home-fg;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}

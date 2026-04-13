@@ -1,0 +1,38 @@
+@import '../../styles/variables.less';
+
+.footer {
+  margin-top: auto;
+  padding: 2.5rem 0 2rem;
+  border-top: 1px solid @home-border-subtle;
+
+  .inner {
+    .container();
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .copy {
+    font-size: 0.8125rem;
+    color: @home-fg-muted;
+    margin: 0;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      font-size: 0.8125rem;
+      color: @home-fg-muted;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: @home-fg;
+      }
+    }
+  }
+}

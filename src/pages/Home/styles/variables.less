@@ -1,0 +1,23 @@
+// 首页主题与布局（白底黑字）
+
+@home-bg: #ffffff;
+@home-bg-elevated: #f7f7f7;
+@home-fg: #0a0a0a;
+@home-fg-muted: #5c5c5c;
+@home-border: #d4d4d4;
+@home-border-subtle: #e8e8e8;
+@home-max: 1120px;
+@home-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+@font-sans: 'SF Pro Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+@font-serif:
+  'Iowan Old Style', 'Palatino Linotype', Palatino, 'Noto Serif SC', 'Songti SC', serif;
+
+.container() {
+  width: min(100% - 48px, @home-max);
+  margin-inline: auto;
+
+  @media (max-width: 640px) {
+    width: min(100% - 32px, @home-max);
+  }
+}

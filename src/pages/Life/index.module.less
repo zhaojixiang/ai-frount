@@ -1,0 +1,59 @@
+@import '../Home/styles/variables.less';
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: @home-bg;
+  color: @home-fg;
+  font-family: @font-sans;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  border-bottom: 1px solid @home-border-subtle;
+  padding: clamp(2.5rem, 6vw, 3.5rem) 0;
+
+  .inner {
+    .container();
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: @home-fg-muted;
+    margin: 0 0 0.75rem;
+  }
+
+  .title {
+    font-family: @font-serif;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+    color: @home-fg;
+  }
+
+  .lead {
+    font-size: 1rem;
+    color: @home-fg-muted;
+    margin: 0;
+    max-width: 40ch;
+  }
+}
+
+.layout {
+  .container();
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(2rem, 5vw, 3rem) 0 clamp(3rem, 6vw, 4rem);
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}

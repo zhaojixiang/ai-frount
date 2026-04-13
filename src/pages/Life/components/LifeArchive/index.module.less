@@ -1,0 +1,135 @@
+@import '../../../Home/styles/variables.less';
+
+.sidebar {
+  position: sticky;
+  top: 88px;
+  align-self: start;
+  padding-bottom: 1rem;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+
+  .title {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: @home-fg-muted;
+    margin: 0 0 1.25rem;
+  }
+
+  .yearBlock {
+    margin-bottom: 1.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .year {
+    font-family: @font-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: @home-fg;
+    margin: 0 0 0.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid @home-border-subtle;
+  }
+
+  .months {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .monthLink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    font-size: 0.8125rem;
+    color: @home-fg-muted;
+    text-decoration: none;
+    border-radius: 2px;
+    transition:
+      color 0.2s @home-ease,
+      background 0.2s @home-ease;
+
+    &:hover {
+      color: @home-fg;
+      background: rgba(0, 0, 0, 0.03);
+    }
+  }
+
+  .monthLabel {
+    letter-spacing: 0.06em;
+  }
+
+  .count {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.6875rem;
+    opacity: 0.85;
+  }
+}
+
+.mobileChips {
+  display: none;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 900px) {
+    display: block;
+  }
+
+  .title {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: @home-fg-muted;
+    margin: 0 0 0.75rem;
+  }
+
+  .scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+  }
+
+  .chip {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.8125rem;
+    color: @home-fg-muted;
+    text-decoration: none;
+    border: 1px solid @home-border-subtle;
+    border-radius: 999px;
+    background: @home-bg;
+    transition:
+      border-color 0.2s @home-ease,
+      color 0.2s @home-ease;
+
+    &:hover {
+      border-color: @home-border;
+      color: @home-fg;
+    }
+  }
+
+  .count {
+    margin-left: 0.15rem;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.75rem;
+    opacity: 0.85;
+  }
+}

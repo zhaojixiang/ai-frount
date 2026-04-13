@@ -8,6 +8,35 @@
 ENV_NAME=dev | fat
 ```
 
+# 功能模块
+
+路由在 `src/routes/config.tsx` 中集中配置，页面均为 **懒加载**。以下模块为当前仓库中的主要功能；多数列表/详情在无后端时使用 **mock 数据**，接入接口时可按各模块内注释替换。
+
+**后端 / 数据库设计**：按页面整理的 **接口说明与数据格式** 见目录 [`docs/pages/`](./docs/pages/README.md)（含各路由独立 Markdown）。
+
+| 路由 | 目录 | 说明 |
+| --- | --- | --- |
+| `/`、`/home` | `src/pages/Home` | 个人站点首页：顶栏、Hero、最新文章、推荐工具、生活切片、页脚；白底黑字简约风格 |
+| `/blog` | `src/pages/blog/BlogList` | 文章列表：封面、标题、摘要、分类、标签、作者、阅读/点赞/评论、分页（`?page=`） |
+| `/blog/:id` | `src/pages/blog/BlogDetail` | 文章详情：Markdown 正文（`react-markdown` + `remark-gfm`）、阅读量等、上一篇/下一篇 |
+| `/life` | `src/pages/Life` | 生活记录：按年月归档、时间轴 + 图文卡片流 |
+| `/toolkit` | `src/pages/Toolkit` | 工具库：分类筛选、关键词搜索、卡片 Grid；卡片为深色渐变（按工具 id 稳定映射） |
+| `/editor` | `src/pages/Editor` | AI 视频分镜编辑：时间轴与分镜数据（接口轮询等，见页面实现） |
+| `/chat-api` | `src/pages/ChatApi` | Chat / API 联调演示页（注意勿在前端硬编码密钥） |
+| `*` | `src/pages/NotFount` | 404 未找到 |
+
+**公共布局与资源**
+
+- 顶栏组件：`src/pages/Home/components/HomeHeader`（首页 / 文章 / 工具 / 生活导航与高亮）
+- 页脚组件：`src/pages/Home/components/HomeFooter`
+- 首页主题变量：`src/pages/Home/styles/variables.less`（多处页面样式复用）
+
+**技术栈提示**
+
+- 框架：React 18 + TypeScript + Vite；路由：`react-router-dom`
+- 博客正文：Markdown 渲染依赖 `react-markdown`、`remark-gfm`
+- 样式：各页面以 `index.module.less` 为主（CSS Modules + Less 嵌套）；未使用 Tailwind
+
 # 编码
 
 1. src/components 公共组件 例：Button、下拉刷新
